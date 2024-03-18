@@ -6,7 +6,7 @@ function Layout() {
     useEffect(() => {
         const script = document.createElement('script');
        // Asigna la URL de la API de Google Maps a la variable src del elemento script
-script.src = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+        script.src = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
         script.async = true;
         document.body.appendChild(script);
