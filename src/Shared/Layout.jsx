@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import '../styles/layout.css'
-import GoogleMapsLoader from '../components/GoogleMapsLoader';
+
 
 function Layout() {
     useEffect(() => {
         const script = document.createElement('script');
-        script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDhLRBxmCSQdojbBtMQflN6DkRa-fSh1yk&callback=initMap&libraries=drawing,places&v=weekly`;
+       // Asigna la URL de la API de Google Maps a la variable src del elemento script
+script.src = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+
         script.async = true;
         document.body.appendChild(script);
 
