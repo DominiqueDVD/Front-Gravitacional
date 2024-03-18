@@ -1,0 +1,155 @@
+#map {
+    height: 100%;
+}
+
+/* Optional: Makes the sample page fill the window. */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#description {
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+}
+
+#infowindow-content .title {
+    font-weight: bold;
+}
+
+#infowindow-content {
+    display: none;
+}
+
+#map #infowindow-content {
+    display: inline;
+}
+
+.pac-card {
+    margin: 10px 10px 0 0;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+    font-family: Roboto;
+}
+
+#pac-container {
+    padding-bottom: 12px;
+    margin-right: 12px;
+}
+
+.pac-controls {
+    display: inline-block;
+    padding: 5px 11px;
+}
+
+    .pac-controls label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+    }
+
+#pac-input {
+    background-color: #fff;
+    font-family: Roboto;
+    font-size: 10px;
+    font-weight: 300;
+    margin-top: 60px;
+    padding: 0px 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 200px;
+    left: 0px;
+}
+
+    #pac-input:focus {
+        border-color: #4d90fe;
+    }
+
+#title {
+    color: #fff;
+    background-color: #4d90fe;
+    font-size: 25px;
+    font-weight: 500;
+    padding: 6px 12px;
+}
+
+#target {
+    width: 345px;
+}
+
+.google-map-canvas,
+.google-map-canvas * {
+    box-sizing: content-box;
+}
+
+/* Optional responsive image override */
+img {
+    max-width: none;
+}
+
+:root {
+    --animate-delay: 0.1s;
+}
+.modal {
+    pointer-events: none;
+}
+
+.modal-dialog {
+    pointer-events: all;
+}
+.modal.left .modal-dialog,
+.modal.right .modal-dialog {
+    position: fixed;
+    margin: auto;
+    width: 320px;
+    height: 100%;
+}
+
+.modal.left .modal-content,
+.modal.right .modal-content {
+    height: 100%;
+    /*overflow-y: auto;*/
+}
+
+.modal.left .modal-body,
+.modal.right .modal-body {
+    /*padding: 15px 15px 80px;*/
+}
+
+/*Left*/
+.modal.left.fade .modal-dialog {
+    left: -320px;
+}
+
+.modal.left.fade.in .modal-dialog {
+    left: 0;
+}
+
+/*Right*/
+.modal.right.fade .modal-dialog {
+    right: 0;
+}
+
+.modal.right.fade.in .modal-dialog {
+    right: 0px;
+}
+
+/* ----- MODAL STYLE ----- */
+.modal-content {
+    border-radius: 0;
+    border: none;
+}
+
+.modal-header {
+    border-radius: 0;
+    border-bottom-color: #EEEEEE;
+    background-color: #464646;
+    color: #fff;
+    /*background: #555; #FAFAFA*/
+}
