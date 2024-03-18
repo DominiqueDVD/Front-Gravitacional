@@ -1,7 +1,18 @@
 import React, { useEffect } from 'react';
 import '../styles/layout.css'
+import GoogleMapsLoader from '../components/GoogleMapsLoader';
 
 function Layout() {
+    useEffect(() => {
+        const script = document.createElement('script');
+        script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDhLRBxmCSQdojbBtMQflN6DkRa-fSh1yk&callback=initMap&libraries=drawing,places&v=weekly`;
+        script.async = true;
+        document.body.appendChild(script);
+
+        return () => {
+            document.body.removeChild(script);
+        };
+    }, []);
     useEffect(() => {
         let map;
         let Paths = new Array();
@@ -430,10 +441,6 @@ function Layout() {
     </div>
 </form>
 
-{/* Código para otros botones y funcionalidades */}
-<div>
-    {/* Aquí puedes agregar más botones y funcionalidades */}
-</div>
 </div>
 );
 }
