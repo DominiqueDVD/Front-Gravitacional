@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import '../styles/layout.css'
-
+import imagen1 from '../assets/gravitacional_mod_escorrentias.png';
+import imagen2 from '../assets/icons_actions.png'
 
 function Layout() {
     useEffect(() => {
@@ -385,7 +386,7 @@ function Layout() {
                         <tr className="table-secondary">
                             <td style={{ fontSize: '12px' }}>
                                 El diseño hidrológico es una técnica para maximizar el uso beneficioso de los recursos hídricos de un área de tierra. Se refiere a un a intervención topográfica específica ligada al flijo de agua de lluvia.<br />&nbsp;
-                                <img src="../images/gravitacional_mod_escorrentias.png" width="100%" height="100%" />
+                                <img src={imagen1} width="100%" height="100%" />
                             </td>
                         </tr>
                     </tbody>
@@ -400,7 +401,7 @@ function Layout() {
                     <tbody>
                         <tr className="table-secondary">
                             <td style={{ fontSize: '12px' }}>
-                                <img src="../images/icons_actions.png" width="80%" height="80%" />
+                                <img src={imagen2} width="80%" height="80%" />
                             </td>
                         </tr>
                     </tbody>
