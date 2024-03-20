@@ -26,7 +26,7 @@ function Layout() {
     let Paths = new Array()
     let bounds = null
     let infoArea = null
-    function Generator() {}
+    function Generator() { }
     let maxArea = 500000
     let isValid = false
 
@@ -121,6 +121,29 @@ function Layout() {
         '<i class="bi bi-cloud-upload-fill fa-2x"></i>',
         () => {
           if (isValid) {
+            console.log(Paths);
+            var jsonData = Paths;
+            var fileName = "coordenadas" + Date.now()
+            // Convertir el objeto JSON en una cadena JSON
+            const jsonStr = JSON.stringify(jsonData, null, 2);
+
+            // Crear un Blob a partir de la cadena JSON
+            const blob = new Blob([jsonStr], { type: 'application/json' });
+
+            // Crear un enlace <a> para descargar el archivo
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = fileName || 'data.json';
+
+            // Simular un clic en el enlace para iniciar la descarga
+            document.body.appendChild(link);
+            link.click();
+
+            // Limpiar el enlace y liberar el objeto URL
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+
             // PoligonoInfoModal.openModal()
 
             // window.$('#poligonoInfoModal').modal('show')
@@ -322,7 +345,7 @@ function Layout() {
         map,
       )
 
-    
+
       map.controls[window.google.maps.ControlPosition.TOP_LEFT].push(buttonSend)
       map.controls[window.google.maps.ControlPosition.TOP_LEFT].push(buttonMesh)
       map.controls[window.google.maps.ControlPosition.TOP_LEFT].push(
@@ -433,11 +456,11 @@ function Layout() {
 
   return (
     <div className='divMap'>
-       <div id="map" style={{ width: '100%',  height: '100vh' }}></div>
-       <ButtonModal></ButtonModal>
-        <SearchForm></SearchForm>
-      
- 
+      <div id="map" style={{ width: '100%', height: '100vh' }}></div>
+      <ButtonModal></ButtonModal>
+      <SearchForm></SearchForm>
+
+
     </div>
   )
 }
