@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import '../styles/layout.css'
 import BotonConModal from '../components/poligonos/modalButton'
-import PoligonoInfoModal from '../components/poligonos/modalEnviarPolígono'
+// import PoligonoInfoModal from 'src\components\googleEarth\modalEnviarPoligono.jsx'
+import PoligonoInfoModal from '../components/googleEarth/modalEnviarPoligono.jsx'
 import SearchForm from '../components/poligonos/buscarLugar'
 import $ from 'jquery'
 
@@ -118,7 +119,10 @@ function Layout() {
         '<i class="bi bi-cloud-upload-fill fa-2x"></i>',
         () => {
           if (isValid) {
-            window.$('#poligonoInfoModal').modal('show')
+            // PoligonoInfoModal.openModal()
+
+            // window.$('#poligonoInfoModal').modal('show')
+
             /*var d = new Object();
                     d.Paths = Paths;
                     d.id = id;

@@ -1,6 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-function PoligonoInfoModal({ showModal, closeModal, enviarPoligono }) {
+function PoligonoInfoModal() {
+  const [showModal, setShowModal] = useState(false);
+
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <div className={`modal ${showModal ? 'show' : ''}`} id="poligonoInfoModal" tabIndex="-1" aria-labelledby="poligonoInfoModal" aria-hidden={!showModal}>
       <div className="modal-dialog">
@@ -23,7 +33,7 @@ function PoligonoInfoModal({ showModal, closeModal, enviarPoligono }) {
           </div>
           <div className="modal-footer">
             <button type="button" className="btn btn-secondary" onClick={closeModal} data-bs-dismiss="modal">Cancelar</button>
-            <button type="button" id="btnEnviarPoligono" className="btn btn-primary" onClick={enviarPoligono}>Enviar polígono</button>
+            <button type="button" id="btnEnviarPoligono" className="btn btn-primary" onClick={closeModal}>Enviar polígono</button>
           </div>
         </div>
       </div>
