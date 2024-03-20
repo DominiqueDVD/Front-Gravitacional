@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react'
 import '../styles/layout.css'
-import BotonConModal from '../components/poligonos/modalButton'
+import ButtonModal from '../components/poligonos/modalButton'
 // import PoligonoInfoModal from 'src\components\googleEarth\modalEnviarPoligono.jsx'
 import PoligonoInfoModal from '../components/googleEarth/modalEnviarPoligono.jsx'
 import SearchForm from '../components/poligonos/buscarLugar'
+
 import $ from 'jquery'
+
 
 function Layout() {
   useEffect(() => {
@@ -432,8 +434,9 @@ function Layout() {
   return (
     <div className='divMap'>
        <div id="map" style={{ width: '100%',  height: '100vh' }}></div>
-       <BotonConModal></BotonConModal>
+       <ButtonModal></ButtonModal>
         <SearchForm></SearchForm>
+      
  
     </div>
   )

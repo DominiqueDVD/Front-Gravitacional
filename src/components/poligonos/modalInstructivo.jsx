@@ -1,23 +1,21 @@
-// ModalInstruccion.jsx
-import React, { useState } from 'react';
 import '../../styles/layout.css';
 import imagen1 from '../../assets/gravitacional_mod_escorrentias.png';
 import imagen2 from '../../assets/icons_actions.png';
 import '../../styles/modalInstructivo.css';
+import React from 'react';
 
-const ModalInstruccion = () => {
-    const [showModal, setShowModal] = useState(false);
 
-    const handleShowModal = () => setShowModal(true);
-    const handleCloseModal = () => setShowModal(false);
 
-    return (
-        <div className={`modal fade right ${showModal ? 'show' : ''}`} id="menuModal" tabIndex="-1" aria-labelledby="menuModal" aria-hidden={!showModal}>
-            <div className="modal-dialog">
+
+const ContenidoModal = ({onClose }) => {
+  return (
+    <div className="modal-container">
+      <div className="modal-content">
+      <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">
                         <h5 className="modal-title" id="exampleModalLabel">DISEÑO HIDROLOGICO DEL PAISAJE</h5>
-                        <button type="button" className="btn-close" onClick={handleCloseModal} aria-label="Close"></button>
+                        <button type="button" className="btn-close" onClick={onClose} aria-label="Close"></button>
                     </div>
                     <div className="modal-body" style={{ padding: '5px' }}>
                         <table className="table table-bordered">
@@ -53,8 +51,10 @@ const ModalInstruccion = () => {
                     </div>
                 </div>
             </div>
-        </div>
-    );
+       
+      </div>
+    </div>
+  );
 };
 
-export default ModalInstruccion;
+export default ContenidoModal;

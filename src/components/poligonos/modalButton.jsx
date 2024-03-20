@@ -1,25 +1,31 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { abrirModal } from '../../redux/actions/modalActions';
-import ModalInstruccion from './modalInstructivo';
-import '../../styles/modalButton.css';
+import React, { useState } from 'react';
+import ContenidoModal from './modalInstructivo';
+import '../../styles/modalButton.css'
 
-function BotonConModal() {
-  // No necesitas utilizar el estado modalAbierto en este componente
+const ButtonModal = () => {
+  const [showModal, setShowModal] = useState(false);
 
-  const dispatch = useDispatch();
+  const openModal = () => {
+    setShowModal(true);
+  };
 
-  // Quitamos la función abrirModalHandler ya que no la necesitamos aquí
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
   return (
     <div className='informationButton'>
-      {/* Utilizamos la función handleShowModal del componente ModalInstruccion */}
-      <button onClick={ModalInstruccion.handleShowModal}>
+           <button  onClick={openModal}>
         <i className="bi bi-menu-up fa-2x"></i>
       </button>
-      {/* Eliminamos la condición para renderizar el ModalInstruccion */}
+      {showModal && (
+        <ContenidoModal
+   
+          onClose={closeModal}
+        />
+      )}
     </div>
   );
-}
+};
 
-export default BotonConModal;
+export default ButtonModal;
