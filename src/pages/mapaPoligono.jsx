@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import '../styles/layout.css'
-import imagen1 from '../assets/gravitacional_mod_escorrentias.png';
-import imagen2 from '../assets/icons_actions.png'
+import ModalInstruccion from '../components/poligonos/modalInstructivo';
+import $ from 'jquery'; 
 
 function Layout() {
     useEffect(() => {
@@ -362,54 +362,20 @@ function Layout() {
         }
 
         window.initMap = initMap;
-    }, []);
+    },
+    
+    
+    []);
 
     return (
+       
 <div>
-<div id="map" style={{ width: '100%', height: '500px' }}></div>
 
-<div className="modal fade right" id="menuModal" tabIndex="-1" aria-labelledby="menuModal" aria-hidden="true">
-    <div className="modal-dialog">
-        <div className="modal-content">
-            <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">DISEÑO HIDROLOGICO DEL PAISAJE</h5>
-                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div className="modal-body" style={{ padding: '5px' }}>
-                <table className="table table-bordered">
-                    <thead>
-                        <tr className="table-primary">
-                            <th scope="col">QUE ES GRAVITACIONAL</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr className="table-secondary">
-                            <td style={{ fontSize: '12px' }}>
-                                El diseño hidrológico es una técnica para maximizar el uso beneficioso de los recursos hídricos de un área de tierra. Se refiere a un a intervención topográfica específica ligada al flijo de agua de lluvia.<br />&nbsp;
-                                <img src={imagen1} width="100%" height="100%" />
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+<div id="map" style={{ width: '100%', height: '500px' }}>
 
-                <table className="table table-bordered">
-                    <thead>
-                        <tr className="table-primary">
-                            <th scope="col">COMO FUNCIONA LA PLATAFORMA</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr className="table-secondary">
-                            <td style={{ fontSize: '12px' }}>
-                                <img src={imagen2} width="80%" height="80%" />
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
 </div>
+
+
 
 <div className="modal" id="poligonoInfoModal" tabIndex="-1" aria-labelledby="poligonoInfoModal" aria-hidden="true">
     <div className="modal-dialog">
