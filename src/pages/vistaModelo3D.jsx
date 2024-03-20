@@ -77,6 +77,7 @@ function GoogleEarthComponent() {
     ui.setDebugSliderVisibility(true)
     ui.updateDebugSliderRange(glbUrls.length)
 
+    // eslint-disable-next-line no-unused-expressions
     viewer.fetch
   };
 

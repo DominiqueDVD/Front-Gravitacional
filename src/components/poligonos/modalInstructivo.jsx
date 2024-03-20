@@ -1,24 +1,23 @@
-import React, { useEffect } from 'react';
+// ModalInstruccion.jsx
+import React, { useState } from 'react';
 import '../../styles/layout.css';
 import imagen1 from '../../assets/gravitacional_mod_escorrentias.png';
 import imagen2 from '../../assets/icons_actions.png';
+import '../../styles/modalInstructivo.css';
 
 const ModalInstruccion = () => {
-    useEffect(() => {
-        const menuModal = new window.jQuery('#menuModal');
-        menuModal.modal({
-            backdrop: false,
-            keyboard: false
-        });
-    }, []);
+    const [showModal, setShowModal] = useState(false);
+
+    const handleShowModal = () => setShowModal(true);
+    const handleCloseModal = () => setShowModal(false);
 
     return (
-        <div className="modal fade right" id="menuModal" tabIndex="-1" aria-labelledby="menuModal" aria-hidden="true">
+        <div className={`modal fade right ${showModal ? 'show' : ''}`} id="menuModal" tabIndex="-1" aria-labelledby="menuModal" aria-hidden={!showModal}>
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">
                         <h5 className="modal-title" id="exampleModalLabel">DISEÑO HIDROLOGICO DEL PAISAJE</h5>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" className="btn-close" onClick={handleCloseModal} aria-label="Close"></button>
                     </div>
                     <div className="modal-body" style={{ padding: '5px' }}>
                         <table className="table table-bordered">
