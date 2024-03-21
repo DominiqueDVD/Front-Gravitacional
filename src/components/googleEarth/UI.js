@@ -1,3 +1,12 @@
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
+import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter';
+import { Loader } from '@loaders.gl/core';
+import { Tiles3DLoader } from '@loaders.gl/tiles';
+import { Tileset3DLoader } from '@loaders.gl/3d-tiles';
+
 export class UI {
 	constructor() {
 		const apiKeyInput = document.querySelector("#google-api-key")
