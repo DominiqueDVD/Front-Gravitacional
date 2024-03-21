@@ -167,62 +167,59 @@ function GoogleEarthComponent(props) {
     <div>
       <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-        crossorigin="" />
+        crossOrigin="" />
       <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-        crossorigin=""></script>
-      <body>
-        <div id="settings">
-          <div id="centered-container">
-            <label>Google API Key</label>
-            <input id="google-api-key" type="text" />
+        crossOrigin=""></script>
+      <div id="settings">
+        <div id="centered-container">
+          <label>Google API Key</label>
+          <input id="google-api-key" type="text" />
 
-            <label>Lat,Lng</label>
-            <input id="lat-lng" type="text" value="40.6891,-74.0446" />
+          <label>Lat,Lng</label>
+          <input id="lat-lng" type="text" defaultValue="40.6891,-74.0446" />
 
-            <label>Screen space error</label>
-            <input type="number" value="8" id="sse"></input>
+          <label>Screen space error</label>
+          <input type="number" defaultValue="8" id="sse"></input>
 
-            <label>Zoom: <span id="zoom">16</span></label>
+          <label>Zoom: <span id="zoom">16</span></label>
 
-            <div id="map-container">
-              <div id="map"></div>
-            </div>
+          <div id="map-container">
+            <div id="map"></div>
           </div>
-          <button id="fetch">Fetch tiles</button>
-          <div id="debug-slider-container">
-            <label>Tile debug slider (<span id="tile-count"></span>)</label>
-            <input id="debug-slider" type="range" min="-1" max="100" value="100"></input>
-          </div>
-          <pre id="fetch-log" class="log"></pre>
-          <button id="download">Download combined glTF</button>
-
-          <br /><br /><a href="https://github.com/OmarShehata/google-earth-as-gltf#google-earth-as-gltf-models" target="_blank" class="settings-link">About</a><br /><br />
         </div>
-
-        <div id="instructions">
-          <center>
-            <p>
-              This app demonstrates fetching & rendering Google Earth 3D Tiles in ThreeJS
-            </p>
-          </center>
-          <ol>
-            <li>Get a <a href="https://developers.google.com/maps/documentation/tile/get-api-key" target="_blank">Google "Map Tiles"</a> API key </li>
-            <li>
-              Paste it in the settings top left
-            </li>
-            <li>
-              Click <span id="fetch-tiles-instruction-text">fetch tiles</span>
-            </li>
-          </ol>
-          <center>
-            <p><a href="https://github.com/OmarShehata/google-earth-as-gltf#google-earth-as-gltf-models" target="_blank">Learn more</a> </p>
-          </center>
+        <button id="fetch">Fetch tiles</button>
+        <div id="debug-slider-container">
+          <label>Tile debug slider (<span id="tile-count"></span>)</label>
+          <input id="debug-slider" type="range" min="-1" max="100" value="100"></input>
         </div>
+        <pre id="fetch-log" className="log"></pre>
+        <button id="download">Download combined glTF</button>
 
-        <script type="module" src="/src/index.js"></script>
+        <br /><br /><a href="https://github.com/OmarShehata/google-earth-as-gltf#google-earth-as-gltf-models" target="_blank" className="settings-link">About</a><br /><br />
+      </div>
 
-      </body>
+      <div id="instructions">
+        <center>
+          <p>
+            This app demonstrates fetching & rendering Google Earth 3D Tiles in ThreeJS
+          </p>
+        </center>
+        <ol>
+          <li>Get a <a href="https://developers.google.com/maps/documentation/tile/get-api-key" target="_blank">Google "Map Tiles"</a> API key </li>
+          <li>
+            Paste it in the settings top left
+          </li>
+          <li>
+            Click <span id="fetch-tiles-instruction-text">fetch tiles</span>
+          </li>
+        </ol>
+        <center>
+          <p><a href="https://github.com/OmarShehata/google-earth-as-gltf#google-earth-as-gltf-models" target="_blank">Learn more</a> </p>
+        </center>
+      </div>
+
+      <script type="module" src="/src/index.js"></script>
     </div>
   );
 }
