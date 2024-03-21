@@ -31,19 +31,19 @@ export class UI {
       document.querySelector("#instructions").style.display = "block";
     }
 
-    debugSliderInput.oninput = (e) => {
+    debugSliderInput.onInput = (e) => {
       document.querySelector("#tile-count").innerText = String(e.target.value);
       this.onTileSliderChange(Number(e.target.value));
     };
 
-    apiKeyInput.onchange = (e) => {
+    apiKeyInput.onChange = (e) => {
       document.querySelector("#instructions").style.display = "none";
 
       const token = apiKeyInput.value;
       localStorage.setItem("token", token);
     };
 
-    latLngInput.onchange = (e) => {
+    latLngInput.onChange = (e) => {
       const coords = e.target.value.split(",");
       this.leafletMap.panTo(coords);
     };
