@@ -6,7 +6,8 @@ import { Tileset3D } from '@loaders.gl/tiles';
 import { Tiles3DLoader } from '@loaders.gl/3d-tiles';
 import { WebMercatorViewport } from '@deck.gl/core';
 
-function GoogleEarthComponent() {
+function GoogleEarthComponent(props) {
+  const puntos = props.location.state.data;
   const [viewer] = useState(new Viewer());
   const [ui] = useState(new UI());
   const [glbUrls, setGlbUrls] = useState([]);
@@ -15,7 +16,7 @@ function GoogleEarthComponent() {
     ui.setDebugSliderVisibility(false)
 
     const { lat, lng, zoom } = ui.getLatLngZoom()
-    const GOOGLE_API_KEY = ui.getGoogleAPIKey()
+    const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
     const tilesetUrl = 'https://tile.googleapis.com/v1/3dtiles/root.json?key=' + GOOGLE_API_KEY;
 
     const targetScreenSpaceError = ui.getScreenSpaceError()

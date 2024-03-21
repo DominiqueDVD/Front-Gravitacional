@@ -1,5 +1,3 @@
-
-
 function calcularCentroide(poligono) {
     let totalX = 0;
     let totalY = 0;
