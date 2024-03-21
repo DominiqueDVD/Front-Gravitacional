@@ -4,8 +4,9 @@ import ButtonModal from '../components/poligonos/modalButton'
 // import PoligonoInfoModal from 'src\components\googleEarth\modalEnviarPoligono.jsx'
 import PoligonoInfoModal from '../components/googleEarth/modalEnviarPoligono.jsx'
 import SearchForm from '../components/poligonos/buscarLugar'
-
+import { Link } from 'react-router-dom';
 import $ from 'jquery'
+
 
 
 function Layout() {
@@ -114,7 +115,18 @@ function Layout() {
       })
 
       //Enviar polígono para su procesamiento
-      const buttonSend = document.createElement('div')
+      const buttonSend = (
+        <div>
+         
+          <Link to="/GoogleEarth">
+        
+            <div className="btn btn-primary">
+              <i className="bi bi-cloud-upload-fill fa-2x"></i>
+            </div>
+          </Link>
+        </div>
+      );
+
       AddButton(
         buttonSend,
         'Click para procesar el polígono',
@@ -126,28 +138,28 @@ function Layout() {
             var fileName = "coordenadas" + Date.now()
             // Convertir el objeto JSON en una cadena JSON
             const jsonStr = JSON.stringify(jsonData, null, 2);
-
+      
             // Crear un Blob a partir de la cadena JSON
             const blob = new Blob([jsonStr], { type: 'application/json' });
-
+      
             // Crear un enlace <a> para descargar el archivo
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
             link.download = fileName || 'data.json';
-
+      
             // Simular un clic en el enlace para iniciar la descarga
             document.body.appendChild(link);
             link.click();
-
+      
             // Limpiar el enlace y liberar el objeto URL
             document.body.removeChild(link);
             URL.revokeObjectURL(url);
-
+      
             // PoligonoInfoModal.openModal()
-
+      
             // window.$('#poligonoInfoModal').modal('show')
-
+      
             /*var d = new Object();
                     d.Paths = Paths;
                     d.id = id;
@@ -170,8 +182,7 @@ function Layout() {
           }
         },
         map,
-      )
-
+      );
       const buttonMesh = document.createElement('div')
       AddButton(
         buttonMesh,
