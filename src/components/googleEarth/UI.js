@@ -19,6 +19,7 @@ export class UI {
     const debugSliderContainer = document.querySelector(
       "#debug-slider-container"
     );
+	
 
     // Load saved values
     apiKeyInput.value = localStorage.getItem("token");
@@ -89,6 +90,18 @@ export class UI {
     this.debugSliderInput = debugSliderInput;
 	});
   }
+
+//   onFetch() {
+//     console.log("Fetching tiles...");
+//     fetch("")
+//       .then((response) => response.json())
+//       .then((data) => {
+//         console.log("Tiles data:", data);
+//       })
+//       .catch((error) => {
+//         console.error("Error fetching tiles:", error);
+//       });
+//   }
 
   getGoogleAPIKey() {
     return document.querySelector("#google-api-key").value;

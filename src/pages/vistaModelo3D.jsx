@@ -17,12 +17,41 @@ function GoogleEarthComponent(props) {
   // useEffect(() => {
   //   setUI(new UI());
   // }, []);
+  ui.onFetch = async () => {
+    ui.clearLog()
+    ui.log("Fetching...")
+    ui.fetchTilesBtn.disabled = true
+
+    try {
+      await fetch3DTiles()
+    } catch (e) {
+      console.error(e)
+      ui.log(`Failed to fetch 3D Tiles! Error: ${e}`)
+    }
+
+    ui.fetchTilesBtn.disabled = false
+  }
+  ui.onDownload = () => {
+    viewer.generateCombineGltf()
+  }
+  ui.onTileSliderChange = (value) => {
+    for (let i = 0; i < viewer.gltfArray.length; i++) {
+      const gltf = viewer.gltfArray[i]
+      gltf.scene.visible = i <= value
+    }
+  }
+
+  // Here is where we actually get the 3D Tiles from the Google API
+  // We use loadersgl to traverse the tileset until we get to the 
+  // lat,lng,zoom we want, at the given screen space error
+  // we end up with a list of glTF url's. Viewer is what finally
+  // fetches them
 
   const fetch3DTiles = async () => {
     ui.setDebugSliderVisibility(false)
 
     const { lat, lng, zoom } = ui.getLatLngZoom()
-    const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
+    const GOOGLE_API_KEY = 'AIzaSyDhLRBxmCSQdojbBtMQflN6DkRa-fSh1yk';
     const tilesetUrl = 'https://tile.googleapis.com/v1/3dtiles/root.json?key=' + GOOGLE_API_KEY;
 
     const targetScreenSpaceError = ui.getScreenSpaceError()
