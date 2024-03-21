@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Viewer } from '../components/googleEarth/Viewer.js';
 import { UI } from '../components/googleEarth/UI.js';
 import { load } from '@loaders.gl/core';
 import { Tileset3D } from '@loaders.gl/tiles';
 import { Tiles3DLoader } from '@loaders.gl/3d-tiles';
 import { WebMercatorViewport } from '@deck.gl/core';
+ 
 
 function GoogleEarthComponent(props) {
-  const puntos = props.location.state.data;
+  
+  //const puntos = props.location?.state?.data;
   const [viewer] = useState(new Viewer());
-  const [ui] = useState(new UI());
-  const [glbUrls, setGlbUrls] = useState([]);
+  const [ui, setUI] = useState(null);
+
+  useEffect(() => {
+    setUI(new UI());
+  }, []);
 
   const fetch3DTiles = async () => {
     ui.setDebugSliderVisibility(false)
