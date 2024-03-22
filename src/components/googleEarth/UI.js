@@ -116,6 +116,10 @@ export class UI {
       zoom,
     };
   }
+  getZoom(){
+	return this.leafletMap.getZoom();
+  }
+
   getScreenSpaceError() {
     return parseInt(document.querySelector("#sse").value);
   }
