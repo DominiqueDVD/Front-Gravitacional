@@ -65,7 +65,11 @@ function GoogleEarthComponent(props, { paths }) {
   const fetch3DTiles = async () => {
     ui.setDebugSliderVisibility(false)
 
-    const { lat, lng, zoom } = ui.getLatLngZoom()
+    // const { lat, lng, zoom } = ui.getLatLngZoom()
+    const lat = centroide.lat;
+    const lng = centroide.lng;
+    const zoom = ui.getZoom();
+
     const GOOGLE_API_KEY = 'AIzaSyDhLRBxmCSQdojbBtMQflN6DkRa-fSh1yk';
     const tilesetUrl = 'https://tile.googleapis.com/v1/3dtiles/root.json?key=' + GOOGLE_API_KEY;
 
@@ -195,7 +199,7 @@ function GoogleEarthComponent(props, { paths }) {
           <input id="lat-lng" type="text" defaultValue={`${centroide.lat},${centroide.lng}`} />
 
           <label>Screen space error</label>
-          <input type="number" defaultValue="8" id="sse"/>
+          <input type="number" defaultValue="0" id="sse"/>
 
           <label>Zoom: <span id="zoom">16</span></label>
 
