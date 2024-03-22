@@ -1,14 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../styles/layout.css'
 import ButtonModal from '../components/poligonos/modalButton'
-// import PoligonoInfoModal from 'src\components\googleEarth\modalEnviarPoligono.jsx'
-import PoligonoInfoModal from '../components/googleEarth/modalEnviarPoligono.jsx'
 import SearchForm from '../components/poligonos/buscarLugar'
-
-import $ from 'jquery'
+import vistaModelo3d from './vistaModelo3D'
 
 
 function Layout() {
+    const [polygonPaths, setPolygonPaths] = useState([]);
   useEffect(() => {
     const script = document.createElement('script')
     // Asigna la URL de la API de Google Maps a la variable src del elemento script
@@ -111,6 +109,12 @@ function Layout() {
           JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2),
         )
         infoWindow.open(map)
+
+        const punto = mapsMouseEvent.latLng.toJSON();
+        Paths.push(punto);
+    
+        // Actualizar el estado con los nuevos Paths
+        setPolygonPaths([...Paths]);
       })
 
       //Enviar polígono para su procesamiento
@@ -461,7 +465,7 @@ function Layout() {
       <ButtonModal></ButtonModal>
       <SearchForm></SearchForm>
 
-
+      <vistaModelo3d paths={polygonPaths} />
     </div>
   )
 }

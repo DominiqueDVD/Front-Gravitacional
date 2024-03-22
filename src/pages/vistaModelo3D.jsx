@@ -5,11 +5,14 @@ import { load } from '@loaders.gl/core';
 import { Tileset3D } from '@loaders.gl/tiles';
 import { Tiles3DLoader } from '@loaders.gl/3d-tiles';
 import { WebMercatorViewport } from '@deck.gl/core';
+import {calcularCentroide} from '../components/googleEarth/puntos'
 import '../styles/vista3d.css'
 
 
-function GoogleEarthComponent(props) {
+function GoogleEarthComponent(props, { paths }) {
 
+  const centroide = calcularCentroide({paths});
+  console.log(centroide);
   //const puntos = props.location?.state?.data;
   const [viewer] = useState(new Viewer());
   const [ui] = useState(new UI());
@@ -177,7 +180,7 @@ function GoogleEarthComponent(props) {
           <input id="google-api-key" type="text" />
 
           <label>Lat,Lng</label>
-          <input id="lat-lng" type="text" defaultValue="40.6891,-74.0446" />
+          <input id="lat-lng" type="text" defaultValue={`${centroide.lat},${centroide.lng}`} />
 
           <label>Screen space error</label>
           <input type="number" defaultValue="8" id="sse"></input>
