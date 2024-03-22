@@ -5,13 +5,25 @@ import { load } from '@loaders.gl/core';
 import { Tileset3D } from '@loaders.gl/tiles';
 import { Tiles3DLoader } from '@loaders.gl/3d-tiles';
 import { WebMercatorViewport } from '@deck.gl/core';
-import {calcularCentroide} from '../components/googleEarth/puntos'
+import { calcularCentroide } from '../components/googleEarth/puntos'
 import '../styles/vista3d.css'
 
 
 function GoogleEarthComponent(props, { paths }) {
 
-  const centroide = calcularCentroide({paths});
+  // Get the parameter value from the URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const encodedJsonString = urlParams.get('data');
+
+  // Decode the parameter value and parse it back into a JSON array
+  const jsonString = decodeURIComponent(encodedJsonString);
+  const arrayPuntos = JSON.parse(jsonString);
+
+  console.log(arrayPuntos); // This will log the decoded JSON array
+
+
+  // console.log(props.paths);
+  const centroide = calcularCentroide(arrayPuntos);
   console.log(centroide);
   //const puntos = props.location?.state?.data;
   const [viewer] = useState(new Viewer());
@@ -183,7 +195,7 @@ function GoogleEarthComponent(props, { paths }) {
           <input id="lat-lng" type="text" defaultValue={`${centroide.lat},${centroide.lng}`} />
 
           <label>Screen space error</label>
-          <input type="number" defaultValue="8" id="sse"></input>
+          <input type="number" defaultValue="8" id="sse"/>
 
           <label>Zoom: <span id="zoom">16</span></label>
 
@@ -194,7 +206,7 @@ function GoogleEarthComponent(props, { paths }) {
         <button id="fetch">Fetch tiles</button>
         <div id="debug-slider-container">
           <label>Tile debug slider (<span id="tile-count"></span>)</label>
-          <input id="debug-slider" type="range" min="-1" max="100" value="100"></input>
+          <input id="debug-slider" type="range" min="-1" max="100" defaultValue="100"></input>
         </div>
         <pre id="fetch-log" className="log"></pre>
         <button id="download">Download combined glTF</button>

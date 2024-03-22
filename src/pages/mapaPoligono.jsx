@@ -6,7 +6,7 @@ import vistaModelo3d from './vistaModelo3D'
 
 
 function Layout() {
-    const [polygonPaths, setPolygonPaths] = useState([]);
+  const [polygonPaths, setPolygonPaths] = useState([]);
   useEffect(() => {
     const script = document.createElement('script')
     // Asigna la URL de la API de Google Maps a la variable src del elemento script
@@ -112,7 +112,7 @@ function Layout() {
 
         const punto = mapsMouseEvent.latLng.toJSON();
         Paths.push(punto);
-    
+
         // Actualizar el estado con los nuevos Paths
         setPolygonPaths([...Paths]);
       })
@@ -142,12 +142,14 @@ function Layout() {
 
             // Simular un clic en el enlace para iniciar la descarga
             document.body.appendChild(link);
-            link.click();
+            // link.click();
 
             // Limpiar el enlace y liberar el objeto URL
             document.body.removeChild(link);
             URL.revokeObjectURL(url);
-            window.open('/GoogleEarth');
+
+            const pathsEncoded = encodeURIComponent(jsonStr);
+            window.open(`/GoogleEarth?data=${pathsEncoded}`);
 
             // PoligonoInfoModal.openModal()
 

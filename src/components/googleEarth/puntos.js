@@ -10,7 +10,8 @@ export function calcularArea(poligono) {
     return Math.abs(area / 2);
 }
 
-export function calcularCentroide(poligono) {
+export function calcularCentroide(arrayPoligono) {
+    const poligono = arrayPoligono[0];
     let totalX = 0;
     let totalY = 0;
 
