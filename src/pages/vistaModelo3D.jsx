@@ -195,7 +195,7 @@ function GoogleEarthComponent(props, { paths }) {
           <input id="lat-lng" type="text" defaultValue={`${centroide.lat},${centroide.lng}`} />
 
           <label>Screen space error</label>
-          <input type="number" defaultValue="8" id="sse"></input>
+          <input type="number" defaultValue="8" id="sse"/>
 
           <label>Zoom: <span id="zoom">16</span></label>
 
@@ -206,7 +206,7 @@ function GoogleEarthComponent(props, { paths }) {
         <button id="fetch">Fetch tiles</button>
         <div id="debug-slider-container">
           <label>Tile debug slider (<span id="tile-count"></span>)</label>
-          <input id="debug-slider" type="range" min="-1" max="100" value="100"></input>
+          <input id="debug-slider" type="range" min="-1" max="100" defaultValue="100"></input>
         </div>
         <pre id="fetch-log" className="log"></pre>
         <button id="download">Download combined glTF</button>
