@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Viewer } from '../components/googleEarth/Viewer.js';
 import { UI } from '../components/googleEarth/UI.js';
 import { load } from '@loaders.gl/core';
@@ -9,7 +9,7 @@ import { calcularCentroide } from '../components/googleEarth/puntos'
 import '../styles/vista3d.css'
 
 
-function GoogleEarthComponent(props, { paths }) {
+function GoogleEarthComponent() {
 
   // Get the parameter value from the URL
   const urlParams = new URLSearchParams(window.location.search);
@@ -24,7 +24,8 @@ function GoogleEarthComponent(props, { paths }) {
 
   // console.log(props.paths);
   const centroide = calcularCentroide(arrayPuntos);
-  console.log(centroide);
+  console.log(`${centroide.lat},${centroide.lng}`);
+
   //const puntos = props.location?.state?.data;
   const [viewer] = useState(new Viewer());
   const [ui] = useState(new UI());
@@ -34,14 +35,14 @@ function GoogleEarthComponent(props, { paths }) {
   // }, []);
   ui.onFetch = async () => {
     ui.clearLog()
-    ui.log("Fetching...")
+    ui.log("Buscando...")
     ui.fetchTilesBtn.disabled = true
 
     try {
       await fetch3DTiles()
     } catch (e) {
       console.error(e)
-      ui.log(`Failed to fetch 3D Tiles! Error: ${e}`)
+      ui.log(`¡Error buscando teselas! Error: ${e}`)
     }
 
     ui.fetchTilesBtn.disabled = false
@@ -75,7 +76,7 @@ function GoogleEarthComponent(props, { paths }) {
 
     const targetScreenSpaceError = ui.getScreenSpaceError()
 
-    ui.log(`Fetching tiles at (${lat} ${lng}, ${zoom}, sse: ${targetScreenSpaceError})`)
+    ui.log(`Buscando teselas en (${lat} ${lng}, ${zoom}, sse: ${targetScreenSpaceError})`)
     const viewport = new WebMercatorViewport({
       width: 230,
       height: 175, // dimensions from the little map preview
@@ -198,7 +199,7 @@ function GoogleEarthComponent(props, { paths }) {
           <label>Lat,Lng</label>
           <input id="lat-lng" type="text" defaultValue={`${centroide.lat},${centroide.lng}`} />
 
-          <label>Screen space error</label>
+          <label>Reducción de calidad</label>
           <input type="number" defaultValue="0" id="sse"/>
 
           <label>Zoom: <span id="zoom">16</span></label>
@@ -207,13 +208,13 @@ function GoogleEarthComponent(props, { paths }) {
             <div id="map"></div>
           </div>
         </div>
-        <button id="fetch">Fetch tiles</button>
-        <div id="debug-slider-container">
-          <label>Tile debug slider (<span id="tile-count"></span>)</label>
-          <input id="debug-slider" type="range" min="-1" max="100" defaultValue="100"></input>
+        <button id="fetch">Buscar teselas</button>
+        <div id="debug-slider-container" style={{display:'none'}}>
+          <label>Cantidad de teselas (<span id="tile-count"></span>)</label>
+          <input id="debug-slider" type="range" min="-1" max="100" defaultValue="40"></input>
         </div>
         <pre id="fetch-log" className="log"></pre>
-        <button id="download">Download combined glTF</button>
+        <button id="download">Descargar modelo glTF</button>
 
         <br /><br /><a href="https://github.com/OmarShehata/google-earth-as-gltf#google-earth-as-gltf-models" target="_blank" className="settings-link">About</a><br /><br />
       </div>
