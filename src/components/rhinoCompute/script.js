@@ -8,7 +8,7 @@ import rhino3dm from 'rhino3dm'
 const loader = new Rhino3dmLoader()
 loader.setLibraryPath('https://unpkg.com/rhino3dm@8.0.0-beta3/')
 
-//Reemplazar por la definición Grasshopper que se vaya a usar
+// Reemplazar por la definición Grasshopper que se vaya a usar
 const definition = 'BranchNodeRnd.gh'
 
 // setup input change events
@@ -42,9 +42,13 @@ async function compute() {
     let t0 = performance.now()
     const timeComputeStart = t0
 
-    // collect data from inputs
+    // Almacena los datos de los input
     let data = {}
+
+    // Reemplazar por la definición Grasshopper en la asignación
     data.definition = definition
+
+    // Se definen los input de la definición
     data.inputs = {
         'Count': count_slider.valueAsNumber,
         'Radius': radius_slider.valueAsNumber,
@@ -53,6 +57,7 @@ async function compute() {
 
     console.log(data.inputs)
 
+    //Formulación de la request
     const request = {
         'method': 'POST',
         'body': JSON.stringify(data),
