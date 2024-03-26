@@ -71,7 +71,9 @@ function GoogleEarthComponent() {
     const lng = centroide.lng;
     const zoom = ui.getZoom();
 
-    const GOOGLE_API_KEY = 'AIzaSyDhLRBxmCSQdojbBtMQflN6DkRa-fSh1yk';
+    // const GOOGLE_API_KEY = 'AIzaSyDhLRBxmCSQdojbBtMQflN6DkRa-fSh1yk';
+    const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
+    console.log(process.env);
     const tilesetUrl = 'https://tile.googleapis.com/v1/3dtiles/root.json?key=' + GOOGLE_API_KEY;
 
     const targetScreenSpaceError = ui.getScreenSpaceError()
