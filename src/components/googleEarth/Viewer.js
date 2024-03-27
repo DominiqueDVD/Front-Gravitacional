@@ -22,6 +22,7 @@ export class Viewer {
 
 		const renderer = new THREE.WebGLRenderer({ antialias: true });
 		renderer.setSize(window.innerWidth, window.innerHeight);
+		renderer.domElement.id = 'canvas-visor-3d';
 
 		document.body.appendChild(renderer.domElement);
 
@@ -41,8 +42,11 @@ export class Viewer {
 		this.camera = camera;
 		this.renderer = renderer;
 
-		const color = new THREE.Color(93 / 255, 172 / 255, 191 / 255);
-		renderer.setClearColor(color);
+		// const color = new THREE.Color(93 / 255, 172 / 255, 191 / 255);
+		// renderer.setClearColor(color);
+
+		renderer.setClearColor(0x000000, 0.0);
+		// #A3D6E0
 
 		this.render();
 		this.resizeCanvas();
