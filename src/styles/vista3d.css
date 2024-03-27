@@ -121,3 +121,7 @@ html, body {
 #logoGrav img{
   width: 100%;
 }
+
+#canvas-visor-3d{
+  background: linear-gradient(#A3D6E0, white);
+}
