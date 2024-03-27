@@ -6,12 +6,11 @@ html, body {
   #settings {
     position: fixed;
     top: 16px;
-    left: 16px;
+    right: 46px;
     width: 250px;
     border-radius: 12px;
-    background-color: #0f0f0fad;
-    border: 2px solid #ffffff3b;
-    color: white;
+  
+    color: black;
     font-family: Quicksand;
     
   }
@@ -86,7 +85,7 @@ html, body {
     top: 50%;
     left: 50%;
     color: white;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(108, 214, 233, 0.7);
     padding: 10px;
     border-radius: 10px;
     transform: translate(-50%, -50%);
@@ -112,5 +111,13 @@ html, body {
     display: none;
   }
   
+#logoGrav{
+  padding-top: 50px;
+  padding-bottom: 20px;
+  display: flex;
+    justify-content: center;
+}
 
-  
+#logoGrav img{
+  width: 100%;
+}

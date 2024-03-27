@@ -94,7 +94,54 @@ export class UI {
       this.fetchTilesBtn = fetchTilesBtn;
       this.debugSliderContainer = debugSliderContainer;
       this.debugSliderInput = debugSliderInput;
+
+      this.debugSliderInput = document.querySelector("#debug-slider");
+      this.debugSliderContainer = document.querySelector("#debug-slider-container");
+      this.fetchTilesBtn = document.querySelector("#fetch");
+
+      // Bind event handlers
+      this.handleDebugSliderChange = this.handleDebugSliderChange.bind(this);
+      this.handleApiKeyChange = this.handleApiKeyChange.bind(this);
+      this.handleLatLngChange = this.handleLatLngChange.bind(this);
+      this.handleFetchButtonClick = this.handleFetchButtonClick.bind(this);
+      this.handleDownloadButtonClick = this.handleDownloadButtonClick.bind(this);
+
+      // Add event listeners
+      this.debugSliderInput.addEventListener('input', this.handleDebugSliderChange);
+      this.debugSliderInput.addEventListener('change', this.handleDebugSliderChange);
+      document.querySelector("#google-api-key").addEventListener('change', this.handleApiKeyChange);
+      document.querySelector("#lat-lng").addEventListener('change', this.handleLatLngChange);
+      this.fetchTilesBtn.addEventListener('click', this.handleFetchButtonClick);
+      document.querySelector("#download").addEventListener('click', this.handleDownloadButtonClick);
     });
+  }
+  handleDebugSliderChange(e) {
+    // Handle debug slider change event
+    const value = Number(e.target.value);
+    document.querySelector("#tile-count").innerText = String(value);
+    this.onTileSliderChange(value);
+  }
+
+  handleApiKeyChange(e) {
+    // Handle API key change event
+    const token = e.target.value;
+    localStorage.setItem("token", token);
+  }
+
+  handleLatLngChange(e) {
+    // Handle lat/lng input change event
+    const coords = e.target.value.split(",");
+    this.leafletMap.panTo(coords);
+  }
+
+  handleFetchButtonClick() {
+    // Handle fetch button click event
+    this.onFetch();
+  }
+
+  handleDownloadButtonClick() {
+    // Handle download button click event
+    this.onDownload();
   }
 
   onFetch() {
