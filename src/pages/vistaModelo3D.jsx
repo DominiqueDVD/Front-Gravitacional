@@ -46,6 +46,7 @@ function GoogleEarthComponent() {
       viewer.generateCombineGltf();
     };
 
+  
     ui.onTileSliderChange = (value) => {
       for (let i = 0; i < viewer.gltfArray.length; i++) {
         const gltf = viewer.gltfArray[i];
@@ -184,6 +185,15 @@ function GoogleEarthComponent() {
     viewer.generateCombineGltf();
   };
 
+  // const botonComputar = document.querySelector("#botonComputar");
+  // botonComputar.onClick = () => {
+  //   viewer.computarModeloGltf();
+  // };
+
+  function computarModeloGltf(){
+    viewer.computarModeloGltf();
+  }
+
   const handleTileSliderChange = (value) => {
     for (let i = 0; i < viewer.gltfArray.length; i++) {
       const gltf = viewer.gltfArray[i];
@@ -251,6 +261,7 @@ function GoogleEarthComponent() {
         <button id="download" onClick={handleDownload}>
           Descargar modelo glTF
         </button>
+        <button id="botonComputar" onClick={computarModeloGltf()}>Computar modelo</button>
 
         <br />
         <br />

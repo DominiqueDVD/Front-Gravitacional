@@ -9,7 +9,7 @@ const loader = new Rhino3dmLoader()
 loader.setLibraryPath('https://unpkg.com/rhino3dm@8.0.0-beta3/')
 
 // Reemplazar por la definición Grasshopper que se vaya a usar
-const definition = 'BranchNodeRnd.gh'
+const definition = '../src/definition.gh'
 
 // setup input change events
 const count_slider = document.getElementById('count')
@@ -31,14 +31,17 @@ console.log('Loaded rhino3dm.')
 init()
 compute()
 
-
+function computar(modelo){
+    // this.compute(modelo)
+    console.log(modelo);
+}
 
 let _threeMesh, _threeMaterial
 
 /**
  * Call appserver
  */
-async function compute() {
+async function compute(modeloGltf) {
     let t0 = performance.now()
     const timeComputeStart = t0
 
@@ -50,9 +53,7 @@ async function compute() {
 
     // Se definen los input de la definición
     data.inputs = {
-        'Count': count_slider.valueAsNumber,
-        'Radius': radius_slider.valueAsNumber,
-        'Length': length_slider.valueAsNumber
+        'Modelo': modeloGltf
     }
 
     console.log(data.inputs)

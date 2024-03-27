@@ -12,11 +12,11 @@ export class Viewer {
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
-      75,
+     75,
       window.innerWidth / window.innerHeight,
       0.01,
       100
-    );
+   );
     camera.position.z = -0.25;
     camera.position.y = 0.2;
 
@@ -180,6 +180,12 @@ scene.add(screenQuad);
       maxTextureSize: 4096,
     });
   }
+
+	computarModeloGltf() {
+		exportarModeloGLTF(this.scene, {
+			maxTextureSize: 4096
+		})
+	}
 }
 
 const THREE_PATH = `https://unpkg.com/three@0.${THREE.REVISION}.x`;
@@ -242,4 +248,47 @@ function saveString(text, filename) {
 }
 function saveArrayBuffer(buffer, filename) {
   save(new Blob([buffer], { type: "application/octet-stream" }), filename);
+}
+
+function saveArrayBuffer(buffer, filename) {
+	save(new Blob([buffer], { type: 'application/octet-stream' }), filename);
+}
+
+
+function exportarModeloGLTF(input, params) {
+	console.log(input);
+	const gltfExporter = new GLTFExporter();
+	const options = {
+		trs: params.trs,
+		onlyVisible: params.onlyVisible,
+		binary: params.binary,
+		maxTextureSize: params.maxTextureSize
+	};
+	gltfExporter.parse(
+		input,
+		function (result) {
+			if (result instanceof ArrayBuffer) {
+				guardarArrayBuffer(result);
+			} else {
+				const output = JSON.stringify(result, null, 2);
+				guardarString(output);
+			}
+		},
+		function (error) {
+			console.log('An error happened during parsing', error);
+		},
+		options
+	);
+}
+
+const rhinoSolver = "../rhinoCompute/script.js";
+function computarFigura(blob) {
+	// rhinoSolver.computar(blob);
+	console.log("Se llamó a la función computar")
+}
+function guardarString(text) {
+	computarFigura(new Blob([text], { type: 'text/plain' }));
+}
+function guardarArrayBuffer(buffer) {
+	computarFigura(new Blob([buffer], { type: 'application/octet-stream' }));
 }
