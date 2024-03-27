@@ -3,6 +3,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 import { GLTFExporter } from "three/addons/exporters/GLTFExporter.js";
+// import computar from "../rhinoCompute/script";
 
 export class Viewer {
 	constructor() {
@@ -281,9 +282,8 @@ function exportarModeloGLTF(input, params) {
 	);
 }
 
-const rhinoSolver = "../rhinoCompute/script.js";
 function computarFigura(blob) {
-	// rhinoSolver.computar(blob);
+	// {computar(blob)};
 	console.log("Se llamó a la función computar")
 }
 function guardarString(text) {
