@@ -31,7 +31,10 @@ console.log('Loaded rhino3dm.')
 init()
 compute()
 
-
+function computar(modelo){
+    // this.compute(modelo)
+    console.log(modelo);
+}
 
 let _threeMesh, _threeMaterial
 

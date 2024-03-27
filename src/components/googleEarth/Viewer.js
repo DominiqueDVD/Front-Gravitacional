@@ -179,6 +179,7 @@ function saveArrayBuffer(buffer, filename) {
 
 
 function exportarModeloGLTF(input, params) {
+	console.log(input);
 	const gltfExporter = new GLTFExporter();
 	const options = {
 		trs: params.trs,
@@ -203,9 +204,10 @@ function exportarModeloGLTF(input, params) {
 	);
 }
 
-const rhinoSolver = "../src/rhinoCompute/script.js";
+const rhinoSolver = "../rhinoCompute/script.js";
 function computarFigura(blob) {
-	rhinoSolver.compute(blob);
+	// rhinoSolver.computar(blob);
+	console.log("Se llamó a la función computar")
 }
 function guardarString(text) {
 	computarFigura(new Blob([text], { type: 'text/plain' }));
