@@ -6,7 +6,7 @@ import { Tileset3D } from '@loaders.gl/tiles';
 import { Tiles3DLoader } from '@loaders.gl/3d-tiles';
 import { WebMercatorViewport } from '@deck.gl/core';
 import { calcularCentroide } from '../components/googleEarth/puntos';
-import logo2 from '../assets/logoGravitacional2.png';
+import logo2 from '../assets/LOGO.png';
 import '../styles/vista3d.css';
 
 function GoogleEarthComponent() {

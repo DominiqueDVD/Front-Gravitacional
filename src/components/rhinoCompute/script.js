@@ -31,7 +31,7 @@ console.log('Loaded rhino3dm.')
 init()
 compute()
 
-function computar(modelo){
+export default function computar(modelo){
     // this.compute(modelo)
     console.log(modelo);
 }
