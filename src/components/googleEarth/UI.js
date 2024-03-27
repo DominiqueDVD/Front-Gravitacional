@@ -7,6 +7,7 @@ import { Loader } from "@loaders.gl/core";
 import { Tiles3DLoader } from "@loaders.gl/tiles";
 import { Tileset3DLoader } from "@loaders.gl/3d-tiles";
 import L from "leaflet";
+
 export class UI {
   constructor() {
     document.addEventListener('DOMContentLoaded', () => {
@@ -19,7 +20,7 @@ export class UI {
       const debugSliderContainer = document.querySelector(
         "#debug-slider-container"
       );
-
+      const botonComputar = document.querySelector("#botonComputar");
 
       // Load saved values
       apiKeyInput.value = localStorage.getItem("token");
@@ -58,6 +59,10 @@ export class UI {
       downloadTilesBtn.onclick = () => {
         this.onDownload();
       };
+      botonComputar.onclick = () => {
+        console.log("Botón computar modelo");
+        
+      }
       window.onload = () => {
         const mapboxToken = `pk.eyJ1Ijoib21hcnNoZWhhdGEiLCJhIjoiY2xweWh4eWE3MDRmdDJtcGYyYnlsNW1jNiJ9.P6DvtW98Fx82KTMNQCYqwA`;
         const zoom = localStorage.getItem("zoom")

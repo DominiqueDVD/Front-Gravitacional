@@ -50,6 +50,7 @@ function GoogleEarthComponent() {
   ui.onDownload = () => {
     viewer.generateCombineGltf()
   }
+  
   ui.onTileSliderChange = (value) => {
     for (let i = 0; i < viewer.gltfArray.length; i++) {
       const gltf = viewer.gltfArray[i]
@@ -177,6 +178,11 @@ function GoogleEarthComponent() {
     viewer.generateCombineGltf();
   };
 
+  const botonComputar = document.querySelector("#botonComputar");
+  botonComputar.onclick = () => {
+    viewer.computarModeloGltf();
+  };
+
   const handleTileSliderChange = (value) => {
     for (let i = 0; i < viewer.gltfArray.length; i++) {
       const gltf = viewer.gltfArray[i];
@@ -217,6 +223,7 @@ function GoogleEarthComponent() {
         </div>
         <pre id="fetch-log" className="log"></pre>
         <button id="download">Descargar modelo glTF</button>
+        <button id="botonComputar">Computar modelo</button>
 
         <br /><br /><a href="https://github.com/OmarShehata/google-earth-as-gltf#google-earth-as-gltf-models" target="_blank" className="settings-link">About</a><br /><br />
       </div>
