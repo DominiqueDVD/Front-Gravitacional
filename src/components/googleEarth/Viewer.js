@@ -133,14 +133,14 @@ export class Viewer {
 		const gltfArray = [];
 		for (let i = 0; i < urlArray.length; i++) {
 			const url = urlArray[i];
-			if (logFn) logFn(`Fetching glTF ${i}/${urlArray.length}`);
+			if (logFn) logFn(`Buscando glTF ${i}/${urlArray.length}`);
 			const gltf = await fetchGltf(url);
 			gltfArray.push(gltf);
 			tilesContainer.add(gltf.scene);
 		}
 
 		if (logFn)
-			logFn(`Normalizing & stitching together ${urlArray.length} glTF's`);
+			logFn(`Normalizando y uniendo ${urlArray.length} glTFs`);
 
 		// Re-center the tiles around 0/0/0
 		const box = new THREE.Box3().setFromObject(tilesContainer);
@@ -234,7 +234,7 @@ function exportGLTF(input, params) {
 			}
 		},
 		function (error) {
-			console.log("An error happened during parsing", error);
+			console.log("Ocurrió un error durante la conversión", error);
 		},
 		options
 	);
@@ -276,7 +276,7 @@ function exportarModeloGLTF(input, params) {
 			}
 		},
 		function (error) {
-			console.log('An error happened during parsing', error);
+			console.log('Ocurrió un error durante la conversión', error);
 		},
 		options
 	);
