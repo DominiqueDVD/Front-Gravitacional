@@ -48,6 +48,7 @@ function GoogleEarthComponent() {
 
 
     ui.onTileSliderChange = (value) => {
+      console.log("ui.onTileSliderChange");
       for (let i = 0; i < viewer.gltfArray.length; i++) {
         const gltf = viewer.gltfArray[i];
         gltf.scene.visible = i <= value;
@@ -194,12 +195,12 @@ function GoogleEarthComponent() {
     viewer.computarModeloGltf();
   }
 
-  const handleTileSliderChange = (value) => {
-    for (let i = 0; i < viewer.gltfArray.length; i++) {
-      const gltf = viewer.gltfArray[i];
-      gltf.scene.visible = i <= value;
-    }
-  };
+  // const handleTileSliderChange = (value) => {
+  //   for (let i = 0; i < viewer.gltfArray.length; i++) {
+  //     const gltf = viewer.gltfArray[i];
+  //     gltf.scene.visible = i <= value;
+  //   }
+  // };
 
   return (
     <div>
@@ -211,7 +212,7 @@ function GoogleEarthComponent() {
 
       />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
       <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet"></link>
       <script
         src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
@@ -246,7 +247,7 @@ function GoogleEarthComponent() {
             <div id="map"></div>
           </div>
         </div>
-        <button id="fetch" onClick={handleFetch}>
+        <button id="fetch" onClick={handleFetch} className="btn btn-primary my-1">
           Buscar teselas
         </button>
         <div id="debug-slider-container" style={{ display: 'none' }}>
@@ -258,15 +259,15 @@ function GoogleEarthComponent() {
             type="range"
             min="-1"
             max="100"
-            defaultValue="40"
-            onChange={(e) => handleTileSliderChange(e.target.value)}
+            defaultValue="100"
+            // onChange={(e) => handleTileSliderChange(e.target.value)}
           ></input>
         </div>
         <pre id="fetch-log" className="log"></pre>
-        <button id="download" onClick={handleDownload}>
+        <button id="download" onClick={handleDownload} className="btn btn-primary my-1">
           Descargar modelo glTF
         </button>
-        <button id="botonComputar" onClick={computarModeloGltf()}>Computar modelo</button>
+        <button id="botonComputar" onClick={computarModeloGltf()} className="btn btn-primary my-1">Computar modelo</button>
 
         <br />
         <br />

@@ -122,6 +122,7 @@ export class UI {
   }
   handleDebugSliderChange(e) {
     // Handle debug slider change event
+    console.log("Slider change");
     const value = Number(e.target.value);
     document.querySelector("#tile-count").innerText = String(value);
     this.onTileSliderChange(value);
