@@ -12,15 +12,15 @@ loader.setLibraryPath('https://unpkg.com/rhino3dm@8.0.0-beta3/')
 const definition = '../src/definition.gh'
 
 // setup input change events
-const count_slider = document.getElementById('count')
-count_slider.addEventListener('mouseup', onSliderChange, false)
-count_slider.addEventListener('touchend', onSliderChange, false)
-const radius_slider = document.getElementById('radius')
-radius_slider.addEventListener('mouseup', onSliderChange, false)
-radius_slider.addEventListener('touchend', onSliderChange, false)
-const length_slider = document.getElementById('length')
-length_slider.addEventListener('mouseup', onSliderChange, false)
-length_slider.addEventListener('touchend', onSliderChange, false)
+// const count_slider = document.getElementById('count')
+// count_slider.addEventListener('mouseup', onSliderChange, false)
+// count_slider.addEventListener('touchend', onSliderChange, false)
+// const radius_slider = document.getElementById('radius')
+// radius_slider.addEventListener('mouseup', onSliderChange, false)
+// radius_slider.addEventListener('touchend', onSliderChange, false)
+// const length_slider = document.getElementById('length')
+// length_slider.addEventListener('mouseup', onSliderChange, false)
+// length_slider.addEventListener('touchend', onSliderChange, false)
 
 // load the rhino3dm library
 let doc
@@ -28,7 +28,7 @@ let doc
 const rhino = await rhino3dm()
 console.log('Loaded rhino3dm.')
 
-init()
+// init()
 compute()
 
 export default function computar(modelo){
@@ -79,7 +79,8 @@ async function compute(modeloGltf) {
         headers = response.headers.get('server-timing')
         const responseJson = await response.json()
 
-        collectResults(responseJson)
+        console.log(responseJson);
+        // collectResults(responseJson)
 
         // Request finished. Do processing here.
         let t1 = performance.now()
@@ -244,39 +245,39 @@ function onSliderChange() {
 
 // BOILERPLATE //
 
-var scene, camera, renderer, controls
+// var scene, camera, renderer, controls
 
-function init() {
-    // Rhino models are z-up, so set this as the default
-    THREE.Object3D.DefaultUp = new THREE.Vector3(0, 0, 1);
+// function init() {
+//     // Rhino models are z-up, so set this as the default
+//     THREE.Object3D.DefaultUp = new THREE.Vector3(0, 0, 1);
 
-    scene = new THREE.Scene()
-    scene.background = new THREE.Color(1, 1, 1)
-    camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000)
+//     scene = new THREE.Scene()
+//     scene.background = new THREE.Color(1, 1, 1)
+//     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000)
 
-    renderer = new THREE.WebGLRenderer({ antialias: true })
-    renderer.setPixelRatio(window.devicePixelRatio)
-    renderer.setSize(window.innerWidth, window.innerHeight)
-    document.body.appendChild(renderer.domElement)
+//     renderer = new THREE.WebGLRenderer({ antialias: true })
+//     renderer.setPixelRatio(window.devicePixelRatio)
+//     renderer.setSize(window.innerWidth, window.innerHeight)
+//     document.body.appendChild(renderer.domElement)
 
-    controls = new OrbitControls(camera, renderer.domElement)
+//     controls = new OrbitControls(camera, renderer.domElement)
 
-    camera.position.z = 50
+//     camera.position.z = 50
 
-    window.addEventListener('resize', onWindowResize, false)
+//     window.addEventListener('resize', onWindowResize, false)
 
-    animate()
-}
+//     animate()
+// }
 
-function animate() {
-    requestAnimationFrame(animate)
-    controls.update()
-    renderer.render(scene, camera)
-}
+// function animate() {
+//     requestAnimationFrame(animate)
+//     controls.update()
+//     renderer.render(scene, camera)
+// }
 
-function onWindowResize() {
-    camera.aspect = window.innerWidth / window.innerHeight
-    camera.updateProjectionMatrix()
-    renderer.setSize(window.innerWidth, window.innerHeight)
-    animate()
-}
+// function onWindowResize() {
+//     camera.aspect = window.innerWidth / window.innerHeight
+//     camera.updateProjectionMatrix()
+//     renderer.setSize(window.innerWidth, window.innerHeight)
+//     animate()
+// }

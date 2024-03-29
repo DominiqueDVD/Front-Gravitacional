@@ -54,57 +54,6 @@ export class Viewer {
 
 		Viewer.instance = this;
 
-
-		/* intento de gradiente de fondo
-		const screenQuadVertexShader = `
-		varying vec2 vUv;
-	
-		void main() {
-			vUv = uv;
-			gl_Position = vec4(position, 1.0);
-		}
-	`;
-	
-	// Fragment shader con gradiente lineal para el fondo de pantalla completa
-	const screenQuadFragmentShader = `
-		varying vec2 vUv;
-	
-		void main() {
-			// Definir los colores del gradiente
-			vec3 color1 = vec3(87.0 / 255.0, 169.0 / 255.0, 189.0 / 255.0); // Color inicial
-			vec3 color2 = vec3(251.0 / 255.0, 249.0 / 255.0, 249.0 / 255.0); // Color final
-		    
-			// Calcular el valor de interpolación para el gradiente
-			float t = abs(vUv.y - 0.5) * 2.0;
-	
-			// Interpolar entre los dos colores base para el gradiente
-			vec3 finalColor = mix(color1, color2, t);
-	
-			// Asignar el color final al fragmento
-			gl_FragColor = vec4(finalColor, 1.0);
-		}
-	`;
-	
-	// Crear el material con el fragment shader de gradiente
-	const screenQuadMaterial = new THREE.ShaderMaterial({
-		vertexShader: screenQuadVertexShader,
-		fragmentShader: screenQuadFragmentShader,
-		side: THREE.DoubleSide
-	});
-	
-	// Crear el quad de pantalla completa
-	const screenQuadGeometry = new THREE.PlaneGeometry(2, 2);
-	const screenQuad = new THREE.Mesh(screenQuadGeometry, screenQuadMaterial);
-	
-	// Posicionar el quad en el centro del escenario
-	screenQuad.position.set(0, 0, -1);
-	
-	// Agregar el quad al escenario
-	scene.add(screenQuad);
-	*/
-
-
-
 	}
 
 	render() {
@@ -186,10 +135,10 @@ export class Viewer {
 		});
 	}
 
-	computarModeloGltf() {
+	computarFigura() {
 		exportarModeloGLTF(this.scene, {
-			maxTextureSize: 4096
-		})
+			maxTextureSize: 4096,
+		});
 	}
 }
 
