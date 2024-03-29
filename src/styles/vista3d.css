@@ -88,7 +88,7 @@ button[disabled]:hover {
   top: 50%;
   left: 50%;
   color: white;
-  background-color: rgba(108, 214, 233, 0.7);
+  background-color: #0A88F6;
   padding: 10px;
   border-radius: 10px;
   transform: translate(-50%, -50%);
@@ -136,7 +136,13 @@ input{
 .botonesMod{
   display: flex;
   gap: 10px;
+  
+}
+.btn.btn-primary.my-1{
+  background-color: #0A88F6;
 }
 .botonesMod .btn.btn-primary.my-1{
   font-size: small;
+ 
 }
+

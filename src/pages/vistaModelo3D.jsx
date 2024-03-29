@@ -11,6 +11,7 @@ import "../styles/vista3d.css";
 
 function GoogleEarthComponent() {
   // Get the parameter value from the URL
+  const [zoom, setZoom] = useState(16); // Valor inicial del zoom
   const urlParams = new URLSearchParams(window.location.search);
   const encodedJsonString = urlParams.get("data");
 
@@ -25,7 +26,15 @@ function GoogleEarthComponent() {
 
   const [viewer] = useState(new Viewer());
   const [ui] = useState(new UI());
-
+  useEffect(() => {
+    // Recuperar el valor del zoom del almacenamiento local al cargar el componente
+    const savedZoom = localStorage.getItem("zoom");
+    if (savedZoom) {
+      setZoom(parseInt(savedZoom));
+    }
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   useEffect(() => {
     ui.onFetch = async () => {
       ui.clearLog();
@@ -211,24 +220,30 @@ function GoogleEarthComponent() {
     setTesela(event.target.value);
   };
 
-
   const [sse, setSse] = useState(0); // Valor inicial del sse
 
   const handleSseChange = (event) => {
     setSse(event.target.value);
   };
 
-
-  const [zoom, setZoom] = useState(16); // Valor inicial del zoom
+ 
 
   const handleZoomChange = (event) => {
-    setZoom(event.target.value);
+    const newZoom = event.target.value;
+    setZoom(newZoom);
+    const newLatLng = latLng.split(",").map(parseFloat);
+    ui.leafletMap.setView(newLatLng, newZoom);
+    
+    // Almacenar el valor del zoom en el almacenamiento local
+    localStorage.setItem("zoom", newZoom);
   };
-
-  const [latLng, setLatLng] = useState(`${centroide.lat.toFixed(2)} , ${centroide.lng.toFixed(2)}`);
+  const [latLng, setLatLng] = useState(
+    `${centroide.lat.toFixed(2)} , ${centroide.lng.toFixed(2)}`
+  );
   const handleInputChange = (event) => {
     setLatLng(event.target.value);
   };
+
   return (
     <div>
       <link
@@ -257,9 +272,8 @@ function GoogleEarthComponent() {
         </div>
         <br></br>
         <div id="centered-container">
-          {/*<label>Google API Key</label>*/}
+          <label>Google API Key</label>
           <input id="google-api-key" type="text" />
-
           <label>Latitud y Longitud</label>
           <input
             id="lat-lng"
@@ -267,21 +281,18 @@ function GoogleEarthComponent() {
             value={latLng}
             onChange={handleInputChange}
           />
-      
-
-        <label htmlFor="sse">Reducción de calidad:</label> <span>{sse}</span>
-          <br>
-          </br>
-          <input 
-          id="sse"
-          type="range"
-          min="0"
-          max="20"
-          value={sse}
-          onChange={handleSseChange}
-           />
-    <br></br>
-          <label htmlFor="zoom">Zoom:</label>  <span>{zoom}</span>
+          <label htmlFor="sse">Reducción de calidad:</label> <span>{sse}</span>
+          <br></br>
+          <input
+            id="sse"
+            type="range"
+            min="0"
+            max="20"
+            value={sse}
+            onChange={handleSseChange}
+          />
+          <br></br>
+          <label htmlFor="zoom">Zoom:</label> <span>{zoom}</span>
           <br></br>
           <input
             id="zoom"
@@ -291,24 +302,20 @@ function GoogleEarthComponent() {
             value={zoom}
             onChange={handleZoomChange}
           />
-
-        <div id="debug-slider-container" >
-          <label>
-            Cantidad de teselas 
-          </label><span id="tile-count"></span>
-          <input
-            id="debug-slider"
-            type="range"
-            min="-1"
-            max="100"
-            value={teselas}
-            onChange={handleTeselaChange}
-            // onChange={(e) => handleTileSliderChange(e.target.value)}
-          ></input>
-        </div>
-
-
-        <div id="map-container">
+          <div id="debug-slider-container">
+            <label>Cantidad de teselas</label>
+            <span id="tile-count"></span>
+            <input
+              id="debug-slider"
+              type="range"
+              min="-1"
+              max="100"
+              value={teselas}
+              onChange={handleTeselaChange}
+              // onChange={(e) => handleTileSliderChange(e.target.value)}
+            ></input>
+          </div>
+          <div id="map-container">
             <div id="map"></div>
           </div>
         </div>
@@ -320,27 +327,22 @@ function GoogleEarthComponent() {
           Buscar teselas
         </button>
         <pre id="fetch-log" className="log"></pre>
-       <div className="botonesMod">
-       <button
-          id="download"
-          onClick={handleDownload}
-          className="btn btn-primary my-1"
-        >
-          Descargar modelo glTF
-        </button>
-        <button
-          id="botonComputar"
-          onClick={computarModelo}
-          className="btn btn-primary my-1"
-        >
-          Computar modelo
-        </button>
-
-       </div>
-      
-
-     
-
+        <div className="botonesMod">
+          <button
+            id="download"
+            onClick={handleDownload}
+            className="btn btn-primary my-1"
+          >
+            Descargar modelo glTF
+          </button>
+          <button
+            id="botonComputar"
+            onClick={computarModelo}
+            className="btn btn-primary my-1"
+          >
+            Computar modelo
+          </button>
+        </div>
       </div>
 
       <div id="instructions">
