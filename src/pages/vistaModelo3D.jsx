@@ -45,7 +45,6 @@ function GoogleEarthComponent() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [zoom]);
 
-
   useEffect(() => {
     ui.onFetch = async () => {
       ui.clearLog();
