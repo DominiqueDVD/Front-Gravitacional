@@ -175,6 +175,8 @@ export class UI {
       zoom,
     };
   }
+  
+  
   getZoom() {
     return this.leafletMap.getZoom();
   }
