@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { Viewer } from '../components/googleEarth/Viewer.js';
-import { UI } from '../components/googleEarth/UI.js';
-import { load } from '@loaders.gl/core';
-import { Tileset3D } from '@loaders.gl/tiles';
-import { Tiles3DLoader } from '@loaders.gl/3d-tiles';
-import { WebMercatorViewport } from '@deck.gl/core';
-import { calcularCentroide } from '../components/googleEarth/puntos';
-import logo2 from '../assets/logoDefinitivo.png';
-import '../styles/vista3d.css';
+import React, { useState, useEffect } from "react";
+import { Viewer } from "../components/googleEarth/Viewer.js";
+import { UI } from "../components/googleEarth/UI.js";
+import { load } from "@loaders.gl/core";
+import { Tileset3D } from "@loaders.gl/tiles";
+import { Tiles3DLoader } from "@loaders.gl/3d-tiles";
+import { WebMercatorViewport } from "@deck.gl/core";
+import { calcularCentroide } from "../components/googleEarth/puntos";
+import logo2 from "../assets/logoDefinitivo.png";
+import "../styles/vista3d.css";
 
 function GoogleEarthComponent() {
   // Get the parameter value from the URL
   const urlParams = new URLSearchParams(window.location.search);
-  const encodedJsonString = urlParams.get('data');
+  const encodedJsonString = urlParams.get("data");
 
   // Decode the parameter value and parse it back into a JSON array
   const jsonString = decodeURIComponent(encodedJsonString);
@@ -29,7 +29,7 @@ function GoogleEarthComponent() {
   useEffect(() => {
     ui.onFetch = async () => {
       ui.clearLog();
-      ui.log('Buscando...');
+      ui.log("Buscando...");
       ui.fetchTilesBtn.disabled = true;
 
       try {
@@ -45,7 +45,6 @@ function GoogleEarthComponent() {
     ui.onDownload = () => {
       viewer.generateCombineGltf();
     };
-
 
     ui.onTileSliderChange = (value) => {
       console.log("ui.onTileSliderChange");
@@ -68,12 +67,12 @@ function GoogleEarthComponent() {
     const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
     console.log(process.env);
     const tilesetUrl =
-      'https://tile.googleapis.com/v1/3dtiles/root.json?key=' + GOOGLE_API_KEY;
+      "https://tile.googleapis.com/v1/3dtiles/root.json?key=" + GOOGLE_API_KEY;
 
     const targetScreenSpaceError = ui.getScreenSpaceError();
 
     ui.log(
-      `Buscando teselas en (${lat} ${lng}, ${zoom}, sse: ${targetScreenSpaceError})`,
+      `Buscando teselas en (${lat} ${lng}, ${zoom}, sse: ${targetScreenSpaceError})`
     );
     const viewport = new WebMercatorViewport({
       width: 230,
@@ -86,7 +85,7 @@ function GoogleEarthComponent() {
     const tileset = await load3DTileset(
       tilesetUrl,
       viewport,
-      targetScreenSpaceError,
+      targetScreenSpaceError
     );
     const sessionKey = getSessionKey(tileset);
     let tiles = tileset.tiles;
@@ -98,7 +97,7 @@ function GoogleEarthComponent() {
     for (let i = 0; i < tiles.length; i++) {
       const tile = tiles[i];
       const errorDiff = Math.abs(
-        targetScreenSpaceError - tile.header.geometricError,
+        targetScreenSpaceError - tile.header.geometricError
       );
       if (errorDiff <= targetScreenSpaceError) {
         console.log(tile.header.geometricError);
@@ -107,7 +106,7 @@ function GoogleEarthComponent() {
       }
 
       if (glbUrls.length > 100) {
-        ui.log('==== Exceeded maximum glTFs! Capping at 100 =====');
+        ui.log("==== Exceeded maximum glTFs! Capping at 100 =====");
         break;
       }
     }
@@ -119,7 +118,7 @@ function GoogleEarthComponent() {
         if (firstSSEFound === null)
           firstSSEFound = Math.round(tile.header.geometricError);
         const errorDiff = Math.abs(
-          targetScreenSpaceError - tile.header.geometricError,
+          targetScreenSpaceError - tile.header.geometricError
         );
         if (errorDiff <= firstSSEFound * 2) {
           const url = `${tile.contentUrl}?key=${GOOGLE_API_KEY}&session=${sessionKey}`;
@@ -127,12 +126,12 @@ function GoogleEarthComponent() {
         }
 
         if (glbUrls.length > 100) {
-          ui.log('==== Exceeded maximum glTFs! Capping at 100 =====');
+          ui.log("==== Exceeded maximum glTFs! Capping at 100 =====");
           break;
         }
       }
       ui.log(
-        `==== No tiles found for screen space error ${targetScreenSpaceError}. Getting tiles that are within 2x of ${firstSSEFound} ===`,
+        `==== No tiles found for screen space error ${targetScreenSpaceError}. Getting tiles that are within 2x of ${firstSSEFound} ===`
       );
     }
 
@@ -146,7 +145,7 @@ function GoogleEarthComponent() {
 
   const load3DTileset = async (tilesetUrl, viewport, screenSpaceError) => {
     const tilesetJson = await load(tilesetUrl, Tiles3DLoader, {
-      '3d-tiles': { loadGLTF: false },
+      "3d-tiles": { loadGLTF: false },
     });
     const tileset3d = new Tileset3D(tilesetJson, {
       throttleRequests: false,
@@ -163,13 +162,13 @@ function GoogleEarthComponent() {
   const getSessionKey = (tileset) => {
     // Rest of getSessionKey code...
     return new URL(
-      `http://website.com?${tileset.queryParams}`,
-    ).searchParams.get('session');
+      `http://website.com?${tileset.queryParams}`
+    ).searchParams.get("session");
   };
 
   const handleFetch = async () => {
     ui.clearLog();
-    ui.log('Buscando...');
+    ui.log("Buscando...");
     ui.fetchTilesBtn.disabled = true;
 
     try {
@@ -188,7 +187,7 @@ function GoogleEarthComponent() {
 
   const computarModelo = () => {
     viewer.computarFigura();
-  }
+  };
 
   // const botonComputar = document.querySelector("#botonComputar");
   // botonComputar.onClick = () => {
@@ -206,6 +205,30 @@ function GoogleEarthComponent() {
   //   }
   // };
 
+  const [teselas, setTesela] = useState(); // Valor inicial del sse
+
+  const handleTeselaChange = (event) => {
+    setTesela(event.target.value);
+  };
+
+
+  const [sse, setSse] = useState(0); // Valor inicial del sse
+
+  const handleSseChange = (event) => {
+    setSse(event.target.value);
+  };
+
+
+  const [zoom, setZoom] = useState(16); // Valor inicial del zoom
+
+  const handleZoomChange = (event) => {
+    setZoom(event.target.value);
+  };
+
+  const [latLng, setLatLng] = useState(`${centroide.lat.toFixed(2)} , ${centroide.lng.toFixed(2)}`);
+  const handleInputChange = (event) => {
+    setLatLng(event.target.value);
+  };
   return (
     <div>
       <link
@@ -213,11 +236,13 @@ function GoogleEarthComponent() {
         href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
         crossOrigin=""
-
       />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-      <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet"></link>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap"
+        rel="stylesheet"
+      ></link>
       <script
         src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
@@ -226,87 +251,126 @@ function GoogleEarthComponent() {
 
       <script src="../components/rinoCompute/script.js"></script>
 
-
       <div id="settings">
         <div id="logoGrav">
           <img src={logo2} alt="Logo Grav" />
         </div>
+        <br></br>
         <div id="centered-container">
-          <label>Google API Key</label>
+          {/*<label>Google API Key</label>*/}
           <input id="google-api-key" type="text" />
 
-          <label>Lat,Lng</label>
+          <label>Latitud y Longitud</label>
           <input
             id="lat-lng"
             type="text"
-            defaultValue={`${centroide.lat},${centroide.lng}`}
+            value={latLng}
+            onChange={handleInputChange}
+          />
+      
+
+        <label htmlFor="sse">Reducción de calidad:</label> <span>{sse}</span>
+          <br>
+          </br>
+          <input 
+          id="sse"
+          type="range"
+          min="0"
+          max="20"
+          value={sse}
+          onChange={handleSseChange}
+           />
+    <br></br>
+          <label htmlFor="zoom">Zoom:</label>  <span>{zoom}</span>
+          <br></br>
+          <input
+            id="zoom"
+            type="range"
+            min="0"
+            max="20"
+            value={zoom}
+            onChange={handleZoomChange}
           />
 
-          <label>Reducción de calidad</label>
-          <input type="number" defaultValue="0" id="sse" />
-
+        <div id="debug-slider-container" >
           <label>
-            Zoom: <span id="zoom">16</span>
-          </label>
-
-          <div id="map-container">
-            <div id="map"></div>
-          </div>
-        </div>
-        <button id="fetch" onClick={handleFetch} className="btn btn-primary my-1">
-          Buscar teselas
-        </button>
-        <div id="debug-slider-container" style={{ display: 'none' }}>
-          <label>
-            Cantidad de teselas (<span id="tile-count"></span>)
-          </label>
+            Cantidad de teselas 
+          </label><span id="tile-count"></span>
           <input
             id="debug-slider"
             type="range"
             min="-1"
             max="100"
-            defaultValue="100"
+            value={teselas}
+            onChange={handleTeselaChange}
             // onChange={(e) => handleTileSliderChange(e.target.value)}
           ></input>
         </div>
+
+
+        <div id="map-container">
+            <div id="map"></div>
+          </div>
+        </div>
+        <button
+          id="fetch"
+          onClick={handleFetch}
+          className="btn btn-primary my-1"
+        >
+          Buscar teselas
+        </button>
         <pre id="fetch-log" className="log"></pre>
-        <button id="download" onClick={handleDownload} className="btn btn-primary my-1">
+       <div className="botonesMod">
+       <button
+          id="download"
+          onClick={handleDownload}
+          className="btn btn-primary my-1"
+        >
           Descargar modelo glTF
         </button>
-        <button id="botonComputar" onClick={computarModelo} className="btn btn-primary my-1">Computar modelo</button>
+        <button
+          id="botonComputar"
+          onClick={computarModelo}
+          className="btn btn-primary my-1"
+        >
+          Computar modelo
+        </button>
 
-        <br />
-        <br />
+       </div>
+      
 
-        <br />
-        <br />
+     
+
       </div>
 
       <div id="instructions">
         <button
           id="close-instructions-btn"
-          style={{ position: 'absolute', top: 0, right: 0 }}
+          style={{ position: "absolute", top: 0, right: 0 }}
           onClick={() => {
-            document.getElementById('instructions').style.display = 'none';
+            document.getElementById("instructions").style.display = "none";
           }}
         >
           X
         </button>
         <center>
           <br />
-          <p>This app demonstrates fetching & rendering Google Earth 3D Tiles in ThreeJS</p>
+          <p>
+            This app demonstrates fetching & rendering Google Earth 3D Tiles in
+            ThreeJS
+          </p>
         </center>
         <ol>
           <li>
-            Get a{' '}
+            Get a{" "}
             <a
               href="https://developers.google.com/maps/documentation/tile/get-api-key"
               target="_blank"
               rel="noopener noreferrer"
             >
               Google "Map Tiles"
-            </a>{' '}
-            API key{' '}
+            </a>{" "}
+            API key{" "}
           </li>
           <li>Paste it in the settings top left</li>
           <li>
@@ -321,7 +385,7 @@ function GoogleEarthComponent() {
               rel="noopener noreferrer"
             >
               Learn more
-            </a>{' '}
+            </a>{" "}
           </p>
         </center>
       </div>

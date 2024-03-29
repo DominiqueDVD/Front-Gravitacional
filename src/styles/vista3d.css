@@ -80,9 +80,6 @@ button[disabled]:hover {
   text-wrap: balance;
 }
 
-#sse {
-  width: 70px;
-}
 
 #instructions {
   display: none;
@@ -128,4 +125,18 @@ button[disabled]:hover {
 
 #canvas-visor-3d {
   background: linear-gradient(#A3D6E0, white);
+}
+.btn.btn-primary.my-1{
+  width: 100%;
+}
+
+input{
+  width: 100%;
+}
+.botonesMod{
+  display: flex;
+  gap: 10px;
+}
+.botonesMod .btn.btn-primary.my-1{
+  font-size: small;
 }
