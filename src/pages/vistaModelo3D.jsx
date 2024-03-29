@@ -169,7 +169,7 @@ function GoogleEarthComponent() {
 
   const handleFetch = async () => {
     ui.clearLog();
-    ui.log('Fetching...');
+    ui.log('Buscando...');
     ui.fetchTilesBtn.disabled = true;
 
     try {
@@ -186,14 +186,18 @@ function GoogleEarthComponent() {
     viewer.generateCombineGltf();
   };
 
+  const computarModelo = () => {
+    viewer.computarFigura();
+  }
+
   // const botonComputar = document.querySelector("#botonComputar");
   // botonComputar.onClick = () => {
   //   viewer.computarModeloGltf();
   // };
 
-  function computarModeloGltf() {
-    viewer.computarModeloGltf();
-  }
+  // function computarModeloGltf() {
+  //   viewer.exportarModeloGLTF();
+  // }
 
   // const handleTileSliderChange = (value) => {
   //   for (let i = 0; i < viewer.gltfArray.length; i++) {
@@ -219,6 +223,8 @@ function GoogleEarthComponent() {
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
         crossOrigin=""
       ></script>
+
+      <script src="../components/rinoCompute/script.js"></script>
 
 
       <div id="settings">
@@ -267,7 +273,7 @@ function GoogleEarthComponent() {
         <button id="download" onClick={handleDownload} className="btn btn-primary my-1">
           Descargar modelo glTF
         </button>
-        <button id="botonComputar" onClick={computarModeloGltf()} className="btn btn-primary my-1">Computar modelo</button>
+        <button id="botonComputar" onClick={computarModelo} className="btn btn-primary my-1">Computar modelo</button>
 
         <br />
         <br />
