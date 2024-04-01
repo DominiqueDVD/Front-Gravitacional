@@ -1,0 +1,20 @@
+
+
+
+.componenteLogin{
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+.componenteInputs{
+    width: 50%;
+}
+
+.componenteCarousel{
+    width: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 10px;
+    border-radius: 20px;
+}
