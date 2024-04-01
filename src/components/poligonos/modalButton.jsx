@@ -15,7 +15,7 @@ const ButtonModal = () => {
 
   return (
     <div className='informationButton'>
-           <button  onClick={openModal}>
+           <button className='buttonModal'  onClick={openModal}>
         <i className="bi bi-menu-up fa-2x"></i>
       </button>
       {showModal && (
