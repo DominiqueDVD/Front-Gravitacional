@@ -1,3 +1,73 @@
-.componenteCarousel{
-    
+.componenteCarouselInterior{
+    border-style: solid;
+    border-radius: 20px;
+    border-color: #dcedf745;
+    height: 85%;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #d7e4ed2b;
 }
+.componenteInterior{
+ width: 100%;
+ justify-content: center;
+    display: flex;
+}
+.LogoBlanco{
+    width:33%;
+    text-align: center;
+}
+.divVertical{
+    width: 100%;
+}
+
+.carousel {
+    text-align: center;
+    margin-top:40px;
+    display: flex;
+    overflow: hidden;
+    
+  }
+  .imgCarousel{
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
+  .slide {
+    flex: 0 0 100%;
+  }
+  
+  .navigation {
+    text-align: center;
+  }
+  
+  .dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: transparent;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+    border-style: solid;
+    border-color: #05385D;
+    border-width: 1px;
+  }
+  
+  .dot.active {
+    background-color: #05385D;
+  }
+  h4{
+    text-align: center!important;
+    color: #063E5F!important;
+  }
+  p{
+    height: 50px;
+    text-align: center;
+   padding-left: 20%;
+   padding-right: 20%;
+    color: #063E5F;
+    font-weight: 600;
+  }
