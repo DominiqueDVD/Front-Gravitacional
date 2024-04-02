@@ -3,7 +3,6 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 import { GLTFExporter } from "three/addons/exporters/GLTFExporter.js";
-// import computar from "../rhinoCompute/script";
 
 export class Viewer {
 	constructor() {
@@ -231,9 +230,96 @@ function exportarModeloGLTF(input, params) {
 	);
 }
 
-function computarFigura(blob) {
+async function computarFigura(blob) {
 	// {computar(blob)};
 	console.log("Se llamó a la función computar")
+	let t0 = performance.now()
+	const timeComputeStart = t0
+
+	// collect data from inputs
+	let data = {}
+	data.definition = blob;
+	data.inputs = {
+        'Modelo': blob
+    }
+
+	console.log(data.inputs)
+
+	const request = {
+        'method': 'POST',
+        'body': JSON.stringify(data),
+        'headers': {
+            'Content-Type': 'application/json',
+            'RhinoComputeKey': process.env.REACT_APP_RHINO_COMPUTE_KEY
+        }
+    }
+
+	let headers = null
+
+	try {
+		const response = await fetch('/solve', request)
+
+		if (!response.ok)
+			throw new Error(response.statusText)
+
+		headers = response.headers.get('server-timing')
+		const responseJson = await response.json()
+
+		// collectResults(responseJson)
+
+		// Request finished. Do processing here.
+		let t1 = performance.now()
+		const computeSolveTime = t1 - timeComputeStart
+		t0 = t1
+
+		// hide spinner
+		//document.getElementById('loader').style.display = 'none'
+		//showSpinner(false)
+		//console.log(responseJson.values[0])
+		//let data = JSON.parse(responseJson.values[0].InnerTree['{0}'][0].data)
+		//let mesh = rhino.DracoCompression.decompressBase64String(data)
+
+		t1 = performance.now()
+		const decodeMeshTime = t1 - t0
+		t0 = t1
+		/*
+			if (!_threeMaterial) {
+			  _threeMaterial = new THREE.MeshNormalMaterial()
+			}
+		    
+			let threeMesh = meshToThreejs(mesh, _threeMaterial)
+			mesh.delete()
+			replaceCurrentMesh(threeMesh)
+		*/
+		t1 = performance.now()
+		const rebuildSceneTime = t1 - t0
+
+		//console.group(`[call compute and rebuild scene] = ${Math.round(t1-timeComputeStart)} ms`)
+		//console.log(`[call compute and rebuild scene] = ${Math.round(t1-timeComputeStart)} ms`)
+		console.log(`  ${Math.round(computeSolveTime)} ms: appserver request`)
+		/*
+		let timings = headers.split(',')
+		let sum = 0
+		timings.forEach(element => {
+		  let name = element.split(';')[0].trim()
+		  let time = element.split('=')[1].trim()
+		  sum += Number(time)
+		  if (name === 'network') {
+			console.log(`  .. ${time} ms: appserver<->compute network latency`)
+		  } else {
+			console.log(`  .. ${time} ms: ${name}`)
+		  }
+		})
+	   
+	   // console.log(`  .. ${Math.round(computeSolveTime - sum)} ms: local<->appserver network latency`)
+		console.log(`  ${Math.round(decodeMeshTime)} ms: decode json to rhino3dm mesh`)
+		console.log(`  ${Math.round(rebuildSceneTime)} ms: create threejs mesh and insert in scene`)
+		 */
+		//console.groupEnd()
+
+	} catch (error) {
+		console.error(error)
+	}
 }
 function guardarString(text) {
 	computarFigura(new Blob([text], { type: 'text/plain' }));
