@@ -58,7 +58,7 @@ function Carousel() {
               <br />
               <br />
               <h4>{slides[currentSlide].text1}</h4>
-              <p>{slides[currentSlide].text2}</p>
+              <p className="cssp">{slides[currentSlide].text2}</p>
             </div>
           </div>
           <br />

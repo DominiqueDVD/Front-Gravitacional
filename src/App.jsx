@@ -9,9 +9,9 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route exact path="/" element={<Layout />} />
+      <Route exact path="/" element={<Login />} />
+        <Route exact path="/Poligono" element={<Layout />} />
         <Route exact path="/GoogleEarth" element={<Modelo3d />} />
-        <Route exact path="/Login" element={<Login />} />
         <Route exact path="/solve" element={<SolveComponent />} />
       </Routes>
     </Router>

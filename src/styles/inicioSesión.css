@@ -6,11 +6,10 @@
     font-weight: 600;
 }
 .inicio{
-    height: 85%;
-    width: 70%;
-    display: flex;
-
-    align-items: center;
+    height: 60%;
+    width: 50%;
+    display: block;
+    margin: auto;
 }
 .containerInicio{
     width: 100%;
@@ -18,3 +17,35 @@
        display: flex;
        height: 100vh;
 }
+.passwordContainer {
+    position: relative;
+  }
+  
+  .password-icon {
+    position: absolute;
+    right: 10px;
+    top: 65%;
+    transform: translateY(-10%);
+    cursor: pointer;
+  }
+  .loginButton{
+    width: 100%;
+    border-radius: 5px;
+    padding: 15px;
+    border-style: none;
+    background: #424CE1;
+    color: white;
+  }
+  .botonGoogle button{
+    width: 100%;
+    border-radius: 5px;
+    padding: 15px;
+    border-style: none;
+  }
+  label{
+    color: #02375D;
+  }
+  input{
+    border-style: none;
+    padding: 10px;
+  }
