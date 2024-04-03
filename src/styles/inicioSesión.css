@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.titleInicio{
+    color: #02375D!important;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+}
+.inicio{
+    height: 85%;
+    width: 70%;
+    display: flex;
+
+    align-items: center;
+}
+.containerInicio{
+    width: 100%;
+    justify-content: center;
+       display: flex;
+       height: 100vh;
+}

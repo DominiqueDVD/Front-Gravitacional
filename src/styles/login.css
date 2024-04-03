@@ -1,6 +1,4 @@
 
-
-
 .componenteLogin{
     display: flex;
     width: 100%;
@@ -19,6 +17,19 @@
     width: 50%;
     background-size: cover;
     background-repeat: no-repeat;
-    margin: 10px;
+    margin: 1%;
     border-radius: 20px;
+}
+
+@media screen and (max-width: 900px) {
+    .componenteLogin{
+        display: block;
+    }
+    .componenteCarousel{
+        width: 100%;
+    }
+    .componenteInputs{
+        width: 100%;
+    }
+
 }
