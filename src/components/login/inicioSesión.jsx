@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { GoogleLogin } from "@react-oauth/google";
-import { googleLogout } from "@react-oauth/google";
+import { GoogleLogin, googleLogout } from "@react-oauth/google";
 import "../../styles/inicioSesión.css";
 
 function InicioSesión() {
@@ -11,7 +10,10 @@ function InicioSesión() {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleLogout = () => {
-    googleLogout();
+    if (isLoggedIn) {
+      googleLogout();
+      setIsLoggedIn(false);
+    }
   };
 
   const handleEmailChange = (event) => {
@@ -26,8 +28,8 @@ function InicioSesión() {
     setShowPassword(!showPassword);
   };
 
-  const handleEmailLogin = () => {
-    // Aquí puedes agregar la lógica para iniciar sesión con email y contraseña
+  const handleEmailLoginWithEmailAndPassword = () => {
+    // Lógica para iniciar sesión con email y contraseña
     console.log("Iniciar sesión con email:", email, "Contraseña:", password);
     setIsLoggedIn(true);
   };
@@ -66,7 +68,7 @@ function InicioSesión() {
         </div>
         <br />
         <br />
-        <button className="loginButton" onClick={handleEmailLogin}>
+        <button className="loginButton" onClick={handleEmailLoginWithEmailAndPassword}>
           Acceder
         </button>
         <br />
@@ -76,16 +78,15 @@ function InicioSesión() {
             <GoogleLogin
               onSuccess={(credentialResponse) => {
                 console.log(credentialResponse);
+                setIsLoggedIn(true);
               }}
               onError={() => {
                 console.log("Login Failed");
               }}
               useOneTap
             />
-          
           </GoogleOAuthProvider>
-          {/*<button onClick={handleLogout}>Logout</button>*/}
-         
+          {isLoggedIn && <button onClick={handleLogout}>Logout</button>}
         </div>
         <br />
         <br />

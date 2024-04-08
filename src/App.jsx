@@ -1,21 +1,43 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Layout from '../src/pages/mapaPoligono'; 
-import Modelo3d from '../src/pages/vistaModelo3D.jsx'
-import Login from '../src/pages/login.jsx'
-import SolveComponent from './components/rhinoCompute/solve.jsx';
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./pages/mapaPoligono.jsx";
+import Login from "./pages/login.jsx";
+import Modelo3d from "./pages/vistaModelo3D.jsx"
+import PrivateRoute from "./components/login/PrivateRoute.tsx";
+import { AuthProvider } from "./auth/AuthProvider.tsx";
+
 
 function App() {
   return (
-    <Router>
-      <Routes>
-      <Route exact path="/" element={<Login />} />
-        <Route exact path="/Poligono" element={<Layout />} />
-        <Route exact path="/GoogleEarth" element={<Modelo3d />} />
-        <Route exact path="/solve" element={<SolveComponent />} />
-      </Routes>
-    </Router>
+<BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route
+        path="/"
+        element={<PrivateRoute />}
+        children={<Route path="/Poligono" element={<Layout />} />}
+        
+      />
+      <Route
+        path="/"
+        element={<PrivateRoute />}
+        children={<Route path="/GoogleEarth" element={<Modelo3d/>} />}
+        
+      />
+    </Routes>
+  </BrowserRouter>
   );
 }
+
+ReactDOM.render(
+  <React.StrictMode>
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+   
+  </React.StrictMode>,
+  document.getElementById("root")
+);
 
 export default App;

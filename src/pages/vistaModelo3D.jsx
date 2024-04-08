@@ -25,7 +25,7 @@ function GoogleEarthComponent() {
   console.log(`${centroide.lat},${centroide.lng}`);
 
   const [viewer] = useState(new Viewer());
-  const [ui] = useState(new UI());
+  const [ui] = useState(new UI());                                               
   useEffect(() => {
     // Recuperar el valor del zoom del almacenamiento local al cargar el componente
     const savedZoom = localStorage.getItem("zoom");
