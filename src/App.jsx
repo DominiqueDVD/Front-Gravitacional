@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./pages/mapaPoligono.jsx";
 import Login from "./pages/login.tsx";
 import CrearCuenta from "./pages/CrearCuenta.tsx"
+import CambioContraseña from "./pages/CambioContraseña.tsx";
 import Modelo3d from "./pages/vistaModelo3D.jsx"
 import PrivateRoute from "./components/login/PrivateRoute.tsx";
 import { AuthProvider } from "./auth/AuthProvider.tsx";
@@ -15,6 +16,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Login />} />
       <Route path="/CrearCuenta" element={<CrearCuenta />} />
+      <Route path="/CambiarContraseña" element={<CambioContraseña />} />
       <Route
         path="/"
         element={<PrivateRoute />}
