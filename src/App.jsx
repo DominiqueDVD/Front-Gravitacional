@@ -7,6 +7,8 @@ import CrearCuenta from "./pages/CrearCuenta.tsx"
 import CambioContraseña from "./pages/CambioContraseña.tsx";
 import Modelo3d from "./pages/vistaModelo3D.jsx"
 import PrivateRoute from "./components/login/PrivateRoute.tsx";
+import Dashboard from "./pages/dashboard/Dashboard.tsx";
+import Tutoriales from "./pages/Tutoriales.tsx";
 import { AuthProvider } from "./auth/AuthProvider.tsx";
 
 
@@ -17,6 +19,15 @@ function App() {
       <Route path="/" element={<Login />} />
       <Route path="/CrearCuenta" element={<CrearCuenta />} />
       <Route path="/CambiarContraseña" element={<CambioContraseña />} />
+
+      <Route path="/Tutoriales" element={<Tutoriales />} />
+      <Route
+        path="/"
+        element={<PrivateRoute />}
+        children={<Route path="/Dashboard" element={<Dashboard />} />}
+        
+      />
+     
       <Route
         path="/"
         element={<PrivateRoute />}

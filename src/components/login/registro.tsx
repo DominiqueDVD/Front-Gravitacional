@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../../auth/AuthProvider.tsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GoogleLogin, googleLogout } from "@react-oauth/google";
 import InicioSesiónGoogle from "./inicioSesiónGoogle.tsx";
@@ -10,6 +12,11 @@ function Registro() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const auth = useAuth();
+
+  if (auth.isAuthenticated){
+    return   <Navigate to = "/Dashboard" />
+  }
 
   const handleLogout = () => {
     if (isLoggedIn) {
