@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GoogleLogin, googleLogout } from "@react-oauth/google";
+import InicioSesiónGoogle from "./inicioSesiónGoogle.tsx";
 import "../../styles/inicioSesión.css";
 
-function InicioSesión() {
+function Inicio() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,10 +36,12 @@ function InicioSesión() {
   };
 
   return (
-    <div className="containerInicio">
+   <div>
+        <div className="containerInicio">
       <div className="inicio">
         <h1 className="titleInicio">Inicia sesión con tu cuenta</h1>
         <br />
+   
         <div className="inputContainer">
           <label htmlFor="email">Email</label>
           <input
@@ -49,7 +52,7 @@ function InicioSesión() {
             onChange={handleEmailChange}
           />
         </div>
-        <br />
+     
         <div className="inputContainer passwordContainer">
           <label htmlFor="password">Contraseña</label>
           <input
@@ -67,35 +70,29 @@ function InicioSesión() {
           />
         </div>
         <br />
-        <br />
         <button className="loginButton" onClick={handleEmailLoginWithEmailAndPassword}>
           Acceder
         </button>
         <br />
+        {isLoggedIn && <button onClick={handleLogout}>Logout</button>}
         <br />
-        <div className="botonGoogle">
-          <GoogleOAuthProvider clientId="876703133488-3391b4edgncgv88rvpttbfdob8qc45b2.apps.googleusercontent.com">
-            <GoogleLogin
-              onSuccess={(credentialResponse) => {
-                console.log(credentialResponse);
-                setIsLoggedIn(true);
-              }}
-              onError={() => {
-                console.log("Login Failed");
-              }}
-              useOneTap
-            />
-          </GoogleOAuthProvider>
-          {isLoggedIn && <button onClick={handleLogout}>Logout</button>}
-        </div>
+        <InicioSesiónGoogle/>
         <br />
-        <br />
+        
         <p>
-          ¿No tienes una cuenta? <a href="#">Regístrate aquí</a>.
+          ¿No tienes una cuenta? <a href="/CrearCuenta">Regístrate aquí</a>.
         </p>
       </div>
     </div>
+
+
+
+     
+
+       
+   </div>
+   
   );
 }
 
-export default InicioSesión;
+export default Inicio;

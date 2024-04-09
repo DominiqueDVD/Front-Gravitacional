@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Carousel from '../components/login/carouselInformativo'
-import InicioSesion from '../components/login/inicioSesión'
 import fondo from '../assets/fondoCarousel.jpg'
 import '../styles/login.css'
+import Registro from '../components/login/registro.tsx'
 
-function Login (){
+function CrearCuenta(){
 
 
     return(
@@ -13,7 +13,7 @@ function Login (){
 
             <div className='componenteInputs'>
 
-                    <InicioSesion></InicioSesion>
+                    <Registro></Registro>
 
             </div>
             <div className='componenteCarousel' style={{backgroundImage: `url("${fondo}")`}}>
@@ -29,4 +29,4 @@ function Login (){
     )
 
 }
-export default Login
+export default CrearCuenta
