@@ -7,6 +7,7 @@ import { Tiles3DLoader } from "@loaders.gl/3d-tiles";
 import { WebMercatorViewport } from "@deck.gl/core";
 import { calcularCentroide } from "../components/googleEarth/puntos";
 import logo2 from "../assets/logoDefinitivo.png";
+import isotipo from "../assets/isotipo_color.png";
 import "../styles/vista3d.css";
 
 function GoogleEarthComponent() {
@@ -14,6 +15,7 @@ function GoogleEarthComponent() {
   const [zoom, setZoom] = useState(16); // Valor inicial del zoom
   const urlParams = new URLSearchParams(window.location.search);
   const encodedJsonString = urlParams.get("data");
+
 
   // Decode the parameter value and parse it back into a JSON array
   const jsonString = decodeURIComponent(encodedJsonString);
@@ -25,14 +27,14 @@ function GoogleEarthComponent() {
   console.log(`${centroide.lat},${centroide.lng}`);
 
   const [viewer] = useState(new Viewer());
-  const [ui] = useState(new UI());                                               
+  const [ui] = useState(new UI());
   useEffect(() => {
     // Recuperar el valor del zoom del almacenamiento local al cargar el componente
     const savedZoom = localStorage.getItem("zoom");
     if (savedZoom) {
       setZoom(parseInt(savedZoom));
     }
-    
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -41,7 +43,7 @@ function GoogleEarthComponent() {
     // Almacenar el valor del zoom en el almacenamiento local
     localStorage.setItem("zoom", zoom);
 
-    
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [zoom]);
 
@@ -153,7 +155,7 @@ function GoogleEarthComponent() {
         `==== No tiles found for screen space error ${targetScreenSpaceError}. Getting tiles that are within 2x of ${firstSSEFound} ===`
       );
     }
-
+    document.getElementById("loader").style.display = "flex";
     viewer.loadGLTFTiles(glbUrls, ui.log);
     ui.setDebugSliderVisibility(true);
     ui.updateDebugSliderRange(glbUrls.length);
@@ -236,14 +238,14 @@ function GoogleEarthComponent() {
     setSse(event.target.value);
   };
 
- 
+
 
   const handleZoomChange = (event) => {
     const newZoom = event.target.value;
     setZoom(newZoom);
     const newLatLng = latLng.split(",").map(parseFloat);
     ui.leafletMap.setView(newLatLng, newZoom);
-    
+
     // Almacenar el valor del zoom en el almacenamiento local
     localStorage.setItem("zoom", newZoom);
   };
@@ -275,6 +277,11 @@ function GoogleEarthComponent() {
       ></script>
 
       <script src="../components/rinoCompute/script.js"></script>
+
+      <div id="loader">
+        <img src={isotipo} id="isotipo-loader"></img>
+      </div>
+
 
       <div id="settings">
         <div id="logoGrav">
@@ -322,7 +329,7 @@ function GoogleEarthComponent() {
               max="100"
               value={teselas}
               onChange={handleTeselaChange}
-              // onChange={(e) => handleTileSliderChange(e.target.value)}
+            // onChange={(e) => handleTileSliderChange(e.target.value)}
             ></input>
           </div>
           <div id="map-container">
@@ -390,6 +397,7 @@ function GoogleEarthComponent() {
           </li>
         </ol>
         <center>
+
           <p>
             <a
               href="https://github.com/OmarShehata/google-earth-as-gltf#google-earth-as-gltf-models"
@@ -400,6 +408,9 @@ function GoogleEarthComponent() {
             </a>{" "}
           </p>
         </center>
+
+
+
       </div>
 
       <script type="module" src="/src/index.js"></script>
