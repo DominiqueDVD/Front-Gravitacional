@@ -6,9 +6,10 @@ import "../../styles/inicioSesión.css";
 
 function Contraseña() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
+  const [newPassword, setNewPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showRepeatPassword, setShowRepeatPassword] = useState(false);
 
   const handleLogout = () => {
     if (isLoggedIn) {
@@ -17,72 +18,95 @@ function Contraseña() {
     }
   };
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
+  const handleNewPasswordChange = (event) => {
+    setNewPassword(event.target.value);
   };
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
+  const handleRepeatPasswordChange = (event) => {
+    setRepeatPassword(event.target.value);
   };
 
-  const handleTogglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+  const handleToggleNewPasswordVisibility = () => {
+    setShowNewPassword(!showNewPassword);
   };
 
-  const handleEmailLoginWithEmailAndPassword = () => {
-    // Lógica para iniciar sesión con email y contraseña
-    console.log("Iniciar sesión con email:", email, "Contraseña:", password);
+  const handleToggleRepeatPasswordVisibility = () => {
+    setShowRepeatPassword(!showRepeatPassword);
+  };
+
+  const handleCreateNewPassword = () => {
+    // Verificar que las contraseñas coincidan antes de continuar
+    if (newPassword !== repeatPassword) {
+      alert("Las contraseñas no coinciden");
+      return;
+    }
+  
+    // Expresión regular para validar la contraseña
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  
+    // Verificar si la contraseña cumple con los requisitos
+    if (!passwordRegex.test(newPassword)) {
+      let errorMessage = "La contraseña debe cumplir los siguientes requisitos:\n";
+      errorMessage += "- Al menos una mayúscula\n";
+      errorMessage += "- Al menos un número\n";
+      errorMessage += "- Al menos un carácter especial\n";
+      errorMessage += "- Tener al menos 8 caracteres";
+  
+      alert(errorMessage);
+      return;
+    }
+  
+    // Lógica para crear la nueva contraseña
+    console.log("Nueva contraseña:", newPassword);
     setIsLoggedIn(true);
   };
-
   return (
-   <div>
-        <div className="containerInicio">
+    <div className="containerInicio">
       <div className="inicio">
         <h1 className="titleInicio">Crear nueva contraseña</h1>
         <br />
-   
+
         <div className="inputContainer passwordContainer">
-          <label htmlFor="password">Nueva contraseña</label>
+          <label htmlFor="newPassword">Nueva contraseña</label>
           <input
             id="newPassword"
-            type={showPassword ? "text" : "newPassword"}
+            type={showNewPassword ? "text" : "password"}
             placeholder=""
-            value={password}
-            onChange={handlePasswordChange}
+            value={newPassword}
+            onChange={handleNewPasswordChange}
           />
           <i
             className={`fa ${
-              showPassword ? "fa-eye-slash" : "fa-eye"
+              showNewPassword ? "fa-eye-slash" : "fa-eye"
             } password-icon`}
-            onClick={handleTogglePasswordVisibility}
+            onClick={handleToggleNewPasswordVisibility}
           />
         </div>
-     
+
         <div className="inputContainer passwordContainer">
-          <label htmlFor="password">Repite la contraseña</label>
+          <label htmlFor="repeatPassword">Repite la contraseña</label>
           <input
             id="repeatPassword"
-            type={showPassword ? "text" : "repeatPassword"}
+            type={showRepeatPassword ? "text" : "password"}
             placeholder=""
-            value={password}
-            onChange={handlePasswordChange}
+            value={repeatPassword}
+            onChange={handleRepeatPasswordChange}
           />
           <i
             className={`fa ${
-              showPassword ? "fa-eye-slash" : "fa-eye"
+              showRepeatPassword ? "fa-eye-slash" : "fa-eye"
             } password-icon`}
-            onClick={handleTogglePasswordVisibility}
+            onClick={handleToggleRepeatPasswordVisibility}
           />
         </div>
         <br />
-       
-        <button className="loginButton" onClick={handleEmailLoginWithEmailAndPassword}>
+
+        <button className="loginButton" onClick={handleCreateNewPassword}>
           Crear nueva contraseña
         </button>
         <br />
         {isLoggedIn && <button onClick={handleLogout}>Logout</button>}
-       
+
         <br />
         <p>
           ¿Ya tienes una cuenta? <a href="/">Inicia sesión aquí</a>.
@@ -92,11 +116,6 @@ function Contraseña() {
         </p>
       </div>
     </div>
-
-
-       
-   </div>
-   
   );
 }
 
