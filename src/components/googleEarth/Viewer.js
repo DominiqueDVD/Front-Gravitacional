@@ -10,6 +10,8 @@ export class Viewer {
 			return Viewer.instance;
 		}
 
+		this.loader = document.getElementById('loader');
+
 		const scene = new THREE.Scene();
 		const camera = new THREE.PerspectiveCamera(
 			75,
@@ -68,10 +70,12 @@ export class Viewer {
 		renderer.setSize(window.innerWidth, window.innerHeight);
 	}
 	async loadGLTFTiles(urlArray, logFn) {
+		document.getElementById("loader").style.display = "flex";
 		// Resizing/recentering code inspired by by gltf-viewer
 		// https://github.com/donmccurdy/three-gltf-viewer/blob/de78a07180e4141b0b87a0ff4572bc4f7aafec56/src/viewer.js#L246
 		const { scene, controls, camera } = this;
 		// Remove any previous 3D Tiles we were rendering
+
 		if (this.tilesContainer) {
 			scene.remove(this.tilesContainer);
 			this.tilesContainer = null;
@@ -79,6 +83,7 @@ export class Viewer {
 		const tilesContainer = new THREE.Object3D();
 		// Fetch individual glTF's and add them to the scene
 		const gltfArray = [];
+		
 		for (let i = 0; i < urlArray.length; i++) {
 			const url = urlArray[i];
 			if (logFn) logFn(`Buscando glTF ${i}/${urlArray.length}`);
@@ -86,6 +91,7 @@ export class Viewer {
 			gltfArray.push(gltf);
 			tilesContainer.add(gltf.scene);
 		}
+		document.getElementById("loader").style.display = "none";
 
 		if (logFn)
 			logFn(`Normalizando y uniendo ${urlArray.length} glTFs`);
@@ -149,6 +155,7 @@ const gltfLoader = new GLTFLoader();
 gltfLoader.setDRACOLoader(DRACO_LOADER);
 
 function fetchGltf(url) {
+	// document.getElementById("loader").style.display = "flex";
 	return new Promise((resolve, reject) => {
 		gltfLoader.load(
 			url,
@@ -233,117 +240,117 @@ function exportarModeloGLTF(input, params) {
 async function computarFigura(blob) {
 	console.log("Se llamó a la función computar")
 	const request = {
-		    'method': 'GET',
-		    'headers': {
-		        'Content-Type': 'application/json',
-		        'RhinoComputeKey': process.env.REACT_APP_RHINO_COMPUTE_KEY
-		    }
+		'method': 'GET',
+		'headers': {
+			'Content-Type': 'application/json',
+			'RhinoComputeKey': process.env.REACT_APP_RHINO_COMPUTE_KEY
 		}
-	try{
+	}
+	try {
 		const version = await fetch(process.env.REACT_APP_RHINO_COMPUTE_URL + "/version", request).then(response => {
 			if (!response.ok) {
-			  throw new Error('La respuesta no ha sido OK');
+				throw new Error('La respuesta no ha sido OK');
 			}
 			return response.json();
-		  })
-		  .then(data => {
-			console.log(data);
-		  })
-		  .catch(error => {
-			console.error('Hubo un error buscando los datos:', error);
-		  });
-	}catch(e){
+		})
+			.then(data => {
+				console.log(data);
+			})
+			.catch(error => {
+				console.error('Hubo un error buscando los datos:', error);
+			});
+	} catch (e) {
 		console.log(e)
 	}
 }
 
-	// let t0 = performance.now()
-	// const timeComputeStart = t0
+// let t0 = performance.now()
+// const timeComputeStart = t0
 
-	// // collect data from inputs
-	// let data = {}
-	// data.definition = blob;
-	// data.inputs = {
-    //     'Modelo': blob
-    // }
+// // collect data from inputs
+// let data = {}
+// data.definition = blob;
+// data.inputs = {
+//     'Modelo': blob
+// }
 
-	// console.log(data.inputs)
+// console.log(data.inputs)
 
-	// const request = {
-    //     'method': 'POST',
-    //     'body': JSON.stringify(data),
-    //     'headers': {
-    //         'Content-Type': 'application/json',
-    //         'RhinoComputeKey': process.env.REACT_APP_RHINO_COMPUTE_KEY
-    //     }
-    // }
+// const request = {
+//     'method': 'POST',
+//     'body': JSON.stringify(data),
+//     'headers': {
+//         'Content-Type': 'application/json',
+//         'RhinoComputeKey': process.env.REACT_APP_RHINO_COMPUTE_KEY
+//     }
+// }
 
-	// let headers = null
+// let headers = null
 
-	// try {
-	// 	const response = await fetch('/solve', request)
+// try {
+// 	const response = await fetch('/solve', request)
 
-	// 	if (!response.ok)
-	// 		throw new Error(response.statusText)
+// 	if (!response.ok)
+// 		throw new Error(response.statusText)
 
-	// 	headers = response.headers.get('server-timing')
-	// 	const responseJson = await response.json()
+// 	headers = response.headers.get('server-timing')
+// 	const responseJson = await response.json()
 
-	// 	// collectResults(responseJson)
+// 	// collectResults(responseJson)
 
-	// 	// Request finished. Do processing here.
-	// 	let t1 = performance.now()
-	// 	const computeSolveTime = t1 - timeComputeStart
-	// 	t0 = t1
+// 	// Request finished. Do processing here.
+// 	let t1 = performance.now()
+// 	const computeSolveTime = t1 - timeComputeStart
+// 	t0 = t1
 
-	// 	// hide spinner
-	// 	//document.getElementById('loader').style.display = 'none'
-	// 	//showSpinner(false)
-	// 	//console.log(responseJson.values[0])
-	// 	//let data = JSON.parse(responseJson.values[0].InnerTree['{0}'][0].data)
-	// 	//let mesh = rhino.DracoCompression.decompressBase64String(data)
+// 	// hide spinner
+// document.getElementById('loader').style.display = 'none'
+// showSpinner(false)
+// 	//console.log(responseJson.values[0])
+// 	//let data = JSON.parse(responseJson.values[0].InnerTree['{0}'][0].data)
+// 	//let mesh = rhino.DracoCompression.decompressBase64String(data)
 
-	// 	t1 = performance.now()
-	// 	const decodeMeshTime = t1 - t0
-	// 	t0 = t1
-	// 	/*
-	// 		if (!_threeMaterial) {
-	// 		  _threeMaterial = new THREE.MeshNormalMaterial()
-	// 		}
-		    
-	// 		let threeMesh = meshToThreejs(mesh, _threeMaterial)
-	// 		mesh.delete()
-	// 		replaceCurrentMesh(threeMesh)
-	// 	*/
-	// 	t1 = performance.now()
-	// 	const rebuildSceneTime = t1 - t0
+// 	t1 = performance.now()
+// 	const decodeMeshTime = t1 - t0
+// 	t0 = t1
+// 	/*
+// 		if (!_threeMaterial) {
+// 		  _threeMaterial = new THREE.MeshNormalMaterial()
+// 		}
 
-	// 	//console.group(`[call compute and rebuild scene] = ${Math.round(t1-timeComputeStart)} ms`)
-	// 	//console.log(`[call compute and rebuild scene] = ${Math.round(t1-timeComputeStart)} ms`)
-	// 	console.log(`  ${Math.round(computeSolveTime)} ms: appserver request`)
-	// 	/*
-	// 	let timings = headers.split(',')
-	// 	let sum = 0
-	// 	timings.forEach(element => {
-	// 	  let name = element.split(';')[0].trim()
-	// 	  let time = element.split('=')[1].trim()
-	// 	  sum += Number(time)
-	// 	  if (name === 'network') {
-	// 		console.log(`  .. ${time} ms: appserver<->compute network latency`)
-	// 	  } else {
-	// 		console.log(`  .. ${time} ms: ${name}`)
-	// 	  }
-	// 	})
-	   
-	//    // console.log(`  .. ${Math.round(computeSolveTime - sum)} ms: local<->appserver network latency`)
-	// 	console.log(`  ${Math.round(decodeMeshTime)} ms: decode json to rhino3dm mesh`)
-	// 	console.log(`  ${Math.round(rebuildSceneTime)} ms: create threejs mesh and insert in scene`)
-	// 	 */
-	// 	//console.groupEnd()
+// 		let threeMesh = meshToThreejs(mesh, _threeMaterial)
+// 		mesh.delete()
+// 		replaceCurrentMesh(threeMesh)
+// 	*/
+// 	t1 = performance.now()
+// 	const rebuildSceneTime = t1 - t0
 
-	// } catch (error) {
-	// 	console.error(error)
-	// }
+// 	//console.group(`[call compute and rebuild scene] = ${Math.round(t1-timeComputeStart)} ms`)
+// 	//console.log(`[call compute and rebuild scene] = ${Math.round(t1-timeComputeStart)} ms`)
+// 	console.log(`  ${Math.round(computeSolveTime)} ms: appserver request`)
+// 	/*
+// 	let timings = headers.split(',')
+// 	let sum = 0
+// 	timings.forEach(element => {
+// 	  let name = element.split(';')[0].trim()
+// 	  let time = element.split('=')[1].trim()
+// 	  sum += Number(time)
+// 	  if (name === 'network') {
+// 		console.log(`  .. ${time} ms: appserver<->compute network latency`)
+// 	  } else {
+// 		console.log(`  .. ${time} ms: ${name}`)
+// 	  }
+// 	})
+
+//    // console.log(`  .. ${Math.round(computeSolveTime - sum)} ms: local<->appserver network latency`)
+// 	console.log(`  ${Math.round(decodeMeshTime)} ms: decode json to rhino3dm mesh`)
+// 	console.log(`  ${Math.round(rebuildSceneTime)} ms: create threejs mesh and insert in scene`)
+// 	 */
+// 	//console.groupEnd()
+
+// } catch (error) {
+// 	console.error(error)
+// }
 
 function guardarString(text) {
 	computarFigura(new Blob([text], { type: 'text/plain' }));
