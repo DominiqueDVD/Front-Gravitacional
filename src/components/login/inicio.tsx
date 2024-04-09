@@ -70,6 +70,9 @@ function Inicio() {
           />
         </div>
         <br />
+        <p>
+          <a href="/CambiarContraseña">¿Olvidaste tu contraseña?</a>
+        </p>
         <button className="loginButton" onClick={handleEmailLoginWithEmailAndPassword}>
           Acceder
         </button>
@@ -85,9 +88,6 @@ function Inicio() {
       </div>
     </div>
 
-
-
-     
 
        
    </div>
