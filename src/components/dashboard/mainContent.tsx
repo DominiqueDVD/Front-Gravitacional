@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import '../../styles/dashboard/sb-admin-2.min.css'
-import './vendor/fontawesome-free/css/all.min.css'
+
 import '../../styles/dashboard/dashboard.css'
 import img2 from '../../assets/dashboard/undraw_posting_photo.svg'
 import img3 from '../../assets/dashboard/undraw_profile.svg'

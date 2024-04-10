@@ -45,6 +45,7 @@
     border-style: none;
 }
 #tituloPrincipal{
+    font-size: 26px;
     color: #3C74C3!important;
     margin-left: 1%;
 }
@@ -70,4 +71,11 @@
 }
 h6{
     color:#3C74C3!important;
+}
+
+
+@media screen and (max-width: 600px) {
+    #tituloPrincipal {
+        font-size: 10px;
+    }
 }

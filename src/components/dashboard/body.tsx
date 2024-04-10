@@ -1,7 +1,7 @@
 import React from 'react';
 import MainContent from './mainContent.tsx';
 import '../../styles/dashboard/sb-admin-2.min.css'
-import './vendor/fontawesome-free/css/all.min.css'
+
 import '../../styles/dashboard/dashboard.css'
 import img1 from '../../assets/isotipo_blanco2.png'
 import img2 from '../../assets/Logo_blanco.png'
@@ -151,18 +151,18 @@ function Body() {
             </div>
           </div>
         </div>
-        {/* Bootstrap core JavaScript*/}
+        {/* Bootstrap core JavaScript
         <script src="../../components/dashboard/vendor/jquery/jquery.min.js"></script>
         <script src="../../components/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        {/* Core plugin JavaScript*/}
+        {/* Core plugin JavaScript*
         <script src="../../components/dashboard/vendor/jquery-easing/jquery.easing.min.js"></script>
-        {/* Custom scripts for all pages*/}
+        {/* Custom scripts for all pages*
         <script src="../dashboard/scripts/sb-admin-2.min.jsx"></script>
-        {/* Page level plugins */}
+        {/* Page level plugins 
         <script src="../../components/dashboard/vendor/chart.js/Chart.min.js"></script>
-        {/* Page level custom scripts */}
+        {/* Page level custom scripts 
         <script src="../dashboard/scripts/demo/chart-area-demo.js"></script>
-        <script src="../dashboard/scripts/demo/chart-pie-demo.js"></script>
+        <script src="../dashboard/scripts/demo/chart-pie-demo.js"></script>*/}
       </body>
     </html>
   );
