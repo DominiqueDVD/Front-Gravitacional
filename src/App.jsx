@@ -10,6 +10,7 @@ import PrivateRoute from "./components/login/PrivateRoute.tsx";
 import Dashboard from "./pages/dashboard/Dashboard.tsx";
 import Tutoriales from "./pages/Tutoriales.tsx";
 import { AuthProvider } from "./auth/AuthProvider.tsx";
+import ColorChanger from "./components/accesibilidad/colorChanger.jsx";
 
 
 function App() {
@@ -41,6 +42,8 @@ function App() {
         
       />
     </Routes>
+    <ColorChanger/>
+    
   </BrowserRouter>
   );
 }
