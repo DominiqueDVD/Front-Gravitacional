@@ -53,3 +53,12 @@
     margin: 0px 0px!important;
     width: 100%!important;
   }
+
+  .errorMessage{
+    background: #ffc7c7;
+    color: #951313;
+    padding: 10px;
+    margin-bottom: 5px;
+    font-size: medium;
+    text-align: center;
+  }

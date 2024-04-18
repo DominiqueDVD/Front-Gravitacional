@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { useAuth } from "../../auth/AuthProvider.tsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+
 import { GoogleLogin, googleLogout } from "@react-oauth/google";
+import { Navigate, useNavigate } from "react-router-dom";
 import InicioSesiónGoogle from "./inicioSesiónGoogle.tsx";
 import "../../styles/inicioSesión.css";
-import { Navigate } from "react-router-dom";
+
+import { API_URL } from "../../auth/constants.ts";
+import { AuthResponse, AuthResponseError } from "../../types/types.ts";
 
 function Inicio() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -12,10 +16,9 @@ function Inicio() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const auth = useAuth();
+  const [errorResponse, setErrorResponse] = useState<string>('');
 
-  if (auth.isAuthenticated){
-    return   <Navigate to = "/Dashboard" />
-  }
+  const goTo = useNavigate();
 
   const handleLogout = () => {
     if (isLoggedIn) {
@@ -24,11 +27,11 @@ function Inicio() {
     }
   };
 
-  const handleEmailChange = (event) => {
+  const handleEmailChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
     setEmail(event.target.value);
   };
 
-  const handlePasswordChange = (event) => {
+  const handlePasswordChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
     setPassword(event.target.value);
   };
 
@@ -37,9 +40,78 @@ function Inicio() {
   };
 
   const handleEmailLoginWithEmailAndPassword = () => {
+
     // Lógica para iniciar sesión con email y contraseña
-    console.log("Iniciar sesión con email:", email, "Contraseña:", password);
     setIsLoggedIn(true);
+  };
+  async function handleInicioSesion(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+  
+    if (!email || !password) {
+      alert("Por favor, completa todos los campos.");
+      return;
+    }
+  
+    // Verificar el formato del correo electrónico
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      alert("Por favor, ingresa un correo electrónico válido.");
+      return;
+    }
+  
+    // Validar la contraseña
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    const hasSpecialChar = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(password);
+  
+    if (!hasUpperCase || !hasNumber || !hasSpecialChar || password.length < 8) {
+      let errorMessage = "La contraseña debe cumplir los siguientes requisitos:\n";
+      errorMessage += "- Al menos una mayúscula\n";
+      errorMessage += "- Al menos un número\n";
+      errorMessage += "- Al menos un carácter especial\n";
+      errorMessage += "- Tener al menos 8 caracteres";
+    
+      alert(errorMessage);
+      return;
+    }
+  
+    try {
+      const response = await fetch(`${API_URL}/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+  
+      if (response.ok) {
+        console.log("Inicio de sesión realizado correctamente");
+        setErrorResponse("");
+        const json = (await response.json()) as AuthResponse;
+        if (json.body.accessToken && json.body.refreshToken) {
+            auth.saveUser(json);
+            console.log("Redireccionando a /Dashboard");
+           goTo("/Dashboard");
+        }else{
+          console.log("problemas")
+        }
+    } else {
+        console.log("Algo salió mal");
+        const json = (await response.json()) as AuthResponseError;
+    
+        if (typeof json.body.error === 'string') {
+            setErrorResponse(json.body.error);
+        } else {
+            setErrorResponse('Error desconocido');
+        }
+    }
+  
+    } catch (error){
+      console.log(error);
+    }
+ 
   };
 
   return (
@@ -48,7 +120,12 @@ function Inicio() {
       <div className="inicio">
         <h1 className="titleInicio">Inicia sesión con tu cuenta</h1>
         <br />
-   
+        {
+             !!errorResponse && <div className="errorMessage">
+                {errorResponse}
+             </div>
+            }
+        <form className="form" onSubmit={handleInicioSesion}>
         <div className="inputContainer">
           <label htmlFor="email">Email</label>
           <input
@@ -56,7 +133,7 @@ function Inicio() {
             type="email"
             placeholder=""
             value={email}
-            onChange={handleEmailChange}
+            onChange={(e)=>setEmail(e.target.value)}
           />
         </div>
      
@@ -67,7 +144,7 @@ function Inicio() {
             type={showPassword ? "text" : "password"}
             placeholder=""
             value={password}
-            onChange={handlePasswordChange}
+            onChange={(e)=>setPassword(e.target.value)}
           />
           <i
             className={`fa ${
@@ -83,8 +160,9 @@ function Inicio() {
         <button className="loginButton" onClick={handleEmailLoginWithEmailAndPassword}>
           Acceder
         </button>
+        </form>
         <br />
-        {isLoggedIn && <button onClick={handleLogout}>Logout</button>}
+    
         <br />
         <InicioSesiónGoogle/>
         <br />

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import Carousel from '../components/login/carouselInformativo'
-import Inicio from '../components/login/inicio.tsx'
-import fondo from '../assets/fondoCarousel.jpg'
+import Carousel from '../components/login/carouselInformativo';
+import Inicio from '../components/login/inicio.tsx';
+import Fondo from "../assets/fondoCarousel.jpg";
+
 import '../styles/login.css'
 
 function Login (){
@@ -16,7 +17,7 @@ function Login (){
                     <Inicio></Inicio>
 
             </div>
-            <div className='componenteCarousel' style={{backgroundImage: `url("${fondo}")`}}>
+            <div className='componenteCarousel' style={{backgroundImage: `url("${Fondo}")`}}>
 
 
                     <Carousel></Carousel>

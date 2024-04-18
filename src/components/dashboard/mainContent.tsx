@@ -8,8 +8,31 @@ import img4 from '../../assets/dashboard/undraw_profile_1.svg'
 import img5 from '../../assets/dashboard/undraw_profile_2.svg'
 import img6 from '../../assets/dashboard/undraw_profile_3.svg'
 import img7 from '../../assets/dashboard/iso-2.png'
-function MainContent(){
+import { useAuth } from '../../auth/AuthProvider.tsx'
+import { API_URL } from '../../auth/constants.ts'
 
+
+ function MainContent(){
+    const auth = useAuth();
+    async function handleSignOut(e: React.MouseEvent<HTMLAnchorElement>){
+        e.preventDefault();
+
+        try{
+            const response = await fetch(`${API_URL}/signout`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${auth.getRefreshToken()}`,
+                },
+            });
+
+            if(response.ok){
+                auth.signOut();
+            }
+        }catch(error){
+
+        }
+    }
 
     return(
         <div>
@@ -193,9 +216,10 @@ function MainContent(){
                     <li className="nav-item dropdown no-arrow">
                         <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span className="mr-2 d-none d-lg-inline text-gray-600 small">Usuario Gravitacional</span>
+                            <span className="mr-2 d-none d-lg-inline text-gray-600 small">{auth.getUser()?.username || ""}</span>
                             <img className="img-profile rounded-circle"
                                 src={img3} />
+                            <button onClick={handleSignOut}>Cerrar Sesión</button>
                         </a>
                         {/*<!-- Dropdown - User Information -->*/}
                         <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
