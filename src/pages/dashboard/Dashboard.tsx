@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react'
 
 import Body from '../../components/dashboard/body.tsx'
-
+import ColorCharger from '../../components/accesibilidad/colorChanger.jsx'
 function Dashboard(){
 
 
     return(
       <div>
-        <Body></Body>
+         <ColorCharger/>
+        <Body>
+        
+        </Body>
       </div>
     );
   }
