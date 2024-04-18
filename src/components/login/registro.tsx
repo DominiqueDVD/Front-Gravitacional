@@ -31,15 +31,15 @@ function Registro() {
     }
   };
 
-  const handleEmailChange = (event) => {
+  const handleEmailChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
     setEmail(event.target.value);
   };
 
-  const handlePasswordChange = (event) => {
+  const handlePasswordChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
     setPassword(event.target.value);
   };
 
-  const handleNombreChange = (event) => {
+  const handleNombreChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
     setUserName(event.target.value);
   };
 

@@ -7,7 +7,7 @@ interface AuthProviderProps {
 }
 
 const AuthContext = createContext({
-    isAuthenticated: true,
+    isAuthenticated: false,
     getAccessToken: () => {},
     saveUser: (userData: AuthResponse) => {},
     getRefreshToken: () => {},
@@ -16,7 +16,7 @@ const AuthContext = createContext({
 });
 
 export function AuthProvider({ children }: AuthProviderProps) {
-    const [isAuthenticated, setIsAuhenticated] = useState(true);
+    const [isAuthenticated, setIsAuhenticated] = useState(false);
     const [accessToken, setAccessToken] = useState<string>("");
     const [user, setUser] = useState<User>();
 
