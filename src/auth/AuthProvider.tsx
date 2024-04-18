@@ -8,15 +8,15 @@ interface AuthProviderProps {
 
 const AuthContext = createContext({
     isAuthenticated: false,
-    getAccessToken: () => {},
-    saveUser: (userData: AuthResponse) => {},
-    getRefreshToken: () => {},
+    getAccessToken: () => { },
+    saveUser: (userData: AuthResponse) => { },
+    getRefreshToken: () => { },
     getUser: () => ({} as User | undefined),
-    signOut: () => {},
+    signOut: () => { },
 });
 
 export function AuthProvider({ children }: AuthProviderProps) {
-    const [isAuthenticated, setIsAuhenticated] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [accessToken, setAccessToken] = useState<string>("");
     const [user, setUser] = useState<User>();
 
@@ -91,8 +91,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
         }
     }
 
-    function signOut(){
-        setIsAuhenticated(false);
+    function signOut() {
+        setIsAuthenticated(false);
         setAccessToken("");
         setUser(undefined);
         localStorage.removeItem("token");
@@ -100,9 +100,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
 
     function saveSessionInfo(userInfo: User, accessToken: string, refreshToken: string) {
+        
         setAccessToken(accessToken);
         localStorage.setItem("token", refreshToken);
-        setIsAuhenticated(true);
+        setIsAuthenticated(true);
         setUser(userInfo);
     }
 
@@ -126,13 +127,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
 
     function saveUser(userData: AuthResponse) {
+        console.log("Save User");
         saveSessionInfo(
             userData.body.user,
             userData.body.accessToken,
             userData.body.refreshToken,
         );
     }
-     function getUser(){
+    function getUser() {
         return user;
     }
     return (

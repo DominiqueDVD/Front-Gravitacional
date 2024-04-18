@@ -30,7 +30,7 @@ import { API_URL } from '../../auth/constants.ts'
                 auth.signOut();
             }
         }catch(error){
-
+            console.log(error);
         }
     }
 
