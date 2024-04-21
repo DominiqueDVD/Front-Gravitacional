@@ -10,6 +10,7 @@ import PrivateRoute from "./components/login/PrivateRoute.tsx";
 import Dashboard from "./pages/dashboard/Dashboard.tsx";
 import Tutoriales from "./pages/Tutoriales.tsx";
 import { AuthProvider } from "./auth/AuthProvider.tsx";
+import Blog from "./components/Blog/blog.tsx"
 import ColorChanger from "./components/accesibilidad/colorChanger.jsx";
 
 
@@ -20,7 +21,7 @@ function App() {
       <Route path="/" element={<Login />} />
       <Route path="/CrearCuenta" element={<CrearCuenta />} />
       <Route path="/CambiarContraseña" element={<CambioContraseña />} />
-
+      <Route path="/blog" element={<Blog />} />
       <Route path="/Tutoriales" element={<Tutoriales />} />
       <Route
         path="/"
