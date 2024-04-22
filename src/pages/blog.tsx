@@ -6,6 +6,7 @@ import { API_URL } from "../auth/constants.ts";
 import { Grid, Button, } from '@mui/material'; 
 import SliderComponent from '../components/Blog/slider.tsx';
 import '../styles/blog.css';
+
 import { Link } from 'react-router-dom';
 import img3 from '../assets/dashboard/undraw_profile_3.svg'
 

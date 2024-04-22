@@ -11,6 +11,7 @@ import Dashboard from "./pages/dashboard/Dashboard.tsx";
 import Tutoriales from "./pages/Tutoriales.tsx";
 import { AuthProvider } from "./auth/AuthProvider.tsx";
 import Blog from "./pages/blog.tsx"
+import Foro from "./pages/foro.tsx"
 import PostDetails from "./components/Blog/postDetails.tsx"
 import ColorChanger from "./components/accesibilidad/colorChanger.jsx";
 
@@ -25,7 +26,7 @@ function App() {
       <Route path="/blog" element={<Blog />} />
       <Route path="/Tutoriales" element={<Tutoriales />} />
       <Route path="/PostDetails" element={<PostDetails />} />
- 
+      <Route path="/foro" element={<Foro />} />
       <Route
         path="/"
         element={<PrivateRoute />}
