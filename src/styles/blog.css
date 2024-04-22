@@ -1,95 +1,75 @@
-/* Estilos generales */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f8f8;
-    color: #000;
-    margin: 0;
-    padding: 0;
+.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary.MuiButton-sizeMedium.MuiButton-textSizeMedium.MuiButton-colorPrimary.MuiButton-root.MuiButton-text.MuiButton-textPrimary.MuiButton-sizeMedium.MuiButton-textSizeMedium.MuiButton-colorPrimary.new-post-btn.css-1e6y48t-MuiButtonBase-root-MuiButton-root{
+    background: #3C74C3;
+    color:white;
   }
-  
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+  .button-container{
+    display: flex;
+    gap: 20px;
   }
-  
-  /* Estilos del post */
-  .card {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    transition: box-shadow 0.3s ease;
-  }
-  
-  .card:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .card-content {
-    padding: 20px;
-  }
-  
-  .card-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .card-body {
-    font-size: 1rem;
-    line-height: 1.6;
-  }
-  
-  .card-image {
-    width: 100%;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-  }
-  
-  /* Estilos del botón flotante */
-  .floating-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-  }
-  
-  /* Estilos del modal */
-  .modal {
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 20px;
-  }
-  
-  .modal-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  
-  .modal-input {
-    width: 100%;
-    margin-bottom: 20px;
-  }
-  
-  .modal-actions {
-    margin-top: 20px;
-    text-align: right;
-  }
-  
-  /* Estilos del botón en el modal */
-  .modal-button {
-    margin-left: 10px;
-    background-color: #67c87f; /* Color primario */
-    color: #ffffff;
-    border: none;
+  .miPerfil{
+    background-color: #3C74C3;
+    color: white;
     border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    border-style: none;
+  }
+ /* Estilos para el contenedor principal del feed */
+.feed-container {
+    margin: 20px auto; /* Margen para centrar el contenido */
+    max-width: 1200px; /* Ancho máximo del contenedor */
+    padding-top: 150px;
   }
   
-  .modal-button:hover {
-    background-color: #3c74c3; /* Color secundario */
+  /* Estilos para el contenedor del slider */
+  .slider-container {
+    background: #F1F2F7;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 15px;
+    position: absolute;
+    width: 100%;
+    margin-top: -20px;
   }
   
+  /* Estilos para el contenedor del slider de historias */
+  .story-slider {
+    display: flex; /* Mostrar las imágenes en línea */
+    align-items: center; /* Alinear verticalmente al centro */
+  }
+  
+  /* Estilos para las imágenes del slider */
+  .story-slider img {
+    width: 80px; /* Tamaño de las imágenes */
+    height: 80px;
+    border-radius: 50%; /* Forma circular */
+    margin-right: 10px; /* Espacio entre imágenes */
+  }
+  
+  /* Estilos para el contenedor del botón de nueva publicación */
+  .button-container {
+    margin-left: auto; /* Mover el botón a la derecha */
+  }
+  .css-bhp9pd-MuiPaper-root-MuiCard-root {
+    height: 600px;
+  }
+  .css-o69gx8-MuiCardMedia-root {
+    height: 400px;
+  }
+  .MuiCardContent-root.css-46bh2p-MuiCardContent-root{
+    display: block;
+    margin: auto;
+    text-align: justify;
+  }
+.blog-container{
+    background-image: url("../assets/fondoCarousel.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+.rounded-circle2{
+    position: absolute;
+    margin-top: -30px;
+    width: 50px;
+}

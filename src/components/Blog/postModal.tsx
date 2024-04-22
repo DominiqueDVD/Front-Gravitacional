@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField } from '@mui/material'; // Importamos componentes de Material-UI
+import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField } from '@mui/material';
 import axios from 'axios';
 import { API_URL } from "../../auth/constants.ts";
-import '../../styles/blog.css'
+import '../../styles/blog.css';
+
 const PostModal: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');
@@ -15,18 +16,17 @@ const PostModal: React.FC = () => {
 
   const handlePost = async () => {
     try {
-        const response = await axios.post(`${API_URL}/blog`, { title, content, image });
-
-        console.log('Post creado con éxito:', response.data);
-        handleClose();
+      const response = await axios.post(`${API_URL}/blog`, { title, content, image });
+      console.log('Post creado con éxito:', response.data);
+      handleClose();
     } catch (error) {
-        console.error('Error al crear el post:', error);
+      console.error('Error al crear el post:', error);
     }
-};
+  };
 
   return (
     <div>
-      <Button onClick={() => setOpen(true)}>+</Button>
+      <Button className="new-post-btn" onClick={() => setOpen(true)}>Nueva Publicación</Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Crear nueva publicación</DialogTitle>
         <DialogContent>
@@ -59,7 +59,7 @@ const PostModal: React.FC = () => {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Calcelar</Button>
+          <Button onClick={handleClose}>Cancelar</Button>
           <Button onClick={handlePost}>Publicar</Button>
         </DialogActions>
       </Dialog>
