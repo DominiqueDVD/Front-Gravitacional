@@ -1,147 +1,163 @@
 import React, { useContext, createContext, useState, useEffect } from "react";
 import type { AuthResponse, AccessTokenResponse, User } from "../types/types";
 import { API_URL } from "../auth/constants.ts";
+import requestNewAccessToken from "./requestNewAccessToken.ts";
+
+const AuthContext = createContext({
+    isAuthenticated: false,
+    getAccessToken: () => { },
+    setAccessTokenAndRefreshToken: (
+        _accessToken: string,
+        _refreshToken: string
+    ) => { },
+    getRefreshToken: () => { },
+    saveUser: (_userData: AuthResponse) => { },
+    getUser: () => ({} as User | undefined),
+    signout: () => { },
+});
 
 interface AuthProviderProps {
     children: React.ReactNode;
 }
 
-const AuthContext = createContext({
-    isAuthenticated: true,
-    getAccessToken: () => { },
-    saveUser: (userData: AuthResponse) => { },
-    getRefreshToken: () => { },
-    getUser: () => ({} as User | undefined),
-    signOut: () => { },
-});
-
 export function AuthProvider({ children }: AuthProviderProps) {
-    const [isAuthenticated, setIsAuthenticated] = useState(true);
+    const [user, setUser] = useState<User | undefined>();
     const [accessToken, setAccessToken] = useState<string>("");
-    const [user, setUser] = useState<User>();
-
-    useEffect(() => {
-        checkAuth();
-    }, []);
-
-    async function requestNewAccessToken(refresToken: string) {
-        try {
-            const response = await fetch(`${API_URL}/refresh-token`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${refresToken}`,
-                },
-            });
-
-            if (response.ok) {
-                const json = await response.json() as AccessTokenResponse;
-                if (json.error) {
-                    throw new Error(json.error);
-                }
-                return json.body.accessToken;
-            } else {
-                throw new Error(response.statusText);
-            }
-        } catch (error) {
-            console.log(error);
-            return null;
-        }
-    }
-
-    async function getUserInfo(accessToken: string) {
-        try {
-            const response = await fetch(`${API_URL}/user`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            });
-
-            if (response.ok) {
-                const json = await response.json();
-                if (json.error) {
-                    throw new Error(json.error);
-                }
-                return json.body;
-            } else {
-                throw new Error(response.statusText);
-            }
-        } catch (error) {
-            console.log(error);
-            return null;
-        }
-    }
-
-    async function checkAuth() {
-        if (accessToken) {
-            // Aquí puedes agregar lógica adicional si es necesario
-        } else {
-            const token = getRefreshToken();
-            if (token) {
-                const newAccessToken = await requestNewAccessToken(token);
-                if (newAccessToken) {
-                    const userInfo = await getUserInfo(newAccessToken);
-                    if (userInfo) {
-                        saveSessionInfo(userInfo, newAccessToken, token);
-                    }
-                }
-            }
-        }
-    }
-
-    function signOut() {
-        setIsAuthenticated(false);
-        setAccessToken("");
-        setUser(undefined);
-        localStorage.removeItem("token");
-    }
-
-
-    function saveSessionInfo(userInfo: User, accessToken: string, refreshToken: string) {
-        
-        setAccessToken(accessToken);
-        localStorage.setItem("token", refreshToken);
-        setIsAuthenticated(true);
-        setUser(userInfo);
-    }
+    const [refreshToken, setRefreshToken] = useState<string>("");
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isloading, setIsLoading] = useState(true);
 
     function getAccessToken() {
         return accessToken;
     }
 
-    function getRefreshToken(): string | null {
-        const tokenData = localStorage.getItem("token");
-        if (tokenData) {
-            try {
-                const token = JSON.parse(tokenData);
-                return token;
-            } catch (error) {
-                console.error("Error parsing token data:", error);
-                localStorage.removeItem("token");
-                return null;
-            }
+    function saveUser(userData: AuthResponse) {
+        console.log("Save user");
+        setAccessTokenAndRefreshToken(
+            userData.body.accessToken,
+            userData.body.refreshToken
+        );
+        setUser(userData.body.user);
+        setIsAuthenticated(true);
+    }
+
+    function setAccessTokenAndRefreshToken(
+        accessToken: string,
+        refreshToken: string
+    ) {
+        console.log("setAccessTokenAndRefreshToken", accessToken, refreshToken);
+        setAccessToken(accessToken);
+        setRefreshToken(refreshToken);
+
+        localStorage.setItem("token", JSON.stringify({ refreshToken }));
+    }
+
+    function getRefreshToken() {
+        if (!!refreshToken) {
+            return refreshToken;
+        }
+        const token = localStorage.getItem("token");
+        if (token) {
+            const { refreshToken } = JSON.parse(token);
+            setRefreshToken(refreshToken);
+            return refreshToken;
         }
         return null;
     }
 
-    function saveUser(userData: AuthResponse) {
-        console.log("Save User");
-        saveSessionInfo(
-            userData.body.user,
-            userData.body.accessToken,
-            userData.body.refreshToken,
-        );
+    async function getNewAccessToken(refreshToken: string) {
+        const token = await requestNewAccessToken(refreshToken);
+        if (token) {
+            return token;
+        }
     }
-    function getUser() {
+
+    function getUser(): User | undefined {
         return user;
     }
+
+    function signout() {
+        localStorage.removeItem("token");
+        setAccessToken("");
+        setRefreshToken("");
+        setUser(undefined);
+        setIsAuthenticated(false);
+    }
+
+    async function checkAuth() {
+        try {
+            if (!!accessToken) {
+                //existe access token
+                const userInfo = await retrieveUserInfo(accessToken);
+                setUser(userInfo);
+                setAccessToken(accessToken);
+                setIsAuthenticated(true);
+                setIsLoading(false);
+            } else {
+                //no existe access token
+                const token = localStorage.getItem("token");
+                if (token) {
+                    console.log("useEffect: token", token);
+                    const refreshToken = JSON.parse(token).refreshToken;
+                    //pedir nuevo access token
+                    getNewAccessToken(refreshToken)
+                        .then(async (newToken) => {
+                            const userInfo = await retrieveUserInfo(newToken!);
+                            setUser(userInfo);
+                            setAccessToken(newToken!);
+                            setIsAuthenticated(true);
+                            setIsLoading(false);
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                            setIsLoading(false);
+                        });
+                } else {
+                    setIsLoading(false);
+                }
+            }
+        } catch (error) {
+            setIsLoading(false);
+        }
+    }
+
+    useEffect(() => {
+        checkAuth();
+    }, []);
+
     return (
-        <AuthContext.Provider value={{ isAuthenticated, getAccessToken, saveUser, getRefreshToken, getUser, signOut }}>
-            {children}
+        <AuthContext.Provider
+            value={{
+                isAuthenticated,
+                getAccessToken,
+                setAccessTokenAndRefreshToken,
+                getRefreshToken,
+                saveUser,
+                getUser,
+                signout,
+            }}
+        >
+            {isloading ? <div>Loading...</div> : children}
         </AuthContext.Provider>
     );
+}
+
+async function retrieveUserInfo(accessToken: string) {
+    try {
+        const response = await fetch(`${API_URL}/user`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
+
+        if (response.ok) {
+            const json = await response.json();
+            console.log(json);
+            return json.body;
+        }
+    } catch (error) { }
 }
 
 export const useAuth = () => useContext(AuthContext);

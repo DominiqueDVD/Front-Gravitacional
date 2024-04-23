@@ -10,10 +10,12 @@ import img6 from '../../assets/dashboard/undraw_profile_3.svg'
 import img7 from '../../assets/dashboard/iso-2.png'
 import { useAuth } from '../../auth/AuthProvider.tsx'
 import { API_URL } from '../../auth/constants.ts'
+import { useNavigate } from 'react-router-dom'
 
 
  function MainContent(){
     const auth = useAuth();
+    const goTo = useNavigate();
     async function handleSignOut(e: React.MouseEvent<HTMLAnchorElement>){
         e.preventDefault();
 
@@ -28,6 +30,7 @@ import { API_URL } from '../../auth/constants.ts'
 
             if(response.ok){
                 auth.signOut();
+                goTo("/");
             }
         }catch(error){
             console.log(error);

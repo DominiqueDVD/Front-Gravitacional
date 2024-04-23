@@ -47,73 +47,61 @@ function Inicio() {
   async function handleInicioSesion(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    if (!email || !password) {
-      alert("Por favor, completa todos los campos.");
-      return;
-    }
+    // if (!email || !password) {
+    //   alert("Por favor, completa todos los campos.");
+    //   return;
+    // }
 
-    // Verificar el formato del correo electrónico
-    if (!/\S+@\S+\.\S+/.test(email)) {
-      alert("Por favor, ingresa un correo electrónico válido.");
-      return;
-    }
+    // // Verificar el formato del correo electrónico
+    // if (!/\S+@\S+\.\S+/.test(email)) {
+    //   alert("Por favor, ingresa un correo electrónico válido.");
+    //   return;
+    // }
 
-    // Validar la contraseña
-    const hasUpperCase = /[A-Z]/.test(password);
-    const hasNumber = /[0-9]/.test(password);
-    const hasSpecialChar = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(password);
+    // // Validar la contraseña
+    // const hasUpperCase = /[A-Z]/.test(password);
+    // const hasNumber = /[0-9]/.test(password);
+    // const hasSpecialChar = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(password);
 
-    if (!hasUpperCase || !hasNumber || !hasSpecialChar || password.length < 8) {
-      let errorMessage = "La contraseña debe cumplir los siguientes requisitos:\n";
-      errorMessage += "- Al menos una mayúscula\n";
-      errorMessage += "- Al menos un número\n";
-      errorMessage += "- Al menos un carácter especial\n";
-      errorMessage += "- Tener al menos 8 caracteres";
+    // if (!hasUpperCase || !hasNumber || !hasSpecialChar || password.length < 8) {
+    //   let errorMessage = "La contraseña debe cumplir los siguientes requisitos:\n";
+    //   errorMessage += "- Al menos una mayúscula\n";
+    //   errorMessage += "- Al menos un número\n";
+    //   errorMessage += "- Al menos un carácter especial\n";
+    //   errorMessage += "- Tener al menos 8 caracteres";
 
-      alert(errorMessage);
-      return;
-    }
+    //   alert(errorMessage);
+    //   return;
+    // }
 
     try {
       const response = await fetch(`${API_URL}/login`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
       });
-
       if (response.ok) {
-        console.log("Inicio de sesión realizado correctamente");
-        setErrorResponse("");
         const json = (await response.json()) as AuthResponse;
+        console.log(json);
+
         if (json.body.accessToken && json.body.refreshToken) {
-          console.log(json);
           auth.saveUser(json);
-          console.log("Redireccionando a /Dashboard");
-          goTo("/Dashboard");
-        } else {
-          console.log("problemas")
         }
       } else {
-        console.log("Algo salió mal");
         const json = (await response.json()) as AuthResponseError;
 
-        if (typeof json.body.error === 'string') {
-          setErrorResponse(json.body.error);
-        } else {
-          setErrorResponse('Error desconocido');
-        }
+        setErrorResponse(json.body.error);
       }
-
     } catch (error) {
       console.log(error);
-    }
 
+    }
+    if (auth.isAuthenticated) {
+      goTo("/Dashboard");
+    }
   };
+
+
 
   return (
     <div>
