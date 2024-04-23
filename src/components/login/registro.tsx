@@ -168,7 +168,7 @@ function Registro() {
           </div>
           <br />
           <button className="loginButton">
-            Acceder
+            Registrarse
           </button>
           </form>
           <br />
