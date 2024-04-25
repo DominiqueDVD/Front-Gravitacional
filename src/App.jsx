@@ -15,7 +15,6 @@ import Foro from "./pages/foro.tsx"
 import PostDetails from "./components/Blog/postDetails.tsx"
 import ColorChanger from "./components/accesibilidad/colorChanger.jsx";
 
-
 function App() {
   return (
 <BrowserRouter>
@@ -53,14 +52,12 @@ function App() {
   );
 }
 
-ReactDOM.render(
-  <React.StrictMode>
-    <AuthProvider>
-      <App />
-    </AuthProvider>
+// ReactDOM.render(
+//   <React.StrictMode>
+//       <App />
    
-  </React.StrictMode>,
-  document.getElementById("root")
-);
+//   </React.StrictMode>,
+//   document.getElementById("root")
+// );
 
 export default App;

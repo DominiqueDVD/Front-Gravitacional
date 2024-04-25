@@ -10,6 +10,10 @@ import "../../styles/inicioSesión.css";
 import { API_URL } from "../../auth/constants.ts";
 import { AuthResponse, AuthResponseError } from "../../types/types.ts";
 
+import LoginButton from "./LoginButton.js";
+
+import { useAuth0 } from "@auth0/auth0-react"
+
 function Inicio() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
@@ -18,7 +22,11 @@ function Inicio() {
   const auth = useAuth();
   const [errorResponse, setErrorResponse] = useState<string>('');
 
+  const { user, isAuthenticated } = useAuth0();
+
   const goTo = useNavigate();
+
+  console.log(isAuthenticated, user?.name, user?.email);
 
   const handleLogout = () => {
     if (isLoggedIn) {
@@ -107,6 +115,7 @@ function Inicio() {
     <div>
       <div className="containerInicio">
         <div className="inicio">
+          
           <h1 className="titleInicio">Inicia sesión con tu cuenta</h1>
           <br />
           {
@@ -158,6 +167,8 @@ function Inicio() {
           <p>
             ¿No tienes una cuenta? <a href="/CrearCuenta">Regístrate aquí</a>.
           </p>
+
+          <LoginButton />
         </div>
       </div>
 

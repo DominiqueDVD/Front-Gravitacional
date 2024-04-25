@@ -8,12 +8,21 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { Auth0Provider } from "@auth0/auth0-react";
+
+const domain = process.env.REACT_APP_AUTH0_DOMAIN;
+const clientId = process.env.REACT_APP_CLIENT_ID
+
+console.log(domain, clientId);
 
 ReactDOM.render(
   <React.StrictMode>
     {/* Envuelve tu App con el Provider de Redux */}
     <Provider store={store}>
-      <App />
+      <Auth0Provider domain={domain} clientId={clientId} redirectUri={window.location.origin}>
+
+        <App />
+      </Auth0Provider>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
