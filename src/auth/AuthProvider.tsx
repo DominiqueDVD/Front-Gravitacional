@@ -4,7 +4,7 @@ import { API_URL } from "../auth/constants.ts";
 import requestNewAccessToken from "./requestNewAccessToken.ts";
 
 const AuthContext = createContext({
-    isAuthenticated: false,
+    isAuthenticated: true,
     getAccessToken: () => { },
     setAccessTokenAndRefreshToken: (
         _accessToken: string,
