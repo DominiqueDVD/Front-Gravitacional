@@ -20,7 +20,6 @@ ReactDOM.render(
     {/* Envuelve tu App con el Provider de Redux */}
     <Provider store={store}>
       <Auth0Provider domain={domain} clientId={clientId} redirectUri={window.location.origin}>
-
         <App />
       </Auth0Provider>
     </Provider>
