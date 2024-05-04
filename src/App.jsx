@@ -8,12 +8,14 @@ import CambioContraseña from "./pages/CambioContraseña.tsx";
 import Modelo3d from "./pages/vistaModelo3D.jsx"
 import PrivateRoute from "./components/login/PrivateRoute.tsx";
 import Dashboard from "./pages/dashboard/Dashboard.tsx";
+import AdminDashboard from "./pages/dashboard/AdminDashboard.tsx";
 import Tutoriales from "./pages/Tutoriales.tsx";
 import { AuthProvider } from "./auth/AuthProvider.tsx";
 import Blog from "./pages/blog.tsx"
 import Foro from "./pages/foro.tsx"
 import PostDetails from "./components/Blog/postDetails.tsx"
 import ColorChanger from "./components/accesibilidad/colorChanger.jsx";
+
 
 function App() {
   return (
@@ -25,6 +27,7 @@ function App() {
       <Route path="/blog" element={<Blog />} />
       <Route path="/Tutoriales" element={<Tutoriales />} />
       <Route path="/PostDetails" element={<PostDetails />} />
+      <Route path="/AdminDash" element={<AdminDashboard />} />
       <Route path="/foro" element={<Foro />} />
       <Route
         path="/"
