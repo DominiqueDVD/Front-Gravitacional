@@ -97,7 +97,7 @@ function MainContent() {
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span className="mr-2 d-none d-lg-inline text-gray-600 small">{user?.name || ""}</span>
                                 <img className="img-profile rounded-circle"
-                                    src={img3} />
+                                    src={user?.picture} /> 
                                 {/* <button onClick={handleSignOut}>Cerrar Sesión</button> */}
                                 <LogoutButton />
                             </a>
