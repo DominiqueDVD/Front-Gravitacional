@@ -12,33 +12,39 @@ import { useAuth0 } from "@auth0/auth0-react"
 
 import LogoutButton from '../login/LogoutButton.js'
 
+import Loader from '../usabilidad/Loader.jsx';
+
 function MainContent() {
 
-    const { user, isAuthenticated } = useAuth0();
+    const { user, isAuthenticated, isLoading } = useAuth0();
+
+    
 
     const auth = useAuth();
     const goTo = useNavigate();
-    async function handleSignOut(e: React.MouseEvent<HTMLAnchorElement>) {
-        e.preventDefault();
+    // async function handleSignOut(e: React.MouseEvent<HTMLAnchorElement>) {
+    //     e.preventDefault();
 
-        try {
-            const response = await fetch(`${API_URL}/signout`, {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${auth.getRefreshToken()}`,
-                },
-            });
+    //     try {
+    //         const response = await fetch(`${API_URL}/signout`, {
+    //             method: "DELETE",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 Authorization: `Bearer ${auth.getRefreshToken()}`,
+    //             },
+    //         });
 
-            if (response.ok) {
-                auth.signOut();
-                goTo("/");
-            }
-        } catch (error) {
-            console.log(error);
-        }
+    //         if (response.ok) {
+    //             auth.signOut();
+    //             goTo("/");
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
+    if (isLoading) {
+        return <div><Loader/></div>;
     }
-
     return (
         <div>
             {/*<!-- Main Content -->*/}
@@ -91,7 +97,7 @@ function MainContent() {
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span className="mr-2 d-none d-lg-inline text-gray-600 small">{user?.name || ""}</span>
                                 <img className="img-profile rounded-circle"
-                                    src={img3} />
+                                    src={user?.picture} /> 
                                 {/* <button onClick={handleSignOut}>Cerrar Sesión</button> */}
                                 <LogoutButton />
                             </a>
