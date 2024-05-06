@@ -11,8 +11,11 @@ import { API_URL } from "../../auth/constants.ts";
 import { AuthResponse, AuthResponseError } from "../../types/types.ts";
 
 import LoginButton from "./LoginButton.js";
+import SignUpButton from "./SignUpButton.js";
 
 import { useAuth0 } from "@auth0/auth0-react"
+
+import Loader from '../usabilidad/Loader.jsx';
 
 function Inicio() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -22,7 +25,7 @@ function Inicio() {
   const auth = useAuth();
   const [errorResponse, setErrorResponse] = useState<string>('');
 
-  const { user, isAuthenticated } = useAuth0();
+  const { user, isAuthenticated, isLoading } = useAuth0();
 
   const goTo = useNavigate();
 
@@ -109,8 +112,12 @@ function Inicio() {
     }
   };
 
-
-
+  if (isAuthenticated) {
+    goTo("/Dashboard");
+  }
+  if (isLoading) {
+    return <div><Loader/></div>;
+}
   return (
     <div>
       <div className="containerInicio">
@@ -118,7 +125,7 @@ function Inicio() {
           
           <h1 className="titleInicio">Inicia sesión con tu cuenta</h1>
           <br />
-          {
+          {/* {
             !!errorResponse && <div className="errorMessage">
               {errorResponse}
             </div>
@@ -166,9 +173,12 @@ function Inicio() {
 
           <p>
             ¿No tienes una cuenta? <a href="/CrearCuenta">Regístrate aquí</a>.
-          </p>
+          </p> */}
 
           <LoginButton />
+          <br/>
+          <br/>
+          <SignUpButton />
         </div>
       </div>
 
