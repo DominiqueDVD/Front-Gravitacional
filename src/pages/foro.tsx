@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { TextField, Button, Card, CardContent, Typography } from '@mui/material';
+import { TextField, Button, Card, CardContent, Typography, Checkbox, FormControlLabel } from '@mui/material'; // Importa Checkbox y FormControlLabel
 import { API_URL } from "../auth/constants.ts";
 import '../styles/foro.css';
 
 const ForoPage = () => {
   const [aportes, setAportes] = useState([]);
   const [nuevoAporte, setNuevoAporte] = useState('');
+  const [esPregunta, setEsPregunta] = useState(false); // Estado para el checkbox
   const [nuevosComentarios, setNuevosComentarios] = useState({});
 
   useEffect(() => {
@@ -24,8 +25,9 @@ const ForoPage = () => {
 
   const handleAporteSubmit = async () => {
     try {
-      await axios.post(`${API_URL}/foro`, { contenido: nuevoAporte });
+      await axios.post(`${API_URL}/foro`, { contenido: nuevoAporte, tipo: esPregunta ? 'pregunta' : 'comentario' }); // Incluye el tipo en la solicitud
       setNuevoAporte('');
+      setEsPregunta(false); // Resetea el estado del checkbox
       fetchAportes();
     } catch (error) {
       console.error('Error submitting aporte:', error);
@@ -59,6 +61,10 @@ const ForoPage = () => {
           variant="outlined"
           value={nuevoAporte}
           onChange={(e) => setNuevoAporte(e.target.value)}
+        />
+        <FormControlLabel // Agrega el checkbox
+          control={<Checkbox checked={esPregunta} onChange={(e) => setEsPregunta(e.target.checked)} />}
+          label="Es una pregunta"
         />
         <Button variant="contained" onClick={handleAporteSubmit}>Enviar publicación</Button>
       </div>

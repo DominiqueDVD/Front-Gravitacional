@@ -7,12 +7,44 @@ import img7 from '../../assets/dashboard/iso-2.png'
 import { useAuth } from '../../auth/AuthProvider.tsx'
 import { API_URL } from '../../auth/constants.ts'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
+import CommentForm from '../Foro/commentForm.tsx'
+import CommentList from '../Foro/commentList.tsx'
 import GridDePublicaciones from '../gridPublicaciones.tsx'
 
 function MainContent() {
     const auth = useAuth();
     const goTo = useNavigate();
     const [posts, setPosts] = useState([]);
+    const [preguntas, setPreguntas] = useState([]);
+    const [esPregunta, setEsPregunta] = useState(false);
+
+    useEffect(() => {
+        async function fetchPreguntas() {
+            try {
+                const response = await axios.get(`${API_URL}/foro`);
+                if (response.status === 200) {
+                    const data = response.data.filter(aporte => aporte.tipo === 'pregunta');
+                    setPreguntas(data);
+                } else {
+                    console.error('Error fetching preguntas:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error fetching preguntas:', error);
+            }
+        }
+
+        fetchPreguntas();
+    }, []);
+
+    const handleComentarioSubmit = async (id, comentario) => {
+        try {
+            await axios.post(`${API_URL}/foro/${id}/comentarios`, { contenido: comentario });
+            fetchPreguntas();
+        } catch (error) {
+            console.error('Error submitting comentario:', error);
+        }
+    };
 
     useEffect(() => {
         async function fetchPosts() {
@@ -28,12 +60,12 @@ function MainContent() {
                 console.error('Error fetching posts:', error);
             }
         }
-        
+
         fetchPosts();
     }, []);
 
 
-    async function handleSignOut(e: React.MouseEvent<HTMLAnchorElement>) {
+    async function handleSignOut(e) {
         e.preventDefault();
 
         try {
@@ -53,7 +85,6 @@ function MainContent() {
             console.log(error);
         }
     }
-
     return (
         <div>
             {/*<!-- Main Content -->*/}
@@ -67,13 +98,9 @@ function MainContent() {
                         <i className="fa fa-bars"></i>
                     </button>
 
-
                     <h1 className="h3 mb-1 text-gray-800" id='tituloPrincipal'>PLANIFICACIÓN TERRITORIAL Y GESTION DE AGUA LLUVIA </h1>
                     {/* {/*<!-- Topbar Navbar -->*/}
                     <ul className="navbar-nav ml-auto">
-
-
-
                         {/*<!-- Nav Item - Alerts -->*/}
                         <li className="nav-item dropdown no-arrow mx-1">
                             <a className="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
@@ -83,9 +110,7 @@ function MainContent() {
                                 <span className="badge badge-danger badge-counter">3+</span>
                             </a>
                             {/*<!-- Dropdown - Alerts -->*/}
-
                         </li>
-
                         {/*<!-- Nav Item - Messages -->*/}
                         <li className="nav-item dropdown no-arrow mx-1">
                             <a className="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
@@ -95,7 +120,6 @@ function MainContent() {
                                 <span className="badge badge-danger badge-counter">7</span>
                             </a>
                             {/*<!-- Dropdown - Messages -->*/}
-
                         </li>
 
                         <div className="topbar-divider d-none d-sm-block"></div>
@@ -112,9 +136,7 @@ function MainContent() {
                             {/*<!-- Dropdown - User Information -->*/}
 
                         </li>
-
                     </ul>
-
                 </nav>
                 {/*<!-- End of Topbar -->*/}
 
@@ -219,7 +241,7 @@ function MainContent() {
                                 {/*<!-- Grid de publicaciones blog -->*/}
                                 <div className="card-body">
                                     <div className="chart-area">
-                                        
+
                                         <GridDePublicaciones posts={posts.slice(0, 8)} />
 
                                     </div>
@@ -233,13 +255,21 @@ function MainContent() {
                                 {/*<!-- Card Header - Dropdown -->*/}
                                 <div
                                     className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 className="m-0 font-weight-bold ">Últimos comentarios</h6>
+                                    <h6 className="m-0 font-weight-bold ">Preguntas</h6>
+
 
                                 </div>
                                 {/*<!-- Card Body -->*/}
                                 <div className="card-body">
                                     <div className="chart-area">
-                                        <h5>aqui va el grid de comentarios</h5>
+                                        {preguntas.map((pregunta, index) => (
+                                            <div key={index}>
+                                                <h6>{pregunta.contenido}</h6>
+                                                <CommentList comentarios={pregunta.comentarios.filter(comentario => comentario.tipo === 'pregunta')} />
+
+                                                <CommentForm onSubmit={(comentario) => handleComentarioSubmit(pregunta._id, comentario)} />
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
                             </div>
@@ -255,69 +285,13 @@ function MainContent() {
                             {/*<!-- Project Card Example -->*/}
                             <div className="card shadow mb-4">
                                 <div className="card-header py-3">
-                                    <h6 className="m-0 font-weight-bold ">Proyectos</h6>
+                                    <h6 className="m-0 font-weight-bold ">Comentarios</h6>
                                 </div>
-                                <div className="card-body">
-                                    <h4 className="small font-weight-bold">Proyecto Terreno 1<span
-                                        className="float-right">20%</span></h4>
-                                    <div className="progress mb-4">
-                                        <div className="progress-bar bg-danger" role="progressbar" style={{ width: "20%" }}
-                                            aria-valuenow={20}
-                                            aria-valuemin={0}
-                                            aria-valuemax={100}></div>
-                                    </div>
-                                    <h4 className="small font-weight-bold">Proyecto Terreno 1.2<span
-                                        className="float-right">20%</span></h4>
-                                    <div className="progress mb-4">
-                                        <div className="progress-bar bg-danger" role="progressbar" style={{ width: "20%" }}
-                                            aria-valuenow={20}
-                                            aria-valuemin={0}
-                                            aria-valuemax={100}></div>
-                                    </div>
-                                    <h4 className="small font-weight-bold">Proyecto Terreno 1.5<span
-                                        className="float-right">20%</span></h4>
-                                    <div className="progress mb-4">
-                                        <div className="progress-bar bg-danger" role="progressbar" style={{ width: "20%" }}
-                                            aria-valuenow={20}
-                                            aria-valuemin={0}
-                                            aria-valuemax={100}></div>
-                                    </div>
-                                    <h4 className="small font-weight-bold">Proyecto Terreno 2 <span
-                                        className="float-right">40%</span></h4>
-                                    <div className="progress mb-4">
-                                        <div className="progress-bar bg-warning" role="progressbar" style={{ width: "40%" }}
-                                            aria-valuenow={30}
-                                            aria-valuemin={0}
-                                            aria-valuemax={100}></div>
-                                    </div>
-                                    <h4 className="small font-weight-bold">Proyecto Terreno 3<span
-                                        className="float-right">60%</span></h4>
-                                    <div className="progress mb-4">
-                                        <div className="progress-bar" role="progressbar" style={{ width: "60%" }}
-                                            aria-valuenow={60}
-                                            aria-valuemin={0}
-                                            aria-valuemax={100}></div>
-                                    </div>
-                                    <h4 className="small font-weight-bold">Proyecto Terreno 4 <span
-                                        className="float-right">80%</span></h4>
-                                    <div className="progress mb-4">
-                                        <div className="progress-bar bg-info" role="progressbar" style={{ width: "80%" }}
-                                            aria-valuenow={80}
-                                            aria-valuemin={0}
-                                            aria-valuemax={100}></div>
-                                    </div>
-                                    <h4 className="small font-weight-bold">Proyecto Terreno 5 <span
-                                        className="float-right">Completo!</span></h4>
-                                    <div className="progress">
-                                        <div className="progress-bar bg-success" role="progressbar" style={{ width: "100%" }}
-                                            aria-valuenow={100}
-                                            aria-valuemin={0}
-                                            aria-valuemax={100}></div>
+                                <div className="chart-area">
+                                    
                                     </div>
 
-                                </div>
                             </div>
-
 
                         </div>
 
@@ -327,28 +301,13 @@ function MainContent() {
                                 <div className="card-header py-3">
                                     <h6 className="m-0 font-weight-bold ">Información</h6>
                                 </div>
-                                <div className="card-body" style={{ display: "flex" }}>
-                                    <img className="img-fluid px-3 px-sm-4 mt-3 mb-4" style={{ width: "50%", objectFit: "contain" }}
-                                        src={img7} alt="..." />
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-                                </div>
-                            </div>
-
-                            {/*<!-- Illustrations -->*/}
-                            <div className="card shadow mb-4">
-                                <div className="card-header py-3">
-                                    <h6 className="m-0 font-weight-bold ">Contacto</h6>
-                                </div>
-                                <div className="card-body">
-                                    <div className="text-center">
-
+                                <div className="chart-area">
+                                    
                                     </div>
-                                    Si necesitas más información sobre nuestros servicios puedes escribirnos al correo <a target="_blank" rel="nofollow" href="mailto:contacto@gravitacional.cl">contacto@gravitacional.cl</a> o visita nuestra página web  <a target="_blank" rel="nofollow" href="https://gravitacional.cl/">gravitacional.cl</a>
-                                </div>
+
                             </div>
 
-
+      
 
                         </div>
                     </div>
@@ -361,6 +320,5 @@ function MainContent() {
         </div>
     );
 }
-
 
 export default MainContent
