@@ -10,9 +10,11 @@ import { useNavigate } from 'react-router-dom'
 
 import { useAuth0 } from "@auth0/auth0-react"
 
-import LogoutButton from '../login/LogoutButton.js'
+import LogoutButton from '../login/LogoutButton.tsx'
 
-import Loader from '../usabilidad/Loader.jsx';
+import Loader from '../usabilidad/Loader.tsx';
+
+import UserRoles from '../login/UserRoles.tsx'
 
 function MainContent() {
 
@@ -49,6 +51,13 @@ function MainContent() {
     return (
         <div>
             {/*<!-- Main Content -->*/}
+            <div>
+      {isAuthenticated && (
+
+          <UserRoles />
+
+      )}
+    </div>
             <div id="content">
 
                 {/* {/*<!-- Topbar -->*/}

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GoogleLogin, googleLogout } from "@react-oauth/google";
 
-import Inicio from "./inicio.tsx";
+import Inicio from "./Inicio.tsx";
 import "../../styles/inicioSesión.css";
 
 function InicioSesiónGoogle() {
