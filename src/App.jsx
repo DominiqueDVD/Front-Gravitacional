@@ -16,7 +16,6 @@ import Foro from "./pages/foro.tsx"
 import PostDetails from "./components/Blog/postDetails.tsx"
 import ColorChanger from "./components/accesibilidad/colorChanger.jsx";
 
-
 function App() {
   return (
 <BrowserRouter>

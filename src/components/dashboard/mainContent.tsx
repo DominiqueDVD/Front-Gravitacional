@@ -42,6 +42,7 @@ function MainContent() {
     //         console.log(error);
     //     }
     // }
+    
     if (isLoading) {
         return <div><Loader/></div>;
     }
