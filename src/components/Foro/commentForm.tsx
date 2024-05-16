@@ -1,7 +1,7 @@
-// CommentForm.jsx
 import React, { useState } from 'react';
 import { TextField, Button } from '@mui/material';
 import '../../styles/foro.css';
+
 const CommentForm = ({ onSubmit }) => {
   const [comentario, setComentario] = useState('');
 

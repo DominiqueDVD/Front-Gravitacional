@@ -16,31 +16,29 @@ function MainContent() {
     const auth = useAuth();
     const goTo = useNavigate();
     const [posts, setPosts] = useState([]);
-    const [preguntas, setPreguntas] = useState([]);
-    const [esPregunta, setEsPregunta] = useState(false);
+    const [foros, setForos] = useState([]);
 
     useEffect(() => {
-        async function fetchPreguntas() {
+        async function fetchForos() {
             try {
                 const response = await axios.get(`${API_URL}/foro`);
                 if (response.status === 200) {
-                    const data = response.data.filter(aporte => aporte.tipo === 'pregunta');
-                    setPreguntas(data);
+                    setForos(response.data);
                 } else {
-                    console.error('Error fetching preguntas:', response.statusText);
+                    console.error('Error fetching foros:', response.statusText);
                 }
             } catch (error) {
-                console.error('Error fetching preguntas:', error);
+                console.error('Error fetching foros:', error);
             }
         }
 
-        fetchPreguntas();
+        fetchForos();
     }, []);
 
     const handleComentarioSubmit = async (id, comentario) => {
         try {
             await axios.post(`${API_URL}/foro/${id}/comentarios`, { contenido: comentario });
-            fetchPreguntas();
+            fetchForos();
         } catch (error) {
             console.error('Error submitting comentario:', error);
         }
@@ -64,7 +62,6 @@ function MainContent() {
         fetchPosts();
     }, []);
 
-
     async function handleSignOut(e) {
         e.preventDefault();
 
@@ -85,85 +82,57 @@ function MainContent() {
             console.log(error);
         }
     }
+
+    const preguntas = foros.filter(foro => foro.tipo === 'pregunta');
+    const comentarios = foros.filter(foro => foro.tipo === 'comentario');
+
     return (
         <div>
             {/*<!-- Main Content -->*/}
             <div id="content">
-
-                {/* {/*<!-- Topbar -->*/}
                 <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                    {/*<!-- Sidebar Toggle (Topbar) -->*/}
                     <button id="sidebarToggleTop" className="btn btn-link d-md-none rounded-circle mr-3">
                         <i className="fa fa-bars"></i>
                     </button>
-
-                    <h1 className="h3 mb-1 text-gray-800" id='tituloPrincipal'>PLANIFICACIÓN TERRITORIAL Y GESTION DE AGUA LLUVIA </h1>
-                    {/* {/*<!-- Topbar Navbar -->*/}
+                    <h1 className="h3 mb-1 text-gray-800" id='tituloPrincipal'>PLANIFICACIÓN TERRITORIAL Y GESTION DE AGUA LLUVIA</h1>
                     <ul className="navbar-nav ml-auto">
-                        {/*<!-- Nav Item - Alerts -->*/}
                         <li className="nav-item dropdown no-arrow mx-1">
                             <a className="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i className="fas fa-bell fa-fw"></i>
-                                {/*<!-- Counter - Alerts -->*/}
                                 <span className="badge badge-danger badge-counter">3+</span>
                             </a>
-                            {/*<!-- Dropdown - Alerts -->*/}
                         </li>
-                        {/*<!-- Nav Item - Messages -->*/}
                         <li className="nav-item dropdown no-arrow mx-1">
                             <a className="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i className="fas fa-envelope fa-fw"></i>
-                                {/*<!-- Counter - Messages -->*/}
                                 <span className="badge badge-danger badge-counter">7</span>
                             </a>
-                            {/*<!-- Dropdown - Messages -->*/}
                         </li>
-
                         <div className="topbar-divider d-none d-sm-block"></div>
-
-                        {/*<!-- Nav Item - User Information -->*/}
                         <li className="nav-item dropdown no-arrow">
                             <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span className="mr-2 d-none d-lg-inline text-gray-600 small">{auth.getUser()?.username || ""}</span>
-                                <img className="img-profile rounded-circle"
-                                    src={img3} />
+                                <img className="img-profile rounded-circle" src={img3} />
                                 <button onClick={handleSignOut}>Cerrar Sesión</button>
                             </a>
-                            {/*<!-- Dropdown - User Information -->*/}
-
                         </li>
                     </ul>
                 </nav>
-                {/*<!-- End of Topbar -->*/}
 
-                {/*<!-- Begin Page Content -->*/}
                 <div className="container-fluid">
-
-                    {/*<!-- Page Heading -->*/}
-                    <div >
-
-                        <div className='buttonspanel' style={{ justifyContent: "space-between" }}>
-                            <h4 className='lastProyects'>Ultimos proyectos</h4>
-                            <a href="#" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                className="fas fa-download fa-sm text-white-50"></i> Generar reporte</a>
-                        </div>
-
+                    <div className='buttonspanel' style={{ justifyContent: "space-between" }}>
+                        <h4 className='lastProyects'>Ultimos proyectos</h4>
+                        <a href="#" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                            <i className="fas fa-download fa-sm text-white-50"></i> Generar reporte
+                        </a>
                     </div>
                     <br />
-                    {/*<!-- Content Row -->*/}
                     <div className="row">
-
-                        {/*<!-- Earnings (Monthly) Card Example -->*/}
-
-
                         <div className="col-xl-3 col-md-6 mb-4">
-
                             <div className="card border-left-primary shadow h-100 py-2">
-
                                 <div className="card-body">
                                     <div className="row no-gutters align-items-center">
                                         <div className="col mr-2">
@@ -171,13 +140,10 @@ function MainContent() {
                                                 Proyecto Terreno 1</div>
                                             <button>Ver Proyecto</button>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        {/*<!-- Earnings (Monthly) Card Example -->*/}
                         <div className="col-xl-3 col-md-6 mb-4">
                             <div className="card border-left-primary shadow h-100 py-2">
                                 <div className="card-body">
@@ -187,12 +153,10 @@ function MainContent() {
                                                 Proyecto Terreno 2</div>
                                             <button>Ver Proyecto</button>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                         <div className="col-xl-3 col-md-6 mb-4">
                             <div className="card border-left-primary shadow h-100 py-2">
                                 <div className="card-body">
@@ -202,12 +166,10 @@ function MainContent() {
                                                 Proyecto Terreno 3</div>
                                             <button>Ver Proyecto</button>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                         <div className="col-xl-3 col-md-6 mb-4">
                             <div className="card border-left-primary shadow h-100 py-2">
                                 <div className="card-body">
@@ -217,57 +179,39 @@ function MainContent() {
                                                 Proyecto Terreno 4</div>
                                             <button>Ver Proyecto</button>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
-                    {/*<!-- Content Row -->*/}
-
                     <div className="row">
-
-                        {/*<!-- Area Chart -->*/}
                         <div className="col-xl-8 col-lg-7">
                             <div className="card shadow mb-4">
-                                {/*<!-- Card Header - Dropdown -->*/}
-                                <div
-                                    className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 className="m-0 font-weight-bold ">Últimas publicaciones</h6>
-
                                 </div>
-                                {/*<!-- Grid de publicaciones blog -->*/}
                                 <div className="card-body">
                                     <div className="chart-area">
-
                                         <GridDePublicaciones posts={posts.slice(0, 8)} />
-
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        {/*<!-- Pie Chart -->*/}
                         <div className="col-xl-4 col-lg-5">
                             <div className="card shadow mb-4">
-                                {/*<!-- Card Header - Dropdown -->*/}
-                                <div
-                                    className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 className="m-0 font-weight-bold ">Preguntas</h6>
-
-
                                 </div>
-                                {/*<!-- Card Body -->*/}
                                 <div className="card-body">
                                     <div className="chart-area">
                                         {preguntas.map((pregunta, index) => (
                                             <div key={index}>
                                                 <h6>{pregunta.contenido}</h6>
-                                                <CommentList comentarios={pregunta.comentarios.filter(comentario => comentario.tipo === 'pregunta')} />
-
+                                                <CommentList comentarios={pregunta.comentarios.filter(comentario => comentario.tipo !== 'pregunta')} />
                                                 <CommentForm onSubmit={(comentario) => handleComentarioSubmit(pregunta._id, comentario)} />
+                                                <br />
                                             </div>
                                         ))}
                                     </div>
@@ -276,49 +220,46 @@ function MainContent() {
                         </div>
                     </div>
 
-                    {/*<!-- Content Row -->*/}
                     <div className="row">
-
-                        {/*<!-- Content Column -->*/}
                         <div className="col-lg-6 mb-4">
-
-                            {/*<!-- Project Card Example -->*/}
                             <div className="card shadow mb-4">
                                 <div className="card-header py-3">
                                     <h6 className="m-0 font-weight-bold ">Comentarios</h6>
                                 </div>
-                                <div className="chart-area">
-                                    
+                                <div className="card-body">
+                                    <div className="chart-area">
+                                        {comentarios.length > 0 ? (
+                                            comentarios.map((comentario, index) => (
+                                                <div key={index}>
+                                                    <h6>{comentario.contenido}</h6>
+                                                    <CommentList comentarios={comentario.comentarios} />
+                                                    <CommentForm onSubmit={(comentario) => handleComentarioSubmit(comentario._id, comentario)} />
+                                                </div>
+                                            ))
+                                        ) : (
+                                            <p>No hay comentarios para mostrar.</p>
+                                        )}
                                     </div>
+                                </div>
 
                             </div>
-
                         </div>
 
                         <div className="col-lg-6 mb-4">
-                            {/*<!-- Approach -->*/}
                             <div className="card shadow mb-4">
                                 <div className="card-header py-3">
                                     <h6 className="m-0 font-weight-bold ">Información</h6>
                                 </div>
                                 <div className="chart-area">
-                                    
-                                    </div>
-
+                                    {/* Agrega contenido informativo aquí */}
+                                </div>
                             </div>
-
-      
-
                         </div>
                     </div>
-
                 </div>
-                {/*<!-- /.container-fluid -->*/}
-
             </div>
-            {/*<!-- End of Main Content -->*/}
         </div>
     );
 }
 
-export default MainContent
+export default MainContent;

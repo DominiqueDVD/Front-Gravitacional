@@ -37,3 +37,9 @@
     display: flex;
     gap: 20px;
   }
+  .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiCard-root.aporte-card.css-bhp9pd-MuiPaper-root-MuiCard-root{
+    overflow-y: scroll;
+    scrollbar-color: rgba(207, 187, 187, 0.5) rgba(238, 215, 215, 0);
+    scrollbar-width: thin;
+    height: 300px;
+  }
