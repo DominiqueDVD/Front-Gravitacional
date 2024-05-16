@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../../assets/isotipo_color.png'
+import logo from '../../assets/isotipo_color.png';
 import '../../styles/loader.css';
 
 const Loader = () => {

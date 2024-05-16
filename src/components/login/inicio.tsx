@@ -10,12 +10,12 @@ import "../../styles/inicioSesión.css";
 import { API_URL } from "../../auth/constants.ts";
 import { AuthResponse, AuthResponseError } from "../../types/types.ts";
 
-import LoginButton from "./LoginButton.js";
-import SignUpButton from "./SignUpButton.js";
+import LoginButton from "./LoginButton.tsx";
+import SignUpButton from "./SignUpButton.tsx";
 
 import { useAuth0 } from "@auth0/auth0-react"
 
-import Loader from '../usabilidad/Loader.jsx';
+import Loader from '../usabilidad/Loader.tsx';
 
 function Inicio() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
