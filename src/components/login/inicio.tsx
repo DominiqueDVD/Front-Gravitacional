@@ -31,98 +31,98 @@ function Inicio() {
 
   console.log(isAuthenticated, user?.name, user?.email);
 
-  const handleLogout = () => {
-    if (isLoggedIn) {
-      googleLogout();
-      setIsLoggedIn(false);
-    }
-  };
+  // const handleLogout = () => {
+  //   if (isLoggedIn) {
+  //     googleLogout();
+  //     setIsLoggedIn(false);
+  //   }
+  // };
 
-  const handleEmailChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
-    setEmail(event.target.value);
-  };
+  // const handleEmailChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+  //   setEmail(event.target.value);
+  // };
 
-  const handlePasswordChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
-    setPassword(event.target.value);
-  };
+  // const handlePasswordChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+  //   setPassword(event.target.value);
+  // };
 
-  const handleTogglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
+  // const handleTogglePasswordVisibility = () => {
+  //   setShowPassword(!showPassword);
+  // };
 
-  const handleEmailLoginWithEmailAndPassword = () => {
+  // const handleEmailLoginWithEmailAndPassword = () => {
 
-    // Lógica para iniciar sesión con email y contraseña
-    setIsLoggedIn(true);
-  };
-  async function handleInicioSesion(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  //   // Lógica para iniciar sesión con email y contraseña
+  //   setIsLoggedIn(true);
+  // };
+  // async function handleInicioSesion(e: React.FormEvent<HTMLFormElement>) {
+  //   e.preventDefault();
 
-    // if (!email || !password) {
-    //   alert("Por favor, completa todos los campos.");
-    //   return;
-    // }
+  // if (!email || !password) {
+  //   alert("Por favor, completa todos los campos.");
+  //   return;
+  // }
 
-    // // Verificar el formato del correo electrónico
-    // if (!/\S+@\S+\.\S+/.test(email)) {
-    //   alert("Por favor, ingresa un correo electrónico válido.");
-    //   return;
-    // }
+  // // Verificar el formato del correo electrónico
+  // if (!/\S+@\S+\.\S+/.test(email)) {
+  //   alert("Por favor, ingresa un correo electrónico válido.");
+  //   return;
+  // }
 
-    // // Validar la contraseña
-    // const hasUpperCase = /[A-Z]/.test(password);
-    // const hasNumber = /[0-9]/.test(password);
-    // const hasSpecialChar = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(password);
+  // // Validar la contraseña
+  // const hasUpperCase = /[A-Z]/.test(password);
+  // const hasNumber = /[0-9]/.test(password);
+  // const hasSpecialChar = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(password);
 
-    // if (!hasUpperCase || !hasNumber || !hasSpecialChar || password.length < 8) {
-    //   let errorMessage = "La contraseña debe cumplir los siguientes requisitos:\n";
-    //   errorMessage += "- Al menos una mayúscula\n";
-    //   errorMessage += "- Al menos un número\n";
-    //   errorMessage += "- Al menos un carácter especial\n";
-    //   errorMessage += "- Tener al menos 8 caracteres";
+  // if (!hasUpperCase || !hasNumber || !hasSpecialChar || password.length < 8) {
+  //   let errorMessage = "La contraseña debe cumplir los siguientes requisitos:\n";
+  //   errorMessage += "- Al menos una mayúscula\n";
+  //   errorMessage += "- Al menos un número\n";
+  //   errorMessage += "- Al menos un carácter especial\n";
+  //   errorMessage += "- Tener al menos 8 caracteres";
 
-    //   alert(errorMessage);
-    //   return;
-    // }
+  //   alert(errorMessage);
+  //   return;
+  // }
 
-    try {
-      const response = await fetch(`${API_URL}/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-      if (response.ok) {
-        const json = (await response.json()) as AuthResponse;
-        console.log(json);
+  //   try {
+  //     const response = await fetch(`${API_URL}/login`, {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({ email, password }),
+  //     });
+  //     if (response.ok) {
+  //       const json = (await response.json()) as AuthResponse;
+  //       console.log(json);
 
-        if (json.body.accessToken && json.body.refreshToken) {
-          auth.saveUser(json);
-        }
-      } else {
-        const json = (await response.json()) as AuthResponseError;
+  //       if (json.body.accessToken && json.body.refreshToken) {
+  //         auth.saveUser(json);
+  //       }
+  //     } else {
+  //       const json = (await response.json()) as AuthResponseError;
 
-        setErrorResponse(json.body.error);
-      }
-    } catch (error) {
-      console.log(error);
+  //       setErrorResponse(json.body.error);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
 
-    }
-    if (auth.isAuthenticated) {
-      goTo("/Dashboard");
-    }
-  };
+  //   }
+  //   if (auth.isAuthenticated) {
+  //     goTo("/Dashboard");
+  //   }
+  // };
 
   if (isAuthenticated) {
     goTo("/Dashboard");
   }
   if (isLoading) {
-    return <div><Loader/></div>;
-}
+    return <div><Loader /></div>;
+  }
   return (
     <div>
       <div className="containerInicio">
         <div className="inicio">
-          
+
           <h1 className="titleInicio">Inicia sesión con tu cuenta</h1>
           <br />
           {/* {
@@ -176,8 +176,8 @@ function Inicio() {
           </p> */}
 
           <LoginButton />
-          <br/>
-          <br/>
+          <br />
+          <br />
           <SignUpButton />
         </div>
       </div>
