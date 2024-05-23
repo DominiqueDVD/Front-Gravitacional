@@ -74,6 +74,9 @@
 h6{
     color:#3C74C3!important;
 }
+.modal-header {
+    background:#3C74C3!important;
+}
 
 
 @media screen and (max-width: 600px) {
