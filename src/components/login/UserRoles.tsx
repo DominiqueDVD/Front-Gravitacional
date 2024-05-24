@@ -2,6 +2,26 @@ import React, { useEffect, useState } from 'react';
 import axios, { AxiosError } from 'axios';
 import { useAuth0 } from "@auth0/auth0-react"
 
+var token;
+var options = {
+  method: 'POST',
+  url: `https://${process.env.REACT_APP_AUTH0_DOMAIN}/oauth/token`,
+  headers: {'content-type': 'application/x-www-form-urlencoded'},
+  data: new URLSearchParams({
+    grant_type: 'client_credentials',
+    client_id: `${process.env.REACT_APP_CLIENT_ID}`,
+    client_secret: `${process.env.REACT_APP_CLIENT_SECRET}`,
+    audience: `https://${process.env.REACT_APP_AUTH0_DOMAIN}/api/v2/`
+  })
+};
+
+axios.request(options).then(function (response) {
+  token = response;
+  console.log(response.data);
+}).catch(function (error) {
+  console.error(error);
+});
+
 interface Role {
   id: string;
   name: string;
@@ -21,13 +41,14 @@ const UserRoles: React.FC<UserRolesProps> = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
 
   useEffect(() => {
+    const userId = user?.sub.replace(/\|/g, '%7C');
     const fetchRoles = async () => {
       const options = {
         method: 'GET',
-        url: `https://${process.env.REACT_APP_AUTH0_DOMAIN}/api/v2/users/${user?.sub}/roles`,
+        url: `https://${process.env.REACT_APP_AUTH0_DOMAIN}/api/v2/users/${userId}/roles`,
 
         headers: {
-          authorization: `Bearer ${process.env.REACT_APP_AUTH0_ROLES_DOMAIN}`,
+          Accept: `${token}`,
         },
       };
       try {
