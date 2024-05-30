@@ -16,6 +16,7 @@ import Loader from '../usabilidad/Loader.tsx';
 import UserRoles from '../login/UserRoles.tsx';
 
 import OpenTopographyMap from '../googleEarth/OpenTopographyMap.jsx';
+import RequestComponent from '../eos/RequestComponent.tsx';
 
 function MainContent() {
     const { user, isAuthenticated, isLoading } = useAuth0();
@@ -53,12 +54,13 @@ function MainContent() {
         <div>
             {/*<!-- Main Content -->*/}
             <div>
-                {isAuthenticated && (
+                {/* {isAuthenticated && (
                     <UserRoles />
-                )}
+                )} */}
             </div>
 
-                <OpenTopographyMap />
+            {/* <OpenTopographyMap /> */}
+            
             <div id="content">
                 {/*{/*<!-- Topbar -->*/}
                 <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -104,6 +106,8 @@ function MainContent() {
                 {/*<!-- End of Topbar -->*/}
 
                 {/*<!-- Begin Page Content -->*/}
+
+                <RequestComponent />
                 <div className="container-fluid">
                     {/*<!-- Page Heading -->*/}
                     <div className="d-sm-flex align-items-center justify-content-between mb-4">
