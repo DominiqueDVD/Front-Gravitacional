@@ -9,18 +9,21 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Auth0Provider } from "@auth0/auth0-react";
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_CLIENT_ID
 
-console.log(domain, clientId);
+const queryClient = new QueryClient();
 
 ReactDOM.render(
   <React.StrictMode>
     {/* Envuelve tu App con el Provider de Redux */}
     <Provider store={store}>
       <Auth0Provider domain={domain} clientId={clientId} redirectUri={window.location.origin}>
-        <App />
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
       </Auth0Provider>
     </Provider>
   </React.StrictMode>,
