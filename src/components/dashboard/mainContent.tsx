@@ -15,6 +15,8 @@ import Loader from '../usabilidad/Loader.tsx';
 
 import UserRoles from '../login/UserRoles.tsx';
 
+import OpenTopographyMap from '../googleEarth/OpenTopographyMap.jsx';
+
 function MainContent() {
     const { user, isAuthenticated, isLoading } = useAuth0();
     const auth = useAuth();
@@ -55,6 +57,8 @@ function MainContent() {
                     <UserRoles />
                 )}
             </div>
+
+                <OpenTopographyMap />
             <div id="content">
                 {/*{/*<!-- Topbar -->*/}
                 <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
