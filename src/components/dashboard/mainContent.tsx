@@ -5,7 +5,7 @@ import img3 from '../../assets/dashboard/undraw_profile.svg';
 import img7 from '../../assets/dashboard/iso-2.png';
 import { useAuth } from '../../auth/AuthProvider.tsx';
 import { API_URL } from '../../auth/constants.ts';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -45,6 +45,10 @@ function MainContent() {
             goTo('/poligono');
         }
     };
+
+    const navigateEosTest = () =>{
+        goTo('/EosTest');
+    }
 
     if (isLoading) {
         return <div><Loader /></div>;
@@ -107,7 +111,7 @@ function MainContent() {
 
                 {/*<!-- Begin Page Content -->*/}
 
-                <RequestComponent />
+                <button className='btn btn-primary' onClick={navigateEosTest}>EOS Test</button>
                 <div className="container-fluid">
                     {/*<!-- Page Heading -->*/}
                     <div className="d-sm-flex align-items-center justify-content-between mb-4">
