@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
-import { fetchRenderImageUrl, fetchNdviImageUrl } from './apiService';
+import { fetchRenderImageUrl, fetchNdviImageUrl } from '../../services/eosService';
 
 interface ApiError {
   message: string;

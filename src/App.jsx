@@ -15,6 +15,7 @@ import Blog from "./pages/blog.tsx"
 import Foro from "./pages/foro.tsx"
 import PostDetails from "./components/Blog/postDetails.tsx"
 import ColorChanger from "./components/accesibilidad/colorChanger.jsx";
+import EosTest from "./pages/EosTest";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
       <Route path="/PostDetails" element={<PostDetails />} />
       <Route path="/AdminDash" element={<AdminDashboard />} />
       <Route path="/foro" element={<Foro />} />
+      <Route path="/EosTest" element={<EosTest />} />
       <Route
         path="/"
         element={<PrivateRoute />}
