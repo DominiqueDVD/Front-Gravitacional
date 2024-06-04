@@ -86,7 +86,7 @@ function GoogleEarthComponent() {
     const zoom = ui.getZoom();
 
     const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
-    console.log(process.env);
+    console.log("Process env: " + process.env);
     const tilesetUrl =
       "https://tile.googleapis.com/v1/3dtiles/root.json?key=" + GOOGLE_API_KEY;
 
@@ -289,8 +289,8 @@ function GoogleEarthComponent() {
         </div>
         <br></br>
         <div id="centered-container">
-          <label>Google API Key</label>
-          <input id="google-api-key" type="text" />
+          {/* <label>Google API Key</label>
+          <input id="google-api-key" type="text" /> */}
           <label>Latitud y Longitud</label>
           <input
             id="lat-lng"
@@ -375,8 +375,8 @@ function GoogleEarthComponent() {
         <center>
           <br />
           <p>
-            This app demonstrates fetching & rendering Google Earth 3D Tiles in
-            ThreeJS
+            
+            Esta aplicación muestra la búsqueda y renderización de teselas de Google Earth en ThreeJS
           </p>
         </center>
         <ol>
