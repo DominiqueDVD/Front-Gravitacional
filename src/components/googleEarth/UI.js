@@ -9,9 +9,11 @@ import { Tileset3DLoader } from "@loaders.gl/3d-tiles";
 import L from "leaflet";
 
 export class UI {
+  
   constructor() {
     document.addEventListener('DOMContentLoaded', () => {
-      const apiKeyInput = document.querySelector("#google-api-key");
+      const apiKeyInput = process.env.REACT_APP_GOOGLE_API_KEY;
+      // const apiKeyInput = document.querySelector("#google-api-key");
       const latLngInput = document.querySelector("#lat-lng");
       const fetchTilesBtn = document.querySelector("#fetch");
       const downloadTilesBtn = document.querySelector("#download");
@@ -23,14 +25,14 @@ export class UI {
       const botonComputar = document.querySelector("#botonComputar");
 
       // Load saved values
-      apiKeyInput.value = localStorage.getItem("token");
+      // apiKeyInput.value = localStorage.getItem("token");
       if (localStorage.getItem("coords")) {
         latLngInput.value = localStorage.getItem("coords");
       }
 
-      if (!apiKeyInput.value) {
-        document.querySelector("#instructions").style.display = "block";
-      }
+      // if (!apiKeyInput.value) {
+      //   document.querySelector("#instructions").style.display = "block";
+      // }
 
       debugSliderInput.onInput = (e) => {
         document.querySelector("#tile-count").innerText = String(e.target.value);
@@ -42,12 +44,12 @@ export class UI {
         this.onTileSliderChange(Number(e.target.value));
       };
 
-      apiKeyInput.onChange = (e) => {
-        document.querySelector("#instructions").style.display = "none";
+      // apiKeyInput.onChange = (e) => {
+      //   document.querySelector("#instructions").style.display = "none";
 
-        const token = apiKeyInput.value;
-        localStorage.setItem("token", token);
-      };
+      //   const token = apiKeyInput.value;
+      //   localStorage.setItem("token", token);
+      // };
 
       latLngInput.onChange = (e) => {
         const coords = e.target.value.split(",");
@@ -61,7 +63,7 @@ export class UI {
       };
       botonComputar.onclick = () => {
         console.log("Botón computar modelo");
-        
+
       }
       window.onload = () => {
         const mapboxToken = `pk.eyJ1Ijoib21hcnNoZWhhdGEiLCJhIjoiY2xweWh4eWE3MDRmdDJtcGYyYnlsNW1jNiJ9.P6DvtW98Fx82KTMNQCYqwA`;
@@ -114,7 +116,7 @@ export class UI {
       // Add event listeners
       this.debugSliderInput.addEventListener('input', this.handleDebugSliderChange);
       this.debugSliderInput.addEventListener('change', this.handleDebugSliderChange);
-      document.querySelector("#google-api-key").addEventListener('change', this.handleApiKeyChange);
+      // document.querySelector("#google-api-key").addEventListener('change', this.handleApiKeyChange);
       document.querySelector("#lat-lng").addEventListener('change', this.handleLatLngChange);
       this.fetchTilesBtn.addEventListener('click', this.handleFetchButtonClick);
       document.querySelector("#download").addEventListener('click', this.handleDownloadButtonClick);
@@ -163,7 +165,7 @@ export class UI {
   }
 
   getGoogleAPIKey() {
-    return document.querySelector("#google-api-key").value;
+    return process.env.REACT_APP_GOOGLE_API_KEY;
   }
 
   getLatLngZoom() {
@@ -175,8 +177,8 @@ export class UI {
       zoom,
     };
   }
-  
-  
+
+
   getZoom() {
     return this.leafletMap.getZoom();
   }
