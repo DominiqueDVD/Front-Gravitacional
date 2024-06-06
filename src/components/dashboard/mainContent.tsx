@@ -16,6 +16,7 @@ import Loader from '../usabilidad/Loader.tsx';
 import UserRoles from '../login/UserRoles.tsx';
 
 import RequestComponent from '../eos/RequestComponent.tsx';
+import ProjectForm from '../guardarProyectos/ProjectForm';
 
 function MainContent() {
     const { user, isAuthenticated, isLoading } = useAuth0();
@@ -61,6 +62,7 @@ function MainContent() {
                     <UserRoles />
                 )} */}
             </div>
+            {/* <ProjectForm /> */}
             
             <div id="content">
                 {/*{/*<!-- Topbar -->*/}
