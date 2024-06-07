@@ -170,3 +170,22 @@ input{
   50%{transform: scale(1.1);}
   100%{transform: scale(1);}
 }
+
+#containerGeneral{
+  display: flex;
+  /* flex-direction: row; */
+}
+
+#seccion1{
+  width: 100%;
+}
+#seccion2{
+  width: 0;
+}
+#seccion3{
+  width: 0;
+}
+
+.secciones{
+  transition: width 1s;
+}
