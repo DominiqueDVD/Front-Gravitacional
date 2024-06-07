@@ -19,9 +19,9 @@ function GoogleEarthComponent() {
   const urlParams = new URLSearchParams(window.location.search);
   const encodedJsonString = urlParams.get("data");
 
-  const seccion1 = document.getElementById("seccion1");
-  const seccion2 = document.getElementById("seccion2");
-  const seccion3 = document.getElementById("seccion3");
+  const seccion1 = document.getElementById('seccion1');
+  const seccion2 = document.getElementById('seccion2');
+  const seccion3 = document.getElementById('seccion3');
 
   // Decode the parameter value and parse it back into a JSON array
   const jsonString = decodeURIComponent(encodedJsonString);
@@ -262,28 +262,28 @@ function GoogleEarthComponent() {
   };
 
   const handleVista3D = () => {
-    seccion1.style.width = "100%";
-    seccion2.style.width = "0";
-    seccion3.style.width = "0";
+      document.getElementById('seccion1').style.width = "100%";
+      document.getElementById('seccion2').style.width = "0";
+      document.getElementById('seccion3').style.width = "0";
   }
 
   const handleVistaOpentTP = () => {
-    seccion1.style.width = "0";
-    seccion2.style.width = "100%";
-    seccion3.style.width = "0";
+      document.getElementById('seccion1').style.width = "0";
+      document.getElementById('seccion2').style.width = "100%";
+      document.getElementById('seccion3').style.width = "0";
   }
 
   const handleVistaEOS = () => {
-    seccion1.style.width = "0";
-    seccion2.style.width = "0";
-    seccion3.style.width = "100%";
+      document.getElementById('seccion1').style.width = "0";
+      document.getElementById('seccion2').style.width = "0";
+      document.getElementById('seccion3').style.width = "100%";
   }
 
   return (
     <div>
-      <button className="btn btn-primary" onClick={() => handleVista3D()}>Vista Modelo 3D</button>
-      <button className="btn btn-primary" onClick={() => handleVistaOpentTP()}>Vista OpenTopography</button>
-      <button className="btn btn-primary" onClick={() => handleVistaEOS()}>Vista EOS</button>
+      <button className="btn btn-primary" onClick={handleVista3D}>Vista Modelo 3D</button>
+      <button className="btn btn-primary" onClick={handleVistaOpentTP}>Vista OpenTopography</button>
+      <button className="btn btn-primary" onClick={handleVistaEOS}>Vista EOS</button>
       <div id="containerGeneral">
         <div id="seccion1" className="secciones">
           <link
