@@ -4,7 +4,7 @@ body {
   overflow-x: hidden;
 }
 
-#settings {
+/* #settings {
   position: fixed;
   top: 16px;
   right: 46px;
@@ -144,7 +144,7 @@ input{
 .botonesMod .btn.btn-primary.my-1{
   font-size: small;
  
-}
+} */
 
 #loader{
   position: absolute;
@@ -171,21 +171,22 @@ input{
   100%{transform: scale(1);}
 }
 
-/* #containerGeneral{
+#containerGeneral{
   display: flex;
 }
 
-#seccion1{
+.full-width {
   width: 100%;
+  opacity: 1;
 }
-#seccion2{
+
+.hidden {
   width: 0;
-}
-#seccion3{
-  width: 0;
+  opacity: 0;
 }
 
 .secciones{
-  transition: width 1s;
+  transition: width 1s, opacity 1s;
   min-width: 0;
-} */
+}
+
