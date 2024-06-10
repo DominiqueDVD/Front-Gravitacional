@@ -1,0 +1,30 @@
+.eosTest {
+    padding-top: 20px;
+    background-color: #3C74C3;
+    min-height: 100vh;
+}
+
+.eosTest>div {
+    min-width: 300px;
+    width: 50%;
+    margin: 20px auto;
+    background-color: white;
+    padding: 50px;
+    border-radius: 30px;
+}
+
+input, textarea {
+    background-color: #3C74C3;
+    color: white;
+}
+
+h1{
+    text-align: center;
+}
+
+.textarea{
+    min-width: 300px;
+    width: 100%;
+}
+
+.btn {}

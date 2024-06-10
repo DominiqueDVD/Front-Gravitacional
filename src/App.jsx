@@ -16,6 +16,7 @@ import Foro from "./pages/foro.tsx"
 import PostDetails from "./components/Blog/postDetails.tsx"
 import ColorChanger from "./components/accesibilidad/colorChanger.jsx";
 import EosTest from "./pages/EosTest";
+import OpenTopography from "./components/openTopography/OpenTopography"
 import Proyectos from "./pages/projects.tsx"
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
       <Route path="/AdminDash" element={<AdminDashboard />} />
       <Route path="/foro" element={<Foro />} />
       <Route path="/EosTest" element={<EosTest />} />
+      <Route path="/OpenTopography" element={<OpenTopography />} />
       <Route path="/proyectos" element={<Proyectos />} />
       <Route
         path="/"

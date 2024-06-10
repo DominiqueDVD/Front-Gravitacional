@@ -1,15 +1,43 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import { fetchRenderImageUrl, fetchNdviImageUrl } from '../../services/eosService';
+import './eosTest.css';
+
+interface FormData {
+  coords: string;
+  dateStart: string;
+  dateEnd: string;
+}
+
+interface CoordinatesFormProps {
+  onSubmit: (data: FormData) => void;
+}
+
+
 
 interface ApiError {
   message: string;
   [key: string]: any;
 }
 
-const RequestComponent: React.FC = () => {
+const RequestComponent: React.FC<CoordinatesFormProps> = () => {
   const [renderImageUrl, setRenderImageUrl] = useState<string | null>(null);
   const [ndviImageUrl, setNdviImageUrl] = useState<string | null>(null);
+
+  const [coords, setLatitude] = useState<string | ''>('');
+  // const [longitude, setLongitude] = useState<number | ''>('');
+  const [dateStart, setDateStart] = useState<string>('');
+  const [dateEnd, setDateEnd] = useState<string>('');
+  const datos = document.getElementById("datos");
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    if (coords !== '' && dateStart && dateEnd && datos !== null) {
+      datos.innerHTML = "Coordenadas : " + coords + "<br></br>Fecha de inicio : " + dateStart + "<br></br>Fecha de fin : " + dateEnd;
+    } else {
+      alert('Por favor indique los datos');
+    }
+  }
 
   const {
     data: renderData,
@@ -48,23 +76,91 @@ const RequestComponent: React.FC = () => {
 
   return (
     <div>
-      <h1>Render Image</h1>
-      {/* {renderError && <div>Error: {getErrorMessage(renderError)}</div>} */}
-      {renderImageUrl ? (
-        <img src={renderImageUrl} alt="Rendered from API" />
-      ) : (
-        <div>No render image yet</div>
-      )}
-      <button className='btn btn-primary' onClick={handleRenderButtonClick}>Fetch Render Image</button>
+      <div className='eosTest'>
+        <div>
+          <h1>Buscador EOS</h1>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label>
+                Coordenadas de polígono [coord1X,coord1Y],[coord2X,coord2Y],...,[coordNX,coordNY]:
+                {/* <input
+                  type="number"
+                  value={latitude}
+                  onChange={(e) => setLatitude(e.target.value !== '' ? Number(e.target.value) : '')}
+                  required
+                /> */}
+                
+              </label>
+              <br></br>
+              <textarea
+                  // type="textarea"
+                  value={coords}
+                  onChange={(e) => setLatitude(e.target.value !== '' ? String(e.target.value) : '')}
+                  required
+                  className='textarea'
+                ></textarea>
+            </div>
+            {/* <div>
+              <label>
+                Longitud:
+                <input
+                  type="number"
+                  value={longitude}
+                  onChange={(e) => setLongitude(e.target.value !== '' ? Number(e.target.value) : '')}
+                  required
+                />
+              </label>
+            </div> */}
+            <div>
+              <label>
+                Fecha de inicio:
+                <input
+                  type="date"
+                  value={dateStart}
+                  onChange={(e) => setDateStart(e.target.value)}
+                  required
+                />
+              </label>
+            </div>
+            <div>
+              <label>
+                Fecha de fin:
+                <input
+                  type="date"
+                  value={dateEnd}
+                  onChange={(e) => setDateEnd(e.target.value)}
+                  required
+                />
+              </label>
+            </div>
+            <button type="submit" className='btn btn-primary'>Buscar</button>
+          </form>
+          <br></br>
+          <div id="datos"></div>
 
-      <h1>NDVI Image</h1>
-      {/* {ndviError && <div>Error: {getErrorMessage(ndviError)}</div>} */}
-      {ndviImageUrl ? (
-        <img src={ndviImageUrl} alt="NDVI from API" />
-      ) : (
-        <div>No NDVI image yet</div>
-      )}
-      <button className='btn btn-primary' onClick={handleNdviButtonClick}>Fetch NDVI Image</button>
+          <br></br>
+          <h1>POR FAVOR NO BUSCAR MUCHAS IMÁGENES DEBIDO A LIMITACIÓN DE LA API DE PRUEBA DE EOS</h1>
+          <h2>Buscar imagen Imagen</h2>
+          {/* {renderError && <div>Error: {getErrorMessage(renderError)}</div>} */}
+          {renderImageUrl ? (
+            <img src={renderImageUrl} alt="Rendered from API" />
+          ) : (
+            <div>No se ha buscado una imagen aún</div>
+          )}
+          <button className='btn btn-primary' onClick={handleRenderButtonClick}>Buscar imagen</button>
+
+          <br></br>
+          <br></br>
+          <h2>Imagen NDVI</h2>
+          {/* {ndviError && <div>Error: {getErrorMessage(ndviError)}</div>} */}
+          {ndviImageUrl ? (
+            <img src={ndviImageUrl} alt="NDVI from API" />
+          ) : (
+            <div>No se ha buscado una imagen NDVI aún</div>
+          )}
+          <button className='btn btn-primary' onClick={handleNdviButtonClick}>Buscar imagen NDVI</button>
+        </div>
+      </div>
     </div>
   );
 };

@@ -15,8 +15,8 @@ import Loader from '../usabilidad/Loader.tsx';
 
 import UserRoles from '../login/UserRoles.tsx';
 
-import OpenTopographyMap from '../googleEarth/OpenTopographyMap.jsx';
 import RequestComponent from '../eos/RequestComponent.tsx';
+import ProjectForm from '../guardarProyectos/ProjectForm';
 
 function MainContent() {
     const { user, isAuthenticated, isLoading } = useAuth0();
@@ -62,8 +62,7 @@ function MainContent() {
                     <UserRoles />
                 )} */}
             </div>
-
-            {/* <OpenTopographyMap /> */}
+            {/* <ProjectForm /> */}
             
             <div id="content">
                 {/*{/*<!-- Topbar -->*/}
@@ -112,6 +111,8 @@ function MainContent() {
                 {/*<!-- Begin Page Content -->*/}
 
                 <button className='btn btn-primary' onClick={navigateEosTest}>EOS Test</button>
+                <button className='btn btn-primary' onClick={() => goTo('/OpenTopography')}>OpenTopography</button>
+
                 <div className="container-fluid">
                     {/*<!-- Page Heading -->*/}
                     <div className="d-sm-flex align-items-center justify-content-between mb-4">
