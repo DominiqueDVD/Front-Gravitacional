@@ -90,7 +90,7 @@ function MainContent() {
         <div>
             {/*<!-- Main Content -->*/}
             <div id="content">
-                <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                {/* <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                     <button id="sidebarToggleTop" className="btn btn-link d-md-none rounded-circle mr-3">
                         <i className="fa fa-bars"></i>
                     </button>
@@ -120,8 +120,8 @@ function MainContent() {
                             </a>
                         </li>
                     </ul>
-                </nav>
-
+                </nav> */}
+<br />
                 <div className="container-fluid">
                     <div className='buttonspanel' style={{ justifyContent: "space-between" }}>
                         <h4 className='lastProyects'>Ultimos proyectos</h4>
@@ -248,7 +248,7 @@ function MainContent() {
                         <div className="col-lg-6 mb-4">
                             <div className="card shadow mb-4">
                                 <div className="card-header py-3">
-                                    <h6 className="m-0 font-weight-bold ">Información</h6>
+                                    <h6 className="m-0 font-weight-bold ">Proyectos</h6>
                                 </div>
                                 <div className="chart-area">
                                     {/* Agrega contenido informativo aquí */}
