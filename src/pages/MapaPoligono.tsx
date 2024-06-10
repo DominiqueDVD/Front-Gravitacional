@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import '../styles/layout.css'
 import ButtonModal from '../components/poligonos/modalButton'
 import SearchForm from '../components/poligonos/buscarLugar'
-import vistaModelo3d from './vistaModelo3D'
+import vistaModelo3d from './VistaModelo3D'
 
 
-function Layout() {
+function MapaPoligono() {
   const [polygonPaths, setPolygonPaths] = useState([]);
   useEffect(() => {
     const script = document.createElement('script')
@@ -149,7 +149,7 @@ function Layout() {
             URL.revokeObjectURL(url);
 
             const pathsEncoded = encodeURIComponent(jsonStr);
-            window.open(`/GoogleEarth?data=${pathsEncoded}`);
+            window.open(`/analisis?data=${pathsEncoded}`);
 
             // PoligonoInfoModal.openModal()
 
@@ -472,4 +472,4 @@ function Layout() {
   )
 }
 
-export default Layout
+export default MapaPoligono

@@ -13,15 +13,11 @@ import OpenTopography from "../components/openTopography/OpenTopography";
 // import EosTest from "./EosTest.jsx";
 import RequestComponent from "../components/eos/RequestComponent";
 
-function GoogleEarthComponent() {
+function VistaModelo3D() {
   // Get the parameter value from the URL
   const [zoom, setZoom] = useState(16); // Valor inicial del zoom
   const urlParams = new URLSearchParams(window.location.search);
   const encodedJsonString = urlParams.get("data");
-
-  const seccion1 = document.getElementById('seccion1');
-  const seccion2 = document.getElementById('seccion2');
-  const seccion3 = document.getElementById('seccion3');
 
   // Decode the parameter value and parse it back into a JSON array
   const jsonString = decodeURIComponent(encodedJsonString);
@@ -166,7 +162,7 @@ function GoogleEarthComponent() {
     ui.updateDebugSliderRange(glbUrls.length);
 
     // eslint-disable-next-line no-unused-expressions
-    viewer.fetch;
+    // viewer.fetch;
   };
 
   const load3DTileset = async (tilesetUrl, viewport, screenSpaceError) => {
@@ -243,8 +239,6 @@ function GoogleEarthComponent() {
     setSse(event.target.value);
   };
 
-
-
   const handleZoomChange = (event) => {
     const newZoom = event.target.value;
     setZoom(newZoom);
@@ -261,198 +255,168 @@ function GoogleEarthComponent() {
     setLatLng(event.target.value);
   };
 
-  const handleVista3D = () => {
-      document.getElementById('seccion1').style.width = "100%";
-      document.getElementById('seccion2').style.width = "0";
-      document.getElementById('seccion3').style.width = "0";
-  }
-
-  const handleVistaOpentTP = () => {
-      document.getElementById('seccion1').style.width = "0";
-      document.getElementById('seccion2').style.width = "100%";
-      document.getElementById('seccion3').style.width = "0";
-  }
-
-  const handleVistaEOS = () => {
-      document.getElementById('seccion1').style.width = "0";
-      document.getElementById('seccion2').style.width = "0";
-      document.getElementById('seccion3').style.width = "100%";
-  }
-
   return (
     <div>
-      <button className="btn btn-primary" onClick={handleVista3D}>Vista Modelo 3D</button>
-      <button className="btn btn-primary" onClick={handleVistaOpentTP}>Vista OpenTopography</button>
-      <button className="btn btn-primary" onClick={handleVistaEOS}>Vista EOS</button>
-      <div id="containerGeneral">
-        <div id="seccion1" className="secciones">
-          <link
-            rel="stylesheet"
-            href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-            integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-            crossOrigin=""
-          />
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap"
-            rel="stylesheet"
-          ></link>
-          <script
-            src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-            crossOrigin=""
-          ></script>
+      <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossOrigin=""
+      />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap"
+        rel="stylesheet"
+      ></link>
+      <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossOrigin=""
+      ></script>
 
-          <script src="../components/rinoCompute/script.js"></script>
+      <script src="../components/rinoCompute/script.js"></script>
 
-          <div id="loader">
-            <img src={isotipo} id="isotipo-loader"></img>
-          </div>
+      <div id="loader">
+        <img src={isotipo} id="isotipo-loader"></img>
+      </div>
 
 
-          <div id="settings">
-            <div id="logoGrav">
-              <img src={logo2} alt="Logo Grav" />
-            </div>
-            <br></br>
-            <div id="centered-container">
-              {/* <label>Google API Key</label>
+      <div id="settings">
+        <div id="logoGrav">
+          <img src={logo2} alt="Logo Grav" />
+        </div>
+        <br></br>
+        <div id="centered-container">
+          {/* <label>Google API Key</label>
           <input id="google-api-key" type="text" /> */}
-              <label>Latitud y Longitud</label>
-              <input
-                id="lat-lng"
-                type="text"
-                value={latLng}
-                onChange={handleInputChange}
-              />
-              <label htmlFor="sse">Reducción de calidad:</label> <span>{sse}</span>
-              <br></br>
-              <input
-                id="sse"
-                type="range"
-                min="0"
-                max="20"
-                value={sse}
-                onChange={handleSseChange}
-              />
-              <br></br>
-              <label htmlFor="zoom">Zoom:</label> <span>{zoom}</span>
-              <br></br>
-              <input
-                id="zoom"
-                type="range"
-                min="14"
-                max="20"
-                value={zoom}
-                onChange={handleZoomChange}
-              />
-              <div id="debug-slider-container">
-                <label>Cantidad de teselas</label>
-                <span id="tile-count"></span>
-                <input
-                  id="debug-slider"
-                  type="range"
-                  min="-1"
-                  max="100"
-                  value={teselas}
-                  onChange={handleTeselaChange}
-                // onChange={(e) => handleTileSliderChange(e.target.value)}
-                ></input>
-              </div>
-              <div id="map-container">
-                <div id="map"></div>
-              </div>
-            </div>
-            <button
-              id="fetch"
-              onClick={handleFetch}
-              className="btn btn-primary my-1"
-            >
-              Buscar teselas
-            </button>
-            <pre id="fetch-log" className="log"></pre>
-            <div className="botonesMod">
-              <button
-                id="download"
-                onClick={handleDownload}
-                className="btn btn-primary my-1"
-              >
-                Descargar modelo glTF
-              </button>
-              <button
-                id="botonComputar"
-                onClick={computarModelo}
-                className="btn btn-primary my-1"
-              >
-                Computar modelo
-              </button>
-            </div>
+          <label>Latitud y Longitud</label>
+          <input
+            id="lat-lng"
+            type="text"
+            value={latLng}
+            onChange={handleInputChange}
+          />
+          <label htmlFor="sse">Reducción de calidad:</label> <span>{sse}</span>
+          <br></br>
+          <input
+            id="sse"
+            type="range"
+            min="0"
+            max="20"
+            value={sse}
+            onChange={handleSseChange}
+          />
+          <br></br>
+          <label htmlFor="zoom">Zoom:</label> <span>{zoom}</span>
+          <br></br>
+          <input
+            id="zoom"
+            type="range"
+            min="14"
+            max="20"
+            value={zoom}
+            onChange={handleZoomChange}
+          />
+          <div id="debug-slider-container">
+            <label>Cantidad de teselas</label>
+            <span id="tile-count"></span>
+            <input
+              id="debug-slider"
+              type="range"
+              min="-1"
+              max="100"
+              value={teselas}
+              onChange={handleTeselaChange}
+            // onChange={(e) => handleTileSliderChange(e.target.value)}
+            ></input>
           </div>
-
-          <div id="instructions">
-            <button
-              id="close-instructions-btn"
-              style={{ position: "absolute", top: 0, right: 0 }}
-              onClick={() => {
-                document.getElementById("instructions").style.display = "none";
-              }}
-            >
-              X
-            </button>
-            <center>
-              <br />
-              <p>
-
-                Esta aplicación muestra la búsqueda y renderización de teselas de Google Earth en ThreeJS
-              </p>
-            </center>
-            <ol>
-              <li>
-                Get a{" "}
-                <a
-                  href="https://developers.google.com/maps/documentation/tile/get-api-key"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Google "Map Tiles"
-                </a>{" "}
-                API key{" "}
-              </li>
-              <li>Paste it in the settings top left</li>
-              <li>
-                Click <span id="fetch-tiles-instruction-text">fetch tiles</span>
-              </li>
-            </ol>
-            <center>
-
-              <p>
-                <a
-                  href="https://github.com/OmarShehata/google-earth-as-gltf#google-earth-as-gltf-models"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Learn more
-                </a>{" "}
-              </p>
-            </center>
-
-
-
+          <div id="map-container">
+            <div id="map"></div>
           </div>
-
-
-          <script type="module" src="/src/index.js"></script>
         </div>
-        <div id="seccion2" className="secciones">
-          <OpenTopography />
-        </div>
-        <div id="seccion3" className="secciones">
-          <RequestComponent />
+        <button
+          id="fetch"
+          onClick={handleFetch}
+          className="btn btn-primary my-1"
+        >
+          Buscar teselas
+        </button>
+        <pre id="fetch-log" className="log"></pre>
+        <div className="botonesMod">
+          <button
+            id="download"
+            onClick={handleDownload}
+            className="btn btn-primary my-1"
+          >
+            Descargar modelo glTF
+          </button>
+          <button
+            id="botonComputar"
+            onClick={computarModelo}
+            className="btn btn-primary my-1"
+          >
+            Computar modelo
+          </button>
         </div>
       </div>
+
+      <div id="instructions">
+        <button
+          id="close-instructions-btn"
+          style={{ position: "absolute", top: 0, right: 0 }}
+          onClick={() => {
+            document.getElementById("instructions").style.display = "none";
+          }}
+        >
+          X
+        </button>
+        <center>
+          <br />
+          <p>
+
+            Esta aplicación muestra la búsqueda y renderización de teselas de Google Earth en ThreeJS
+          </p>
+        </center>
+        <ol>
+          <li>
+            Get a{" "}
+            <a
+              href="https://developers.google.com/maps/documentation/tile/get-api-key"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Google "Map Tiles"
+            </a>{" "}
+            API key{" "}
+          </li>
+          <li>Paste it in the settings top left</li>
+          <li>
+            Click <span id="fetch-tiles-instruction-text">fetch tiles</span>
+          </li>
+        </ol>
+        <center>
+
+          <p>
+            <a
+              href="https://github.com/OmarShehata/google-earth-as-gltf#google-earth-as-gltf-models"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Learn more
+            </a>{" "}
+          </p>
+        </center>
+
+
+
+      </div>
+
+
+      <script type="module" src="/src/index.js"></script>
+
     </div>
   );
 }
 
-export default GoogleEarthComponent;
+export default VistaModelo3D;

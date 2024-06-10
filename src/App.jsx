@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Layout from "./pages/mapaPoligono.jsx";
+import MapaPoligono from "./pages/MapaPoligono";
 import Login from "./pages/login.tsx";
 import CrearCuenta from "./pages/CrearCuenta.tsx"
 import CambioContraseña from "./pages/CambioContraseña.tsx";
-import Modelo3d from "./pages/vistaModelo3D.jsx"
+import Modelo3d from "./pages/VistaModelo3D.tsx"
 import PrivateRoute from "./components/login/PrivateRoute.tsx";
 import Dashboard from "./pages/dashboard/Dashboard.tsx";
 import AdminDashboard from "./pages/dashboard/AdminDashboard.tsx";
@@ -18,6 +18,7 @@ import ColorChanger from "./components/accesibilidad/colorChanger.jsx";
 import EosTest from "./pages/EosTest";
 import OpenTopography from "./components/openTopography/OpenTopography"
 import Proyectos from "./pages/projects.tsx"
+import AnalisisModelo from "./pages/AnalisisModelo"
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
       <Route path="/EosTest" element={<EosTest />} />
       <Route path="/OpenTopography" element={<OpenTopography />} />
       <Route path="/proyectos" element={<Proyectos />} />
+     
       <Route
         path="/"
         element={<PrivateRoute />}
@@ -44,13 +46,13 @@ function App() {
       <Route
         path="/"
         element={<PrivateRoute />}
-        children={<Route path="/Poligono" element={<Layout />} />}
+        children={<Route path="/Poligono" element={<MapaPoligono />} />}
         
       />
       <Route
         path="/"
         element={<PrivateRoute />}
-        children={<Route path="/GoogleEarth" element={<Modelo3d/>} />}
+        children={ <Route path="/analisis" element={<AnalisisModelo />}/>}
         
       />
     </Routes>
