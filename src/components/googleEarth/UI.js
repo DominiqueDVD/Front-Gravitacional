@@ -95,7 +95,7 @@ export class UI {
 
         this.leafletMap = map;
         document.querySelector("#zoom").innerText = map.getZoom();
-        fetchTilesBtn.click();
+        // fetchTilesBtn.click();
       };
 
       this.fetchTilesBtn = fetchTilesBtn;

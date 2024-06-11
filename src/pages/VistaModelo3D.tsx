@@ -13,19 +13,28 @@ import OpenTopography from "../components/openTopography/OpenTopography";
 // import EosTest from "./EosTest.jsx";
 import RequestComponent from "../components/eos/RequestComponent";
 
-function VistaModelo3D() {
+interface Coordinate {
+  lat: number;
+  lng: number;
+}
+
+interface VistaModelo3DProps {
+  coordinates: Coordinate[];
+}
+
+const VistaModelo3D: React.FC<VistaModelo3DProps> = ({ coordinates }) => {
   // Get the parameter value from the URL
   const [zoom, setZoom] = useState(16); // Valor inicial del zoom
-  const urlParams = new URLSearchParams(window.location.search);
-  const encodedJsonString = urlParams.get("data");
+  // const urlParams = new URLSearchParams(window.location.search);
+  // const encodedJsonString = urlParams.get("data");
 
   // Decode the parameter value and parse it back into a JSON array
-  const jsonString = decodeURIComponent(encodedJsonString);
-  const arrayPuntos = JSON.parse(jsonString);
+  // const jsonString = decodeURIComponent(encodedJsonString);
+  // const arrayPuntos = coordinates;
 
-  console.log(arrayPuntos); // This will log the decoded JSON array
+  console.log("Array puntos: " + coordinates); // This will log the decoded JSON array
 
-  const centroide = calcularCentroide(arrayPuntos);
+  const centroide = calcularCentroide(coordinates);
   console.log(`${centroide.lat},${centroide.lng}`);
 
   const [viewer] = useState(new Viewer());

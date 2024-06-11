@@ -42,7 +42,7 @@ function MainContent() {
         if (projectName.trim()) {
             // Aquí puedes manejar el nombre del proyecto (por ejemplo, guardarlo en algún estado global)
             // Luego redirigir a la página de polígono
-            goTo('/poligono');
+            goTo('/analisis');
         }
     };
 

@@ -4,8 +4,16 @@ import ButtonModal from '../components/poligonos/modalButton'
 import SearchForm from '../components/poligonos/buscarLugar'
 import vistaModelo3d from './VistaModelo3D'
 
+interface Coordinate {
+  lat: number;
+  lng: number;
+}
 
-function MapaPoligono() {
+interface MapaPoligonoProps {
+  coordinates: Coordinate[];
+}
+
+const MapaPoligono: React.FC<MapaPoligonoProps> = ({ coordinates }) => {
   const [polygonPaths, setPolygonPaths] = useState([]);
   useEffect(() => {
     const script = document.createElement('script')
@@ -149,7 +157,8 @@ function MapaPoligono() {
             URL.revokeObjectURL(url);
 
             const pathsEncoded = encodeURIComponent(jsonStr);
-            window.open(`/analisis?data=${pathsEncoded}`);
+            coordinates = Paths;
+            // window.open(`/analisis?data=${pathsEncoded}`);
 
             // PoligonoInfoModal.openModal()
 
