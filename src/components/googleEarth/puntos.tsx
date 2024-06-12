@@ -14,7 +14,7 @@ export function calcularArea(poligono: Coordinate[]): number {
 }
 
 export function calcularCentroide(arrayPoligono: Coordinate[]): Coordinate {
-    const poligono = arrayPoligono[0];
+    const poligono = arrayPoligono;
     let totalX = 0;
     let totalY = 0;
 

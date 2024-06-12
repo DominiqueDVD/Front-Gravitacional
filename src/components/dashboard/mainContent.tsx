@@ -15,7 +15,7 @@ import Loader from '../usabilidad/Loader.tsx';
 
 import UserRoles from '../login/UserRoles.tsx';
 
-import RequestComponent from '../eos/RequestComponent.tsx';
+import RequestComponent from '../eos/EosRequestComponent.tsx';
 import ProjectForm from '../guardarProyectos/ProjectForm';
 
 function MainContent() {

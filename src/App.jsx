@@ -39,14 +39,14 @@ function App() {
       <Route
         path="/"
         element={<PrivateRoute />}
-        children={<Route path="/Dashboard" element={<Dashboard />} />}
+        children={<Route path="/dashboard" element={<Dashboard />} />}
         
       />
      
       <Route
         path="/"
         element={<PrivateRoute />}
-        children={<Route path="/Poligono" element={<MapaPoligono />} />}
+        children={<Route path="/poligono" element={<MapaPoligono />} />}
         
       />
       <Route

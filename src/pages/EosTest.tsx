@@ -1,10 +1,10 @@
 import React from 'react';
-import RequestComponent from '../components/eos/RequestComponent';
+import EosRequestComponent from '../components/eos/EosRequestComponent';
 
 const EosTest: React.FC = () => {
   return (
     <div>
-      <RequestComponent />
+      <EosRequestComponent />
     </div>
   );
 };

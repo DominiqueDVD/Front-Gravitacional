@@ -11,7 +11,7 @@ import isotipo from "../assets/isotipo_color.png";
 import "../styles/vista3d.css";
 import OpenTopography from "../components/openTopography/OpenTopography";
 // import EosTest from "./EosTest.jsx";
-import RequestComponent from "../components/eos/RequestComponent";
+import EosRequestComponent from "../components/eos/EosRequestComponent";
 
 interface Coordinate {
   lat: number;
