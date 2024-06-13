@@ -20,11 +20,13 @@ interface Coordinate {
 
 interface VistaModelo3DProps {
   coordinates: Coordinate[];
+  isValid: boolean;
 }
 
-const VistaModelo3D: React.FC<VistaModelo3DProps> = ({ coordinates }) => {
+const VistaModelo3D: React.FC<VistaModelo3DProps> = ({ coordinates, isValid }) => {
   // Get the parameter value from the URL
   const [zoom, setZoom] = useState(16); // Valor inicial del zoom
+  const [centroide, setCentroide] = useState<Coordinate>({ lat: -36.6, lng: -72.1 });
   // const urlParams = new URLSearchParams(window.location.search);
   // const encodedJsonString = urlParams.get("data");
 
@@ -34,7 +36,10 @@ const VistaModelo3D: React.FC<VistaModelo3DProps> = ({ coordinates }) => {
 
   console.log("Array puntos: " + coordinates); // This will log the decoded JSON array
 
-  const centroide = calcularCentroide(coordinates);
+  // if (isValid) {
+  //   setCentroide(calcularCentroide(coordinates));
+  // } 
+
   console.log(`${centroide.lat},${centroide.lng}`);
 
   const [viewer] = useState(new Viewer());

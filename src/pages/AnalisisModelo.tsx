@@ -20,9 +20,11 @@ const AnalisisModelo: React.FC<{ project: Project }> = ({ project }) => {
     const initialCoordinates = project?.coordinates || [];
     const [view, setView] = useState('poligono');
     const [coordinates, setCoordinates] = useState<Coordinate[]>(initialCoordinates);
+    const [coordenadasValidas, setCoordenadasValidas] = useState<boolean>(false);
 
     const actualizarCoordenadas = (nuevasCoordenadas: Coordinate[]) => {
         setCoordinates(nuevasCoordenadas);
+        setCoordenadasValidas(true);
     }
 
     const handleViewChange = (viewName: string) => {
@@ -90,28 +92,37 @@ const AnalisisModelo: React.FC<{ project: Project }> = ({ project }) => {
     return (
         <div>
             <button className="btn btn-primary" onClick={() => handleViewChange('poligono')}>Polígono</button>
-            <button className="btn btn-primary" onClick={() => handleViewChange('vista3D')}>Vista 3D</button>
-            <button className="btn btn-primary" onClick={() => handleViewChange('vistaOpenTP')}>Vista OpenTP</button>
-            <button className="btn btn-primary" onClick={() => handleViewChange('vistaEOS')}>Vista EOS</button>
+            {coordenadasValidas && (
+                <div>
+                    <button className="btn btn-primary" onClick={() => handleViewChange('vista3D')}>Vista 3D</button>
+                    <button className="btn btn-primary" onClick={() => handleViewChange('vistaOpenTP')}>Vista OpenTP</button>
+                    <button className="btn btn-primary" onClick={() => handleViewChange('vistaEOS')}>Vista EOS</button>
+
+                </div>
+            )}
             <div id="containerGeneral">
                 {view === 'poligono' && (
                     <div id="seccion1" className="secciones full-width">
-                        <MapaPoligono coordinates={coordinates} actualizarCoordenadas={actualizarCoordenadas}/>
+                        <MapaPoligono coordinates={coordinates} actualizarCoordenadas={actualizarCoordenadas} />
                     </div>
                 )}
-                {view === 'vista3D' && (
-                    <div id="seccion2" className="secciones full-width">
-                        <VistaModelo3D coordinates={coordinates} />
-                    </div>
-                )}
-                {view === 'vistaOpenTP' && (
-                    <div id="seccion3" className="secciones full-width">
-                        <OpenTopography coordinates={coordinates} />
-                    </div>
-                )}
-                {view === 'vistaEOS' && (
-                    <div id="seccion4" className="secciones full-width">
-                        <EosRequestComponent coordinates={coordinates} />
+                {coordenadasValidas && (
+                    <div>
+                        {view === 'vista3D' && (
+                            <div id="seccion2" className="secciones full-width">
+                                <VistaModelo3D coordinates={coordinates} isValid={coordenadasValidas}/>
+                            </div>
+                        )}
+                        {view === 'vistaOpenTP' && (
+                            <div id="seccion3" className="secciones full-width">
+                                <OpenTopography coordinates={coordinates} />
+                            </div>
+                        )}
+                        {view === 'vistaEOS' && (
+                            <div id="seccion4" className="secciones full-width">
+                                <EosRequestComponent coordinates={coordinates} />
+                            </div>
+                        )}
                     </div>
                 )}
             </div>
