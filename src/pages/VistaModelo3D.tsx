@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Viewer } from "../components/googleEarth/Viewer.js";
-import { UI } from "../components/googleEarth/UI.js";
+import { Viewer } from "../components/googleEarth/Viewer";
+import { UI } from "../components/googleEarth/UI";
 import { load } from "@loaders.gl/core";
 import { Tileset3D } from "@loaders.gl/tiles";
 import { Tiles3DLoader } from "@loaders.gl/3d-tiles";
@@ -20,48 +20,28 @@ interface Coordinate {
 
 interface VistaModelo3DProps {
   coordinates: Coordinate[];
-  isValid: boolean;
+  centroide: Coordinate;
 }
 
-const VistaModelo3D: React.FC<VistaModelo3DProps> = ({ coordinates, isValid }) => {
-  // Get the parameter value from the URL
+const VistaModelo3D: React.FC<VistaModelo3DProps> = ({ coordinates, centroide }) => {
   const [zoom, setZoom] = useState(16); // Valor inicial del zoom
-  const [centroide, setCentroide] = useState<Coordinate>({ lat: -36.6, lng: -72.1 });
-  // const urlParams = new URLSearchParams(window.location.search);
-  // const encodedJsonString = urlParams.get("data");
-
-  // Decode the parameter value and parse it back into a JSON array
-  // const jsonString = decodeURIComponent(encodedJsonString);
-  // const arrayPuntos = coordinates;
-
-  console.log("Array puntos: " + coordinates); // This will log the decoded JSON array
-
-  // if (isValid) {
-  //   setCentroide(calcularCentroide(coordinates));
-  // } 
-
-  console.log(`${centroide.lat},${centroide.lng}`);
-
   const [viewer] = useState(new Viewer());
   const [ui] = useState(new UI());
-  useEffect(() => {
-    // Recuperar el valor del zoom del almacenamiento local al cargar el componente
-    const savedZoom = localStorage.getItem("zoom");
-    if (savedZoom) {
-      setZoom(parseInt(savedZoom));
-    }
+  
+  // useEffect(() => {
+  //   // Recuperar el valor del zoom del almacenamiento local al cargar el componente
+  //   const savedZoom = localStorage.getItem("zoom");
+  //   if (savedZoom) {
+  //     setZoom(parseInt(savedZoom));
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-
-  useEffect(() => {
-    // Almacenar el valor del zoom en el almacenamiento local
-    localStorage.setItem("zoom", zoom);
-
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [zoom]);
+  // useEffect(() => {
+  //   // Almacenar el valor del zoom en el almacenamiento local
+  //   localStorage.setItem("zoom", zoom.toString());
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [zoom]);
 
   useEffect(() => {
     ui.onFetch = async () => {
@@ -224,22 +204,6 @@ const VistaModelo3D: React.FC<VistaModelo3DProps> = ({ coordinates, isValid }) =
   const computarModelo = () => {
     viewer.computarFigura();
   };
-
-  // const botonComputar = document.querySelector("#botonComputar");
-  // botonComputar.onClick = () => {
-  //   viewer.computarModeloGltf();
-  // };
-
-  // function computarModeloGltf() {
-  //   viewer.exportarModeloGLTF();
-  // }
-
-  // const handleTileSliderChange = (value) => {
-  //   for (let i = 0; i < viewer.gltfArray.length; i++) {
-  //     const gltf = viewer.gltfArray[i];
-  //     gltf.scene.visible = i <= value;
-  //   }
-  // };
 
   const [teselas, setTesela] = useState(); // Valor inicial del sse
 
@@ -426,9 +390,7 @@ const VistaModelo3D: React.FC<VistaModelo3DProps> = ({ coordinates, isValid }) =
 
       </div>
 
-
-      <script type="module" src="/src/index.js"></script>
-
+      {/* <script type="module" src="/src/index.js"></script> */}
     </div>
   );
 }

@@ -5,6 +5,7 @@ import OpenTopography from "../components/openTopography/OpenTopography";
 import EosRequestComponent from "../components/eos/EosRequestComponent";
 import VistaModelo3D from "./VistaModelo3D"
 import MapaPoligono from "./MapaPoligono";
+import { calcularCentroide } from "../components/googleEarth/puntos";
 
 interface Coordinate {
     lat: number;
@@ -17,14 +18,19 @@ interface Project {
 }
 
 const AnalisisModelo: React.FC<{ project: Project }> = ({ project }) => {
-    const initialCoordinates = project?.coordinates || [];
+    const initialCoordinates = project?.coordinates || [{ lat: -36.6066, lng: -72.1034 },
+    { lat: -36.6067, lng: -72.1035 },
+    { lat: -36.6068, lng: -72.1036 }];
     const [view, setView] = useState('poligono');
     const [coordinates, setCoordinates] = useState<Coordinate[]>(initialCoordinates);
     const [coordenadasValidas, setCoordenadasValidas] = useState<boolean>(false);
+    const [centroide, setCentroide] = useState<Coordinate>({ lat: -36.6, lng: -72.1 });
 
+    console.log(coordinates);
     const actualizarCoordenadas = (nuevasCoordenadas: Coordinate[]) => {
         setCoordinates(nuevasCoordenadas);
         setCoordenadasValidas(true);
+        setCentroide(calcularCentroide(coordinates));
     }
 
     const handleViewChange = (viewName: string) => {
@@ -106,13 +112,14 @@ const AnalisisModelo: React.FC<{ project: Project }> = ({ project }) => {
                         <MapaPoligono coordinates={coordinates} actualizarCoordenadas={actualizarCoordenadas} />
                     </div>
                 )}
+                {view === 'vista3D' && (
+                    <div id="seccion2" className="secciones full-width">
+                        <VistaModelo3D coordinates={coordinates} centroide={centroide} />
+                    </div>
+                )}
                 {coordenadasValidas && (
                     <div>
-                        {view === 'vista3D' && (
-                            <div id="seccion2" className="secciones full-width">
-                                <VistaModelo3D coordinates={coordinates} isValid={coordenadasValidas}/>
-                            </div>
-                        )}
+
                         {view === 'vistaOpenTP' && (
                             <div id="seccion3" className="secciones full-width">
                                 <OpenTopography coordinates={coordinates} />
