@@ -16,6 +16,7 @@ interface MapaPoligonoProps {
 
 const MapaPoligono: React.FC<MapaPoligonoProps> = ({ coordinates, actualizarCoordenadas }) => {
   const [polygonPaths, setPolygonPaths] = useState([]);
+  console.log(coordinates);
   
   useEffect(() => {
     const script = document.createElement('script')
