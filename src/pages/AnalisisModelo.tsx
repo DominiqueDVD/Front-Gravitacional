@@ -6,14 +6,23 @@ import EosRequestComponent from "../components/eos/EosRequestComponent";
 import VistaModelo3D from "./VistaModelo3D";
 import MapaPoligono from "./MapaPoligono";
 import { calcularCentroide } from "../components/googleEarth/puntos";
+import { createProject, updateProject } from '../services/ProjectService';
 
-interface Coordinate {
+export interface Coordinate {
   lat: number;
   lng: number;
 }
 
-interface Project {
+export interface Project {
   coordinates: Coordinate[];
+  // id?: string;
+  // name: string;
+  // description: string;
+  // userId: string;
+  // createdAt?: string;
+  // updatedAt?: string;
+  // thumbnail: string;
+
   // Otros campos del proyecto
 }
 
@@ -25,6 +34,13 @@ const AnalisisModelo: React.FC<{ project: Project }> = ({ project }) => {
   const [centroide, setCentroide] = useState<Coordinate>();
 
   console.log(coordinates);
+
+  useEffect(() => {
+    if (coordinates.length > 0) {
+      const nuevoCentroide = calcularCentroide(coordinates);
+      setCentroide(nuevoCentroide);
+    }
+  }, [coordinates]);
 
   const actualizarCoordenadas = (nuevasCoordenadas: Coordinate[]) => {
     setCoordinates(nuevasCoordenadas);
@@ -46,12 +62,11 @@ const AnalisisModelo: React.FC<{ project: Project }> = ({ project }) => {
     setCoordinates(newCoordinates);
   };
 
-  useEffect(() => {
-    if (coordinates.length > 0) {
-      const nuevoCentroide = calcularCentroide(coordinates);
-      setCentroide(nuevoCentroide);
-    }
-  }, [coordinates]);
+  const handleGuardarProyecto = () => {
+    console.log("Guardar proyecto");
+    project.coordinates = coordinates;
+    createProject(project);
+  }
 
   return (
     <div>
@@ -69,6 +84,7 @@ const AnalisisModelo: React.FC<{ project: Project }> = ({ project }) => {
           <button className="btn btn-primary" onClick={() => handleViewChange("vistaEOS")}>
             Vista EOS
           </button>
+          <button className="btn btn-success" onClick={() => handleGuardarProyecto()}>Guardar proyecto</button>
         </div>
       )}
       <div id="containerGeneral">
