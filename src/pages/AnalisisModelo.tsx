@@ -7,6 +7,7 @@ import VistaModelo3D from "./VistaModelo3D";
 import MapaPoligono from "./MapaPoligono";
 import { calcularCentroide } from "../components/googleEarth/puntos";
 import { createProject, updateProject } from '../services/ProjectService';
+import ModelViewer from "../components/rhinoCompute/ModelViewer";
 
 export interface Coordinate {
   lat: number;
@@ -70,6 +71,7 @@ const AnalisisModelo: React.FC<{ project: Project }> = ({ project }) => {
 
   return (
     <div>
+      <ModelViewer />
       <button className="btn btn-primary" onClick={() => handleViewChange("poligono")}>
         Polígono
       </button>
