@@ -95,17 +95,14 @@ const AnalisisModelo: React.FC<{ project: Project }> = ({ project }) => {
             <MapaPoligono coordinates={coordinates} actualizarCoordenadas={actualizarCoordenadas} />
           </div>
         )}
-        {view === "vista3D" && (
-          <div id="seccion2" className="secciones full-width">
-            {coordinates && coordinates.length > 0 ? (
-              <VistaModelo3D coordinates={coordinates} />
-            ) : (
-              <div>Cargando datos...</div> // Podrías mostrar un spinner u otro indicador aquí
-            )}
-          </div>
-        )}
+
         {coordenadasValidas && (
           <div>
+            {view === "vista3D" && (
+              <div id="seccion2" className="secciones full-width">
+                <VistaModelo3D />
+              </div>
+            )}
             {view === "vistaOpenTP" && (
               <div id="seccion3" className="secciones full-width">
                 <OpenTopography coordinates={coordinates} />
