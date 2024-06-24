@@ -46,14 +46,14 @@ function Body() {
             <a className="sidebar-brand d-flex align-items-center justify-content-center" href="/Dashboard">
 
 
-<div className="sidebar-brand-text mx-0" id="fuentes">Panel de Control Administrador</div>
-</a>
+              <div className="sidebar-brand-text mx-0" id="fuentes">Panel de Control Administrador</div>
+            </a>
             <a className="sidebar-brand d-flex align-items-center justify-content-center" href="/Dashboard">
               <div className="sidebar-brand-text mx-0" id="fuentes"><h5 style={{ fontSize: "12px" }}>Planificación territorial y gestión de agua lluvia</h5></div>
 
 
             </a>
-         
+
             {/* Divider */}
             <hr className="sidebar-divider my-0" />
             {/* Nav Item - Dashboard */}
@@ -111,21 +111,21 @@ function Body() {
               <a className="btn btn-success btn-sm" href="/proyectos">Ver Proyectos</a>
 
             </div>
-            
-        <nav className="navbar navbar-expand  topbar mb-4">
-    
-          <ul className="navbar-nav ml-auto">
 
-            <li className="nav-item dropdown no-arrow">
-              <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span className="mr-2 d-none d-lg-inlinel">{auth.getUser()?.username || ""}</span>
-                <img className="img-profile rounded-circle" src={img3} />
-                <button style={{background:"#e57878", color: "white", borderRadius:"5px"}} onClick={handleSignOut}>Cerrar Sesión</button>
-              </a>
-            </li>
-          </ul>
-        </nav>
+            <nav className="navbar navbar-expand  topbar mb-4">
+
+              <ul className="navbar-nav ml-auto">
+
+                <li className="nav-item dropdown no-arrow">
+                  <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span className="mr-2 d-none d-lg-inlinel">{auth.getUser()?.username || ""}</span>
+                    <img className="img-profile rounded-circle" src={img3} />
+                    <button style={{ background: "#e57878", color: "white", borderRadius: "5px" }} onClick={handleSignOut}>Cerrar Sesión</button>
+                  </a>
+                </li>
+              </ul>
+            </nav>
           </ul>
           {/* End of Sidebar */}
           {/* Content Wrapper */}

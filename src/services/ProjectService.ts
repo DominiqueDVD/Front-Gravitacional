@@ -33,3 +33,7 @@ export const updateProject = async (id: string, project: Project): Promise<Proje
 };
 
 // Agregar más funciones como eliminar proyecto, obtener por ID, etc.
+
+export const deleteProject = async (id: string): Promise<void> => {
+    await axios.delete(`${API_URL}/projects/${id}`);
+};
