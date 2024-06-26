@@ -3,6 +3,15 @@ import { useQuery } from 'react-query';
 import { fetchRenderImageUrl, fetchNdviImageUrl } from '../../services/eosService';
 import './eosTest.css';
 
+interface Coordinate {
+  lat: number;
+  lng: number;
+}
+
+interface EosRequestComponentProps {
+  coordinates: Coordinate[];
+}
+
 interface FormData {
   coords: string;
   dateStart: string;
@@ -13,14 +22,12 @@ interface CoordinatesFormProps {
   onSubmit: (data: FormData) => void;
 }
 
-
-
 interface ApiError {
   message: string;
   [key: string]: any;
 }
 
-const RequestComponent: React.FC<CoordinatesFormProps> = () => {
+const EosRequestComponent: React.FC<EosRequestComponentProps> = ({ coordinates }) => {
   const [renderImageUrl, setRenderImageUrl] = useState<string | null>(null);
   const [ndviImageUrl, setNdviImageUrl] = useState<string | null>(null);
 
@@ -165,7 +172,7 @@ const RequestComponent: React.FC<CoordinatesFormProps> = () => {
   );
 };
 
-export default RequestComponent;
+export default EosRequestComponent;
 
 
 

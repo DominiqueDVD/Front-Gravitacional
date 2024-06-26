@@ -2,31 +2,43 @@ import React, { useEffect, useState } from 'react'
 import '../styles/layout.css'
 import ButtonModal from '../components/poligonos/modalButton'
 import SearchForm from '../components/poligonos/buscarLugar'
-import vistaModelo3d from './VistaModelo3D'
+import VistaModelo3D from './VistaModelo3D'
 
+interface Coordinate {
+  lat: number;
+  lng: number;
+}
 
-function MapaPoligono() {
+interface MapaPoligonoProps {
+  coordinates: Coordinate[];
+  actualizarCoordenadas: (newCoordinates: Coordinate[]) => void;
+}
+
+const MapaPoligono: React.FC<MapaPoligonoProps> = ({ coordinates, actualizarCoordenadas }) => {
   const [polygonPaths, setPolygonPaths] = useState([]);
+  console.log(coordinates);
+  
   useEffect(() => {
     const script = document.createElement('script')
     // Asigna la URL de la API de Google Maps a la variable src del elemento script
-    script.src = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_API_KEY}&callback=initMap&libraries=drawing,places&v=weekly`
 
-    script.async = true
-    document.body.appendChild(script)
+    script.async = true;
+    document.body.appendChild(script);
 
     return () => {
-      document.body.removeChild(script)
+      document.body.removeChild(script);
     }
   }, [])
+  
   useEffect(() => {
-    let map
-    let Paths = new Array()
-    let bounds = null
-    let infoArea = null
-    function Generator() { }
-    let maxArea = 500000
-    let isValid = false
+    let map;
+    let Paths = new Array();
+    let bounds = null;
+    let infoArea = null;
+    function Generator() { };
+    let maxArea = 500000;
+    let isValid = false;
 
     Generator.prototype.rand = Math.floor(Math.random() * 26) + Date.now()
 
@@ -149,7 +161,9 @@ function MapaPoligono() {
             URL.revokeObjectURL(url);
 
             const pathsEncoded = encodeURIComponent(jsonStr);
-            window.open(`/analisis?data=${pathsEncoded}`);
+            // coordinates.s = Paths;
+            actualizarCoordenadas(Paths);
+            // window.open(`/analisis?data=${pathsEncoded}`);
 
             // PoligonoInfoModal.openModal()
 
@@ -467,7 +481,7 @@ function MapaPoligono() {
       <ButtonModal></ButtonModal>
       <SearchForm></SearchForm>
 
-      <vistaModelo3d paths={polygonPaths} />
+      <VistaModelo3D coordinates={polygonPaths} />
     </div>
   )
 }

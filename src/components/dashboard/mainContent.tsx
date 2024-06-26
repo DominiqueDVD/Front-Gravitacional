@@ -15,7 +15,7 @@ import Loader from '../usabilidad/Loader.tsx';
 
 import UserRoles from '../login/UserRoles.tsx';
 
-import RequestComponent from '../eos/RequestComponent.tsx';
+import RequestComponent from '../eos/EosRequestComponent.tsx';
 import ProjectForm from '../guardarProyectos/ProjectForm';
 
 function MainContent() {
@@ -42,7 +42,7 @@ function MainContent() {
         if (projectName.trim()) {
             // Aquí puedes manejar el nombre del proyecto (por ejemplo, guardarlo en algún estado global)
             // Luego redirigir a la página de polígono
-            goTo('/poligono');
+            goTo('/analisis');
         }
     };
 

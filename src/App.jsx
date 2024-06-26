@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MapaPoligono from "./pages/MapaPoligono";
-import Login from "./pages/login.tsx";
+import Login from "./pages/Login.tsx";
 import CrearCuenta from "./pages/CrearCuenta.tsx"
 import CambioContraseña from "./pages/CambioContraseña.tsx";
 import Modelo3d from "./pages/VistaModelo3D.tsx"
@@ -39,14 +39,14 @@ function App() {
       <Route
         path="/"
         element={<PrivateRoute />}
-        children={<Route path="/Dashboard" element={<Dashboard />} />}
+        children={<Route path="/dashboard" element={<Dashboard />} />}
         
       />
      
       <Route
         path="/"
         element={<PrivateRoute />}
-        children={<Route path="/Poligono" element={<MapaPoligono />} />}
+        children={<Route path="/poligono" element={<MapaPoligono />} />}
         
       />
       <Route
