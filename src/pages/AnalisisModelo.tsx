@@ -8,6 +8,7 @@ import MapaPoligono from "./MapaPoligono";
 import { calcularCentroide } from "../components/googleEarth/puntos";
 import { createProject, updateProject } from '../services/ProjectService';
 import ModelViewer from "../components/rhinoCompute/ModelViewer";
+import { useAuth0 } from "@auth0/auth0-react"
 
 export interface Coordinate {
   lat: number;
@@ -15,25 +16,38 @@ export interface Coordinate {
 }
 
 export interface Project {
-  coordinates: Coordinate[];
+  
   // id?: string;
-  // name: string;
-  // description: string;
-  // userId: string;
+  name: string;
+  description: string;
+  userId: string;
+  coordinates: Coordinate[];
   // createdAt?: string;
   // updatedAt?: string;
-  // thumbnail: string;
+  thumbnail: string;
 
   // Otros campos del proyecto
 }
 
-const AnalisisModelo: React.FC<{ project: Project }> = ({ project }) => {
-  const initialCoordinates = project?.coordinates || [];
+const AnalisisModelo: React.FC = () => {
+  // const initialCoordinates = project?.coordinates || [];
+  const { user, isAuthenticated, isLoading } = useAuth0();
   const [view, setView] = useState("poligono");
-  const [coordinates, setCoordinates] = useState<Coordinate[]>(initialCoordinates);
+  const [coordinates, setCoordinates] = useState<Coordinate[]>([
+    { lat: -36.6066, lng: -72.1034 },
+    { lat: -36.6067, lng: -72.1035 },
+    { lat: -36.6068, lng: -72.1036 },
+  ]);
   const [coordenadasValidas, setCoordenadasValidas] = useState<boolean>(false);
   const [centroide, setCentroide] = useState<Coordinate>();
-
+  const [project, setProject] = useState<Project>({
+    
+    name: "Proyecto de prueba",
+    description: "Descripción de prueba",
+    userId: user?.sub || "",
+    coordinates: coordinates,
+    thumbnail: "https://drive.google.com/file/d/1J2V78gGG5JEnUwdmm8r4sdOGGigs0YE9/view?usp=sharing"
+  });
   console.log(coordinates);
 
   useEffect(() => {
@@ -65,6 +79,7 @@ const AnalisisModelo: React.FC<{ project: Project }> = ({ project }) => {
 
   const handleGuardarProyecto = () => {
     console.log("Guardar proyecto");
+    console.log("")
     project.coordinates = coordinates;
     createProject(project);
   }

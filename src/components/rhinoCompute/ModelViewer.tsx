@@ -8,7 +8,7 @@ const ModelViewer: React.FC = () => {
 
     const handleCompute = async () => {
         const params = {
-            definition: '../../../src/assets/definition.gh',
+            definition: '../../../src/assets/HelloWorld.gh',
             values: {
                 // Add your input parameters here
             }
