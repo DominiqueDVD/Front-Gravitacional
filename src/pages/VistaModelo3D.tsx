@@ -171,6 +171,7 @@ const VistaModelo3D: React.FC<VistaModelo3DProps> = () => {
   };
 
   const computarModelo = () => {
+    
     viewer.computarFigura();
   };
 
