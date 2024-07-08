@@ -8,15 +8,16 @@ const ModelViewer: React.FC = () => {
 
     const handleCompute = async () => {
         const params = {
-            definition: '../../../src/assets/HelloWorld.gh',
             values: {
                 // Add your input parameters here
             }
         };
 
         try {
+            
             const data = await computeGrasshopper(params);
-            setModelData(data);
+            // console.log(data);
+            // setModelData(data);
         } catch (error) {
             console.error('Error computing Grasshopper definition:', error);
         }
