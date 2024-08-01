@@ -1,0 +1,36 @@
+/* SelectSuelos.css */
+
+.select-suelos {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 15px;
+    padding: 20px;
+    z-index: 1000;
+    width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .select-container {
+    margin-bottom: 15px;
+  }
+  
+  .select-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .select-container select {
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+
+  label{
+    color: black;
+    font-weight: 500!important;
+  }
+  

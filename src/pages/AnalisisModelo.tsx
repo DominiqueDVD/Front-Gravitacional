@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/analisisModelo.css";
 import OpenTopography from "../components/openTopography/OpenTopography";
-// import EosTest from "./EosTest.jsx";
 import EosRequestComponent from "../components/eos/EosRequestComponent";
 import VistaModelo3D from "./VistaModelo3D";
 import MapaPoligono from "./MapaPoligono";
@@ -16,21 +15,14 @@ export interface Coordinate {
 }
 
 export interface Project {
-  
-  // id?: string;
   name: string;
   description: string;
   userId: string;
   coordinates: Coordinate[];
-  // createdAt?: string;
-  // updatedAt?: string;
   thumbnail: string;
-
-  // Otros campos del proyecto
 }
 
 const AnalisisModelo: React.FC = () => {
-  // const initialCoordinates = project?.coordinates || [];
   const { user, isAuthenticated, isLoading } = useAuth0();
   const [view, setView] = useState("poligono");
   const [coordinates, setCoordinates] = useState<Coordinate[]>([
@@ -40,15 +32,14 @@ const AnalisisModelo: React.FC = () => {
   ]);
   const [coordenadasValidas, setCoordenadasValidas] = useState<boolean>(false);
   const [centroide, setCentroide] = useState<Coordinate>();
+
   const [project, setProject] = useState<Project>({
-    
-    name: "Proyecto de prueba",
-    description: "Descripción de prueba",
-    userId: user?.sub || "",
+    name: "",
+    description: "",
+    userId: user?.sub || "", // Asignar un string vacío si user?.sub es undefined
     coordinates: coordinates,
     thumbnail: "https://drive.google.com/file/d/1J2V78gGG5JEnUwdmm8r4sdOGGigs0YE9/view?usp=sharing"
   });
-  console.log(coordinates);
 
   useEffect(() => {
     if (coordinates.length > 0) {
@@ -77,33 +68,45 @@ const AnalisisModelo: React.FC = () => {
     setCoordinates(newCoordinates);
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setProject(prevProject => ({
+      ...prevProject,
+      [name]: value
+    }));
+  };
+
   const handleGuardarProyecto = () => {
     console.log("Guardar proyecto");
-    console.log("")
     project.coordinates = coordinates;
     createProject(project);
   }
 
   return (
     <div>
-      <ModelViewer />
-      <button className="btn btn-primary" onClick={() => handleViewChange("poligono")}>
-        Polígono
-      </button>
-      {coordenadasValidas && (
-        <div>
-          <button className="btn btn-primary" onClick={() => handleViewChange("vista3D")}>
-            Vista 3D
+      <div className="compute-buttons">
+        <ModelViewer />
+        <div className="analisis-buttons">
+          <button className="btn btn-primary" onClick={() => handleViewChange("poligono")}>
+            Polígono
           </button>
-          <button className="btn btn-primary" onClick={() => handleViewChange("vistaOpenTP")}>
-            Vista OpenTP
-          </button>
-          <button className="btn btn-primary" onClick={() => handleViewChange("vistaEOS")}>
-            Vista EOS
-          </button>
-          <button className="btn btn-success" onClick={() => handleGuardarProyecto()}>Guardar proyecto</button>
+          {coordenadasValidas && (
+            <div className="herramientas-buttons">
+              <button className="btn btn-primary" onClick={() => handleViewChange("vista3D")}>
+                Vista 3D
+              </button>
+              <button className="btn btn-primary" onClick={() => handleViewChange("vistaOpenTP")}>
+                Vista OpenTP
+              </button>
+              <button className="btn btn-primary" onClick={() => handleViewChange("vistaEOS")}>
+                Vista EOS
+              </button>
+              <button className="btn btn-success" onClick={() => handleGuardarProyecto()}>Guardar proyecto</button>
+            </div>
+          )}
         </div>
-      )}
+      </div>
+
       <div id="containerGeneral">
         {view === "poligono" && (
           <div id="seccion1" className="secciones full-width">
@@ -130,6 +133,23 @@ const AnalisisModelo: React.FC = () => {
             )}
           </div>
         )}
+      </div>
+
+      <div className="project-form">
+        <input 
+          type="text" 
+          name="name" 
+          value={project.name} 
+          onChange={handleInputChange} 
+          placeholder="Nombre del proyecto" 
+        />
+        <input 
+          type="text" 
+          name="description" 
+          value={project.description} 
+          onChange={handleInputChange} 
+          placeholder="Descripción del proyecto" 
+        />
       </div>
     </div>
   );
