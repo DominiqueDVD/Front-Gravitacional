@@ -6,7 +6,7 @@ import Login from "./pages/Login.tsx";
 import CrearCuenta from "./pages/CrearCuenta.tsx"
 import CambioContraseña from "./pages/CambioContraseña.tsx";
 import Modelo3d from "./pages/VistaModelo3D.tsx"
-import PrivateRoute from "./components/login/PrivateRoute.tsx";
+import PrivateRoute from "./components/Login/PrivateRoute.tsx";
 import Dashboard from "./pages/dashboard/Dashboard.tsx";
 import AdminDashboard from "./pages/dashboard/AdminDashboard.tsx";
 import Tutoriales from "./pages/Tutoriales.tsx";
@@ -19,6 +19,9 @@ import EosTest from "./pages/EosTest";
 import OpenTopography from "./components/openTopography/OpenTopography"
 import Proyectos from "./pages/projects.tsx"
 import AnalisisModelo from "./pages/AnalisisModelo"
+import SelectSuelos from "./components/suelos/selectSuelos.tsx"
+import AnalisisGeografico from "./pages/Herramientas/herramientasNoPagadas/analisisGeografico.tsx"
+import GestionAgua from "./pages/Herramientas/herramientasPagadas/gestionAgua.tsx"
 import solve from "./components/rhinoCompute/solve.js";
 
 function App() {
@@ -36,6 +39,9 @@ function App() {
       <Route path="/EosTest" element={<EosTest />} />
       <Route path="/OpenTopography" element={<OpenTopography />} />
       <Route path="/proyectos" element={<Proyectos />} />
+      <Route path="/select" element={<SelectSuelos />} />
+      <Route path="/analisisGeogrfico" element={<AnalisisGeografico />} />
+      <Route path="/gestionAgua" element={<GestionAgua />} />
       {/* <Route path="/solve" element={solve}/> */}
      
       <Route

@@ -190,3 +190,17 @@ input{
   min-width: 0;
 }
 
+.analisis-buttons{
+  display: flex;
+  gap: 20px;
+  padding: 10px;
+}
+
+.herramientas-buttons{
+  display: flex;
+  gap: 20px;
+}
+
+.compute-buttons{
+  display: flex;
+}

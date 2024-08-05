@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import Carousel from '../components/login/carouselInformativo'
+import Carousel from '../components/Login/carouselInformativo.tsx'
 import fondo from '../assets/fondoCarousel.jpg'
 import '../styles/login.css'
-import Contraseña from '../components/login/Contraseña.tsx'
+import Contraseña from '../components/Login/Contraseña.tsx'
 function CambioContraseña(){
 
 
