@@ -19,6 +19,7 @@ import EosTest from "./pages/EosTest";
 import OpenTopography from "./components/openTopography/OpenTopography"
 import Proyectos from "./pages/projects.tsx"
 import AnalisisModelo from "./pages/AnalisisModelo"
+import solve from "./components/rhinoCompute/solve.js";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
       <Route path="/EosTest" element={<EosTest />} />
       <Route path="/OpenTopography" element={<OpenTopography />} />
       <Route path="/proyectos" element={<Proyectos />} />
+      {/* <Route path="/solve" element={solve}/> */}
      
       <Route
         path="/"
