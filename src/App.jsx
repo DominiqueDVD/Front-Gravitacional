@@ -22,7 +22,7 @@ import AnalisisModelo from "./pages/AnalisisModelo"
 import SelectSuelos from "./components/suelos/selectSuelos.tsx"
 import AnalisisGeografico from "./pages/Herramientas/herramientasNoPagadas/analisisGeografico.tsx"
 import GestionAgua from "./pages/Herramientas/herramientasPagadas/gestionAgua.tsx"
-import solve from "./components/rhinoCompute/solve.js";
+import solve from "./components/rhinoCompute/solve.jsx";
 
 function App() {
   return (
