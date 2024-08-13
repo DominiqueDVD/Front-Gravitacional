@@ -478,10 +478,10 @@ const MapaPoligono: React.FC<MapaPoligonoProps> = ({ coordinates, actualizarCoor
   return (
     <div className='divMap'>
       <div id="map" style={{ width: '100%', height: '100vh' }}></div>
-      <ButtonModal></ButtonModal>
-      <SearchForm></SearchForm>
+      {/* <ButtonModal></ButtonModal>
+      <SearchForm></SearchForm> */}
 
-      <VistaModelo3D coordinates={polygonPaths} />
+      {/* <VistaModelo3D coordinates={polygonPaths} /> */}
     </div>
   )
 }
