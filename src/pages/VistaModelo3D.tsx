@@ -171,7 +171,7 @@ const VistaModelo3D: React.FC<VistaModelo3DProps> = () => {
   };
 
   const computarModelo = () => {
-    
+
     viewer.computarFigura();
   };
 
@@ -204,69 +204,220 @@ const VistaModelo3D: React.FC<VistaModelo3DProps> = () => {
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
         crossOrigin=""
       />
-      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-      <div className="top-bar">
-        <div className="logo-container">
-          <img src={logo2} alt="logo" className="logo-img" />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap"
+        rel="stylesheet"
+      ></link>
+      <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossOrigin=""
+      ></script>
+      <script src="../components/rinoCompute/script.js"></script>
+      <div id="loader">
+        <img src={isotipo} id="isotipo-loader"></img>
+      </div>
+      <div id="settings">
+        <div id="logoGrav">
+          <img src={logo2} alt="Logo Grav" />
         </div>
-        <div className="input-container">
-          <label htmlFor="coordinateInput">LatLng:</label>
+        <br></br>
+        <div id="centered-container">
+          {/* <label>Google API Key</label>
+          <input id="google-api-key" type="text" /> */}
+          <label>Latitud y Longitud</label>
           <input
-            id="coordinateInput"
+            id="lat-lng"
             type="text"
-            value={`${latLng.lat}, ${latLng.lng}`}
+            value={latLng.lat + "," + latLng.lng}
             onChange={handleInputChange}
           />
+          <label htmlFor="sse">Reducción de calidad:</label> <span>{sse}</span>
+          <br></br>
+          <input
+            id="sse"
+            type="range"
+            min="0"
+            max="20"
+            value={sse}
+            onChange={handleSseChange}
+          />
+          <br></br>
+          <label htmlFor="zoom">Zoom:</label> <span>{zoom}</span>
+          <br></br>
+          <input
+            id="zoom"
+            type="range"
+            min="14"
+            max="20"
+            value={zoom}
+            onChange={handleZoomChange}
+          />
+          <div id="debug-slider-container">
+            <label>Cantidad de teselas</label>
+            <span id="tile-count"></span>
+            <input
+              id="debug-slider"
+              type="range"
+              min="-1"
+              max="100"
+              value={teselas}
+              onChange={handleTeselaChange}
+            // onChange={(e) => handleTileSliderChange(e.target.value)}
+            ></input>
+          </div>
+          <div id="map-container">
+            <div id="map"></div>
+          </div>
+        </div>
+        <button
+          id="fetch"
+          onClick={handleFetch}
+          className="btn btn-primary my-1"
+        >
+          Buscar teselas
+        </button>
+        <pre id="fetch-log" className="log"></pre>
+        <div className="botonesMod">
+          <button
+            id="download"
+            onClick={handleDownload}
+            className="btn btn-primary my-1"
+          >
+            Descargar modelo glTF
+          </button>
+          <button
+            id="botonComputar"
+            onClick={computarModelo}
+            className="btn btn-primary my-1"
+          >
+            Computar modelo
+          </button>
         </div>
       </div>
-      <div className="controls">
-        <button id="fetch" onClick={handleFetch} className="button">
-          Buscar
+      <div id="instructions">
+        <button
+          id="close-instructions-btn"
+          style={{ position: "absolute", top: 0, right: 0 }}
+          onClick={() => {
+            document.getElementById("instructions").style.display = "none";
+          }}
+        >
+          X
         </button>
-        <button id="download" onClick={handleDownload} className="button">
-          Descargar Modelo
-        </button>
-        <button id="botonComputar" onClick={computarModelo} className="button">
-          Computar Modelo
-        </button>
-        <label htmlFor="tesela">Teselas:</label>
-        <input
-          id="tesela"
-          type="text"
-          value={teselas}
-          onChange={handleTeselaChange}
-          className="input"
-        />
-        <label htmlFor="sse">SSE:</label>
-        <input
-          id="sse"
-          type="text"
-          value={sse}
-          onChange={handleSseChange}
-          className="input"
-        />
-        <label htmlFor="zoom">Zoom:</label>
-        <input
-          id="zoom"
-          type="text"
-          value={zoom}
-          onChange={handleZoomChange}
-          className="input"
-        />
+        <center>
+          <br />
+          <p>
+            Esta aplicación muestra la búsqueda y renderización de teselas de Google Earth en ThreeJS
+          </p>
+        </center>
+        <ol>
+          <li>
+            Get a{" "}
+            <a
+              href="https://developers.google.com/maps/documentation/tile/get-api-key"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Google "Map Tiles"
+            </a>{" "}
+            API key{" "}
+          </li>
+          <li>Paste it in the settings top left</li>
+          <li>
+            Click <span id="fetch-tiles-instruction-text">fetch tiles</span>
+          </li>
+        </ol>
+        <center>
+          <p>
+            <a
+              href="https://github.com/OmarShehata/google-earth-as-gltf#google-earth-as-gltf-models"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Learn more
+            </a>{" "}
+          </p>
+        </center>
       </div>
-
-      <div className="viewer-container" id="viewer"></div>
-      <div id="loader" style={{ display: 'none' }}>
-        <img src={isotipo} alt="Isotipo" className="isotipo" />
-        <p className="loading-text">Cargando...</p>
-      </div>
-      <div className="leaflet-container">
-        <div id="map"></div>
-      </div>
-      <pre id="fetch-log" className="log"></pre>
+      <script type="module" src="/src/index.js"></script>
     </div>
   );
-  // } else return null;
-};
+}
+
+//   return (
+//     <div>
+//       {/* <link
+//         rel="stylesheet"
+//         href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+//         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+//         crossOrigin=""
+//       /> */}
+//       <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+//       <div className="top-bar">
+//         <div className="logo-container">
+//           <img src={logo2} alt="logo" className="logo-img" />
+//         </div>
+//         <div className="input-container">
+//           <label htmlFor="coordinateInput">LatLng:</label>
+//           <input
+//             id="coordinateInput"
+//             type="text"
+//             value={`${latLng.lat}, ${latLng.lng}`}
+//             onChange={handleInputChange}
+//           />
+//         </div>
+//       </div>
+//       <div className="controls">
+//         <button id="fetch" onClick={handleFetch} className="button">
+//           Buscar
+//         </button>
+//         <button id="download" onClick={handleDownload} className="button">
+//           Descargar Modelo
+//         </button>
+//         <button id="botonComputar" onClick={computarModelo} className="button">
+//           Computar Modelo
+//         </button>
+//         <label htmlFor="tesela">Teselas:</label>
+//         <input
+//           id="tesela"
+//           type="text"
+//           value={teselas}
+//           onChange={handleTeselaChange}
+//           className="input"
+//         />
+//         <label htmlFor="sse">SSE:</label>
+//         <input
+//           id="sse"
+//           type="text"
+//           value={sse}
+//           onChange={handleSseChange}
+//           className="input"
+//         />
+//         <label htmlFor="zoom">Zoom:</label>
+//         <input
+//           id="zoom"
+//           type="text"
+//           value={zoom}
+//           onChange={handleZoomChange}
+//           className="input"
+//         />
+//       </div>
+
+//       <div className="viewer-container" id="viewer"></div>
+//       <div id="loader" style={{ display: 'none' }}>
+//         <img src={isotipo} alt="Isotipo" className="isotipo" />
+//         <p className="loading-text">Cargando...</p>
+//       </div>
+//       <div className="leaflet-container">
+//         <div id="map"></div>
+//       </div>
+//       <pre id="fetch-log" className="log"></pre>
+//     </div>
+//   );
+//   // } else return null;
+// };
 
 export default VistaModelo3D;
