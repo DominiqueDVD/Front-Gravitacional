@@ -6,7 +6,7 @@ import Login from "./pages/Login.tsx";
 import CrearCuenta from "./pages/CrearCuenta.tsx"
 import CambioContraseña from "./pages/CambioContraseña.tsx";
 import Modelo3d from "./pages/VistaModelo3D.tsx"
-import PrivateRoute from "./components/login/PrivateRoute.tsx";
+import PrivateRoute from "./components/Login/PrivateRoute.tsx";
 import Dashboard from "./pages/dashboard/Dashboard.tsx";
 import AdminDashboard from "./pages/dashboard/AdminDashboard.tsx";
 import Tutoriales from "./pages/Tutoriales.tsx";
@@ -20,8 +20,8 @@ import OpenTopography from "./components/openTopography/OpenTopography"
 import Proyectos from "./pages/projects.tsx"
 import AnalisisModelo from "./pages/AnalisisModelo"
 import SelectSuelos from "./components/suelos/selectSuelos.tsx"
-import AnalisisGeografico from "./pages/Herramientas/herramientasNoPagadas/analisisGeografico.tsx"
 import GestionAgua from "./pages/Herramientas/herramientasPagadas/gestionAgua.tsx"
+import AnalisisGeografico from "./pages/Herramientas/herramientasNoPagadas/analisisGeografico.tsx"
 import solve from "./components/rhinoCompute/solve.jsx";
 
 function App() {
