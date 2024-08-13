@@ -67,11 +67,11 @@ export class UI {
           const lng = map.getCenter().lng.toFixed(4);
           latLngInput.value = `${lat},${lng}`;
           localStorage.setItem("zoom", String(map.getZoom()));
-          document.querySelector("#zoom")!.innerText = String(map.getZoom());
+          // document.querySelector("#zoom")!.innerText = String(map.getZoom());
         });
 
         this.leafletMap = map;
-        document.querySelector("#zoom")!.innerText = String(map.getZoom());
+        // document.querySelector("#zoom")!.innerText = String(map.getZoom());
       };
 
       // Asignación segura después de que los elementos estén disponibles

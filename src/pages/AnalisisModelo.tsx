@@ -15,7 +15,7 @@ export interface Coordinate {
 }
 
 export interface Project {
-  
+
   // id?: string;
   name: string;
   description: string;
@@ -114,24 +114,6 @@ const AnalisisModelo: React.FC = () => {
         </div>
       </div>
 
-      <ModelViewer />
-      <button className="btn btn-primary" onClick={() => handleViewChange("poligono")}>
-        Polígono
-      </button>
-      {coordenadasValidas && (
-        <div>
-          <button className="btn btn-primary" onClick={() => handleViewChange("vista3D")}>
-            Vista 3D
-          </button>
-          <button className="btn btn-primary" onClick={() => handleViewChange("vistaOpenTP")}>
-            Vista OpenTP
-          </button>
-          <button className="btn btn-primary" onClick={() => handleViewChange("vistaEOS")}>
-            Vista EOS
-          </button>
-          <button className="btn btn-success" onClick={() => handleGuardarProyecto()}>Guardar proyecto</button>
-        </div>
-      )}
       <div id="containerGeneral">
         {view === "poligono" && (
           <div id="seccion1" className="secciones full-width">
@@ -158,23 +140,6 @@ const AnalisisModelo: React.FC = () => {
             )}
           </div>
         )}
-      </div>
-
-      <div className="project-form">
-        <input 
-          type="text" 
-          name="name" 
-          value={project.name} 
-          onChange={handleInputChange} 
-          placeholder="Nombre del proyecto" 
-        />
-        <input 
-          type="text" 
-          name="description" 
-          value={project.description} 
-          onChange={handleInputChange} 
-          placeholder="Descripción del proyecto" 
-        />
       </div>
     </div>
   );
