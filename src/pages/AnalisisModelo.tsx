@@ -92,7 +92,6 @@ const AnalisisModelo: React.FC = () => {
   return (
     <div>
       <div className="compute-buttons">
-        <ModelViewer />
         <div className="analisis-buttons">
           <button className="btn btn-primary" onClick={() => handleViewChange("poligono")}>
             Polígono
