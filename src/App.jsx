@@ -23,6 +23,7 @@ import SelectSuelos from "./components/suelos/selectSuelos.tsx"
 import GestionAgua from "./pages/Herramientas/herramientasPagadas/gestionAgua.tsx"
 import AnalisisGeografico from "./pages/Herramientas/herramientasNoPagadas/analisisGeografico.tsx"
 import solve from "./components/rhinoCompute/solve.jsx";
+import RhinoViewer from "./components/rhinoCompute/RhinoViewer.jsx";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
       <Route path="/select" element={<SelectSuelos />} />
       <Route path="/analisisGeogrfico" element={<AnalisisGeografico />} />
       <Route path="/gestionAgua" element={<GestionAgua />} />
+      <Route path="/ejemplorhino" element={<RhinoViewer />} />
       {/* <Route path="/solve" element={solve}/> */}
      
       <Route
