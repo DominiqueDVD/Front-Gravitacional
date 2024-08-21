@@ -1,19 +1,33 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { Rhino3dmLoader } from 'three/examples/jsm/loaders/3DMLoader'
 import rhino3dm from 'rhino3dm'
 
 const RhinoViewer = () => {
+    const [rhino, setRhino] = useState(null);
+    const [doc, setDoc] = useState(null);
+
+    useEffect(() => {
+        const loadRhino = async () => {
+            const rhinoModule = await rhino3dm();
+            setRhino(rhinoModule);
+        };
+
+        loadRhino();
+    }, []);
+
     const mountRef = useRef(null);
 
     const loader = new Rhino3dmLoader()
     loader.setLibraryPath('https://unpkg.com/rhino3dm@8.0.0-beta3/')
 
-    let doc;
+    // const loadRhino = async () => {
+    //     return await rhino3dm();
+    // }
 
-    const loadRhino = async () => {
-        return await rhino3dm();
-    }
+    // const rhino = loadRhino;        
+    // console.log('Loaded rhino3dm.')
+    // console.log(rhino);
 
     useEffect(() => {
         // Configuración de la escena Three.js
@@ -128,8 +142,13 @@ const RhinoViewer = () => {
                 };
 
                 fetch("http://rhino-compute-loadbalancer-824415098.us-east-1.elb.amazonaws.com/grasshopper", requestOptions)
-                    .then((response) => collectResults(response))
-                    .then((result) => console.log(result))
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json(); // Convierte la respuesta a JSON
+                    })
+                    .then((result) => collectResults(result))
                     .catch((error) => console.error(error));
 
 
@@ -180,10 +199,10 @@ const RhinoViewer = () => {
                 // };
                 // animate();
 
-                console.log(resultado);
+                // console.log(resultado);
 
-                
-                collectResults(resultado);
+
+                // collectResults(resultado);
 
             } catch (error) {
                 console.error('Error al cargar la geometría:', error);
@@ -191,21 +210,21 @@ const RhinoViewer = () => {
         };
 
         const collectResults = async (responseJson) => {
-            console.log("Response prueba Rhino:");
-            console.log(await responseJson)
+            if (!rhino) {
+                console.error("rhino3dm is not loaded yet.");
+                return;
+            }
 
-            const values = await responseJson.values.json();
-
+            const values = responseJson.values
             console.log("Values:");
             console.log(values);
-            
 
             // clear doc
             if (doc !== undefined)
                 doc.delete()
 
             //console.log(values)
-            doc = new rhino.File3dm()
+            setDoc(new rhino.File3dm())
 
             // for each output (RH_OUT:*)...
             for (let i = 0; i < values.length; i++) {
@@ -281,9 +300,6 @@ const RhinoViewer = () => {
             else
                 document.getElementById('loader').style.display = 'none'
         }
-
-        const rhino = loadRhino;
-        console.log('Loaded rhino3dm.')
 
         loadIO();
 
