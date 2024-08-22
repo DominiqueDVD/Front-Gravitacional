@@ -24,6 +24,7 @@ import GestionAgua from "./pages/Herramientas/herramientasPagadas/gestionAgua.ts
 import AnalisisGeografico from "./pages/Herramientas/herramientasNoPagadas/analisisGeografico.tsx"
 import solve from "./components/rhinoCompute/solve.jsx";
 import RhinoViewer from "./components/rhinoCompute/RhinoViewer.jsx";
+import SpikyThing from "./components/rhinoCompute/SpikyThing.jsx";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
       <Route path="/analisisGeogrfico" element={<AnalisisGeografico />} />
       <Route path="/gestionAgua" element={<GestionAgua />} />
       <Route path="/ejemplorhino" element={<RhinoViewer />} />
+      <Route path="/spiky" element={<SpikyThing />} />
       {/* <Route path="/solve" element={solve}/> */}
      
       <Route
