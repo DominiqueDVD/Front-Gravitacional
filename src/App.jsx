@@ -6,7 +6,7 @@ import Login from "./pages/Login.tsx";
 import CrearCuenta from "./pages/CrearCuenta.tsx"
 import CambioContraseña from "./pages/CambioContraseña.tsx";
 import Modelo3d from "./pages/VistaModelo3D.tsx"
-import PrivateRoute from "./components/Login/PrivateRoute.tsx";
+import PrivateRoute from "./components/login/PrivateRoute.tsx";
 import Dashboard from "./pages/dashboard/Dashboard.tsx";
 import AdminDashboard from "./pages/dashboard/AdminDashboard.tsx";
 import Tutoriales from "./pages/Tutoriales.tsx";
@@ -23,6 +23,8 @@ import SelectSuelos from "./components/suelos/selectSuelos.tsx"
 import GestionAgua from "./pages/Herramientas/herramientasPagadas/gestionAgua.tsx"
 import AnalisisGeografico from "./pages/Herramientas/herramientasNoPagadas/analisisGeografico.tsx"
 import solve from "./components/rhinoCompute/solve.jsx";
+import RhinoViewer from "./components/rhinoCompute/RhinoViewer.jsx";
+import SpikyThing from "./components/rhinoCompute/Ejemplo3DM.tsx";
 
 function App() {
   return (
@@ -42,6 +44,8 @@ function App() {
       <Route path="/select" element={<SelectSuelos />} />
       <Route path="/analisisGeogrfico" element={<AnalisisGeografico />} />
       <Route path="/gestionAgua" element={<GestionAgua />} />
+      <Route path="/ejemplorhino" element={<RhinoViewer />} />
+      <Route path="/spiky" element={<SpikyThing />} />
       {/* <Route path="/solve" element={solve}/> */}
      
       <Route

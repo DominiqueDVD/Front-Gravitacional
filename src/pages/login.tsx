@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import Carousel from '../components/Login/carouselInformativo.tsx';
-import Inicio from '../components/Login/Inicio.tsx';
+import Carousel from '../components/login/carouselInformativo.tsx';
+import Inicio from '../components/login/Inicio.tsx';
 import Fondo from "../assets/fondoCarousel.jpg";
 
 import '../styles/login.css'
