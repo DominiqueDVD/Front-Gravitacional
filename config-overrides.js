@@ -1,12 +1,8 @@
-const path = require('path');
-
 module.exports = function override(config, env) {
-  // Fallbacks para fs y path
-  config.resolve.fallback = {
-    ...config.resolve.fallback,
-    "fs": false,
-    "path": require.resolve("path-browserify")
+  config.resolve.alias = {
+    ...config.resolve.alias,
+    path: require.resolve('path-browserify'),
+    fs: false
   };
-
   return config;
 };

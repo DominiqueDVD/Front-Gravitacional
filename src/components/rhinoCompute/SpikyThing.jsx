@@ -1,86 +1,136 @@
-import React, { useState, useEffect } from 'react';
-import RhinoViewer from './RhinoViewer';
+// import React, { useState, useEffect } from 'react';
+// import RhinoViewer from './RhinoViewer';
+// import algo from './data'
 
-function SpikyThing() {
-    const [meshData, setMeshData] = useState(null);
+// import React, { useEffect, useRef, useState } from 'react';
+// import * as THREE from 'three';
+// import { Rhino3dmLoader } from 'three/examples/jsm/loaders/3DMLoader'
+// import rhino3dm from 'rhino3dm'
 
-    useEffect(() => {
-        const myHeaders = new Headers();
-        myHeaders.append("RhinoComputeKey", "gravitacional");
-        myHeaders.append("Content-Type", "application/json");
+// function SpikyThing() {
+//     const [meshData, setMeshData] = useState(null);
 
-        const raw = JSON.stringify({
-            "absolutetolerance": 0.001,
-            "angletolerance": 1,
-            "modelunits": "Millimeters",
-            "dataversion": 7,
-            "algo": null,
-            "pointer": "md5_E1E7CE4C192A75F390CE260306FDFF7C",
-            "cachesolve": true,
-            "values": [
-                {
-                    "ParamName": "Radius",
-                    "InnerTree": {
-                        "{0}": [
-                            {
-                                "type": "System.Double",
-                                "data": "9.0"
-                            }
-                        ]
-                    }
-                },
-                {
-                    "ParamName": "Count",
-                    "InnerTree": {
-                        "{0}": [
-                            {
-                                "type": "System.Double",
-                                "data": "77.0"
-                            }
-                        ]
-                    }
-                },
-                {
-                    "ParamName": "Length",
-                    "InnerTree": {
-                        "{0}": [
-                            {
-                                "type": "System.Double",
-                                "data": "5.0"
-                            }
-                        ]
-                    }
-                }
-            ],
-            "warnings": [],
-            "errors": []
-        });
+//     useEffect(() => {
+//         const myHeaders = new Headers();
+//         myHeaders.append("RhinoComputeKey", "gravitacional");
+//         myHeaders.append("Content-Type", "application/json");
 
-        const requestOptions = {
-            method: "POST",
-            headers: myHeaders,
-            body: raw,
-            redirect: "follow"
-        };
+//         const loadIO = async () => {
 
-        const fetchData = async () => {
-            // Aquí se haría la solicitud al endpoint /grasshopper
-            const response = await fetch("http://rhino-compute-loadbalancer-824415098.us-east-1.elb.amazonaws.com/grasshopper", requestOptions);
-            const result = await response.json();
+//             try {
+//                 const myHeaders = new Headers();
+//                 myHeaders.append("RhinoComputeKey", "gravitacional");
+//                 myHeaders.append("Content-Type", "application/json");
 
-            // Aquí tomas el primer valor de la malla que recibes
-            const meshData = result.values[0].InnerTree['{0}'][0];
-            setMeshData(meshData);
-        };
+//                 const raw = JSON.stringify({
+//                     "absolutetolerance": 0.001,
+//                     "angletolerance": 1,
+//                     "modelunits": "Millimeters",
+//                     "dataversion": 8,
+//                     "algo": algo,
+//                     "pointer": null,
+//                     "cachesolve": false,
+//                     "values": [],
+//                     "warnings": [],
+//                     "errors": []
+//                 });
 
-        fetchData();
-    }, []);
+//                 const requestOptions = {
+//                     method: "POST",
+//                     headers: myHeaders,
+//                     body: raw,
+//                     redirect: "follow"
+//                 };
 
-    return (
-        <div>
-            {meshData ? <RhinoViewer meshData={meshData} /> : <p>Loading...</p>}
-        </div>
-    );
-}
+//                 fetch("http://rhino-compute-loadbalancer-824415098.us-east-1.elb.amazonaws.com/io", requestOptions)
+//                     .then((response) => response.text())
+//                     .then((result) => console.log(result))
+//                     .catch((error) => console.error(error));
 
-export default SpikyThing;
+//                 // loadGeometry();
+//             } catch (error) {
+//                 console.error('Error al cargar entradas y salidas:', error);
+//             }
+
+//         }
+
+//         // Función para cargar la geometría desde Rhino Compute
+//         const loadGeometry = async () => {
+
+//             const raw = JSON.stringify({
+//                 "absolutetolerance": 0.001,
+//                 "angletolerance": 1,
+//                 "modelunits": "Millimeters",
+//                 "dataversion": 7,
+//                 "algo": null,
+//                 "pointer": "md5_E1E7CE4C192A75F390CE260306FDFF7C",
+//                 "cachesolve": true,
+//                 "values": [
+//                     {
+//                         "ParamName": "Radius",
+//                         "InnerTree": {
+//                             "{0}": [
+//                                 {
+//                                     "type": "System.Double",
+//                                     "data": "9.0"
+//                                 }
+//                             ]
+//                         }
+//                     },
+//                     {
+//                         "ParamName": "Count",
+//                         "InnerTree": {
+//                             "{0}": [
+//                                 {
+//                                     "type": "System.Double",
+//                                     "data": "77.0"
+//                                 }
+//                             ]
+//                         }
+//                     },
+//                     {
+//                         "ParamName": "Length",
+//                         "InnerTree": {
+//                             "{0}": [
+//                                 {
+//                                     "type": "System.Double",
+//                                     "data": "5.0"
+//                                 }
+//                             ]
+//                         }
+//                     }
+//                 ],
+//                 "warnings": [],
+//                 "errors": []
+//             });
+
+//             const requestOptions = {
+//                 method: "POST",
+//                 headers: myHeaders,
+//                 body: raw,
+//                 redirect: "follow"
+//             };
+
+//             const fetchData = async () => {
+//                 // Aquí se haría la solicitud al endpoint /grasshopper
+//                 const response = await fetch("http://rhino-compute-loadbalancer-824415098.us-east-1.elb.amazonaws.com/grasshopper", requestOptions);
+//                 const result = await response.json();
+
+//                 // Aquí tomas el primer valor de la malla que recibes
+//                 const meshData = result.values[0].InnerTree['{0}'][0];
+//                 setMeshData(meshData);
+//             };
+//             fetchData();
+//         }
+
+//         loadIO();
+//     }, []);
+
+//     return (
+//         <div>
+//             {meshData ? <RhinoViewer meshData={meshData} /> : <p>Loading...</p>}
+//         </div>
+//     );
+// }
+
+// export default SpikyThing;
