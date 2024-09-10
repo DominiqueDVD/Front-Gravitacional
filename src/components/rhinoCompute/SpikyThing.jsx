@@ -1,3 +1,59 @@
+import React, { useState } from 'react';
+
+const SpikyThing = () => {
+    const [result, setResult] = useState(null);
+    const [error, setError] = useState(null);
+
+    const data = {
+        definition: 'BranchNodeRnd.gh',
+        inputs: {
+            Count: 10,
+            Radius: 5,
+            Length: 3
+        }
+    };
+
+    const compute = async () => {
+        const request = {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: { 'Content-Type': 'application/json' }
+        };
+
+        const url = 'https://rhinoappserver-57ee79268c37.herokuapp.com/solve';
+
+        try {
+            const response = await fetch(url, request);
+
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+
+            const result = await response.json();
+            setResult(result);
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+
+    return (
+        <div>
+            <h2>Compute Spiky Thing</h2>
+            <button onClick={compute}>Run Compute</button>
+            {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+            {result && (
+                <div>
+                    <h3>Result:</h3>
+                    <pre>{JSON.stringify(result, null, 2)}</pre>
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default SpikyThing;
+
+
 // import React, { useState, useEffect } from 'react';
 // import RhinoViewer from './RhinoViewer';
 // import algo from './data'
