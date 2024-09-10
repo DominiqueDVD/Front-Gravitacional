@@ -24,7 +24,7 @@ import GestionAgua from "./pages/Herramientas/herramientasPagadas/gestionAgua.ts
 import AnalisisGeografico from "./pages/Herramientas/herramientasNoPagadas/analisisGeografico.tsx"
 import solve from "./components/rhinoCompute/solve.jsx";
 import RhinoViewer from "./components/rhinoCompute/RhinoViewer.jsx";
-import SpikyThing from "./components/rhinoCompute/Ejemplo3DM.tsx";
+import SpikyThing from "./components/rhinoCompute/SpikyThing.jsx";
 
 function App() {
   return (
