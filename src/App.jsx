@@ -1,20 +1,16 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MapaPoligono from "./pages/MapaPoligono";
 import Login from "./pages/Login.tsx";
 import CrearCuenta from "./pages/CrearCuenta.tsx"
 import CambioContraseña from "./pages/CambioContraseña.tsx";
-import Modelo3d from "./pages/VistaModelo3D.tsx"
 import PrivateRoute from "./components/login/PrivateRoute.tsx";
 import Dashboard from "./pages/dashboard/Dashboard.tsx";
 import AdminDashboard from "./pages/dashboard/AdminDashboard.tsx";
 import Tutoriales from "./pages/Tutoriales.tsx";
-import { AuthProvider } from "./auth/AuthProvider.tsx";
 import Blog from "./pages/blog.tsx"
 import Foro from "./pages/foro.tsx"
 import PostDetails from "./components/Blog/postDetails.tsx"
-import ColorChanger from "./components/accesibilidad/colorChanger.jsx";
 import EosTest from "./pages/EosTest";
 import OpenTopography from "./components/openTopography/OpenTopography"
 import Proyectos from "./pages/projects.tsx"
@@ -22,9 +18,9 @@ import AnalisisModelo from "./pages/AnalisisModelo"
 import SelectSuelos from "./components/suelos/selectSuelos.tsx"
 import GestionAgua from "./pages/Herramientas/herramientasPagadas/gestionAgua.tsx"
 import AnalisisGeografico from "./pages/Herramientas/herramientasNoPagadas/analisisGeografico.tsx"
-import solve from "./components/rhinoCompute/solve.jsx";
 import RhinoViewer from "./components/rhinoCompute/RhinoViewer.jsx";
 import SpikyThing from "./components/rhinoCompute/Ejemplo3DM.tsx";
+import Layer from "./pages/layers.tsx"
 
 function App() {
   return (
@@ -38,6 +34,7 @@ function App() {
       <Route path="/PostDetails" element={<PostDetails />} />
       <Route path="/AdminDash" element={<AdminDashboard />} />
       <Route path="/foro" element={<Foro />} />
+      <Route path="/layer" element={<Layer />} />
       <Route path="/EosTest" element={<EosTest />} />
       <Route path="/OpenTopography" element={<OpenTopography />} />
       <Route path="/proyectos" element={<Proyectos />} />
