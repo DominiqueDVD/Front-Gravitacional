@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useCallback } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { fetchJson } from "../services/layersService"; 
+import { fetchJson } from "../services/layersService";
 
 const LayersApp: React.FC = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -11,6 +11,8 @@ const LayersApp: React.FC = () => {
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const controlsRef = useRef<OrbitControls | null>(null);
   const currentMeshRef = useRef<THREE.Mesh | null>(null);
+  const raycasterRef = useRef<THREE.Raycaster | null>(new THREE.Raycaster());
+  const mouseRef = useRef(new THREE.Vector2());
 
   // Función para cargar un layer desde un archivo JSON
   const loadLayer = useCallback((file: string) => {
@@ -105,6 +107,32 @@ const LayersApp: React.FC = () => {
     }
   }, []);
 
+  const handleMouseMove = useCallback((event: MouseEvent) => {
+    if (!rendererRef.current || !cameraRef.current || !currentMeshRef.current || !raycasterRef.current) return;
+
+    const rect = rendererRef.current.domElement.getBoundingClientRect();
+    mouseRef.current.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+    mouseRef.current.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+    raycasterRef.current.setFromCamera(mouseRef.current, cameraRef.current);
+    const intersects = raycasterRef.current.intersectObject(currentMeshRef.current);
+
+    const tooltip = tooltipRef.current;
+    if (tooltip) {
+        if (intersects.length > 0) {
+            const point = intersects[0].point;
+            tooltip.style.display = "block";
+            tooltip.style.left = `${event.clientX + 15}px`;
+            tooltip.style.top = `${event.clientY + 15}px`;
+            tooltip.innerHTML = `X: ${point.x.toFixed(2)}<br>Y: ${point.y.toFixed(2)}<br>Z: ${point.z.toFixed(2)}`;
+        } else {
+            tooltip.style.display = "none"; // Ocultar el tooltip si no hay intersección
+        }
+    }
+}, []);
+
+
+
   useEffect(() => {
     let scene: THREE.Scene;
     let camera: THREE.OrthographicCamera;
@@ -153,7 +181,9 @@ const LayersApp: React.FC = () => {
       loadLayer("mesh.json");
 
       animate();
+      window.addEventListener("mousemove", handleMouseMove);
     };
+
 
     const animate = () => {
       requestAnimationFrame(animate);
@@ -168,12 +198,13 @@ const LayersApp: React.FC = () => {
     init();
 
     return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
       if (rendererRef.current) rendererRef.current.dispose();
     };
-  }, [loadLayer]);
+  }, [handleMouseMove]);
 
   return (
-    <div style={{ display: "flex" }}>
+    <div className="mesh" style={{ display: "flex" }}>
       <div
         id="controls"
         style={{
@@ -188,8 +219,27 @@ const LayersApp: React.FC = () => {
         <button onClick={() => loadLayer("mesh.json")}>Load mesh.json</button>
         <button onClick={() => loadLayer("Amesh.json")}>Load Amesh.json</button>
       </div>
+      <div
+        ref={containerRef}
+        style={{ width: 'calc(100% - 80px)', height: '100vh' }} // Establecer el tamaño del contenedor
+      />
       <div ref={containerRef} />
-      <div ref={tooltipRef} className="tooltip" style={{ display: "none", position: "absolute", backgroundColor: "rgba(0, 0, 0, 0.7)", color: "white", padding: "5px", borderRadius: "5px", fontSize: "10px", pointerEvents: "none" }}></div>
+      <div
+        ref={tooltipRef}
+        className="tooltip"
+        style={{
+          display: "none",
+          position: "absolute",
+          backgroundColor: "rgba(0, 0, 0, 0.7)",
+          color: "white",
+          padding: "5px",
+          borderRadius: "5px",
+          fontSize: "10px",
+          pointerEvents: "none",
+          zIndex: 10, // Asegurar que el tooltip esté por encima del canvas
+        }}
+      />
+
     </div>
   );
 };
