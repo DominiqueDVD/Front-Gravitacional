@@ -34,3 +34,24 @@
     font-weight: 500!important;
   }
   
+  .matriz-inputs{
+    display: flex;
+    gap: 10px;
+  }
+
+  .inputs-matriz{
+    background:white;
+    border-style: solid;
+    border-color: #CCCCCC;
+    border-width: 0.5px;
+    color: black;
+  }
+
+  .send-options{
+    background: #3C74C3;
+    color: white;
+    margin: auto;
+    display: block;
+    border-radius: 10px;
+    padding: 10px;
+  }
