@@ -23,6 +23,8 @@ import SpikyThing from "./components/rhinoCompute/Ejemplo3DM.tsx";
 import Layer from "./pages/layers.tsx"
 import MainSidebar from "./components/mainSidebar/MainSidebar.tsx"
 import MainNavbar from "./components/mainNavbar/MainNavbar.tsx"
+import MainFooter from "./components/footer/MainFooter.tsx"
+import Herramientas from "./pages/HerramientasPage.tsx"
 import "./App.css";
 
 function App() {
@@ -30,7 +32,7 @@ function App() {
     <BrowserRouter>
       <div className="app-container">
         <MainNavbar />
-        <MainSidebar />
+        {/* <MainSidebar /> */}
         <div className="content">
 
           <Routes>
@@ -51,6 +53,7 @@ function App() {
             <Route path="/gestionAgua" element={<GestionAgua />} />
             <Route path="/ejemplorhino" element={<RhinoViewer />} />
             <Route path="/spiky" element={<SpikyThing />} />
+            <Route path="/herramientas" element={<Herramientas />} />
             {/* <Route path="/solve" element={solve}/> */}
 
             <Route
@@ -75,6 +78,7 @@ function App() {
           </Routes>
 
         </div>
+        <MainFooter />
       </div>
     </BrowserRouter>
   );

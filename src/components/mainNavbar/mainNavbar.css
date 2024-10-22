@@ -9,9 +9,27 @@
 } */
 
 .navbar-nav .nav-item a {
-    color: white!important;
+    color: white !important;
 }
 
-.navbar-nav .nav-item .active{
+.navbar-nav .nav-item .active {
     font-weight: bold;
+}
+
+#mainNavbar .nav-link {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+@media (max-width: 991.98px) {
+    #mainNavbar .container-fluid {
+        justify-content: center;
+    }
+
+    #mainNavbar .navbar-toggler {
+        right: 10px;
+        top: 10px;
+        position: absolute;
+    }
 }
