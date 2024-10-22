@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import Body from '../../components/dashboard/body.tsx'
+import MainContent from '../../components/dashboard/mainContent.tsx';
 import ColorCharger from '../../components/accesibilidad/colorChanger.jsx'
 function Dashboard(){
 
@@ -11,6 +12,7 @@ function Dashboard(){
         <Body>
         
         </Body>
+        {/* <MainContent></MainContent> */}
       </div>
     );
   }

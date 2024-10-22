@@ -13,12 +13,7 @@ import Pagadas from '../herramientas/pagadas.tsx';
 function MainContent() {
     const { isLoading } = useAuth0();
     const goTo = useNavigate();
-
-
-    const navigateEosTest = () => {
-        goTo('/EosTest');
-    }
-
+    
     if (isLoading) {
         return <div><Loader /></div>;
     }
@@ -34,18 +29,6 @@ function MainContent() {
                 <div className="container-fluid">
                     {/*<!-- Page Heading -->*/}
                     <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                        <div className='buttonspanel'>
-                            <button className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onClick={navigateEosTest}>
-                                <i className="fas fa-globe-americas fa-sm text-white-50"></i>
-                                EOS Test
-
-                            </button>
-                            <button className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onClick={() => goTo('/OpenTopography')}>
-                                <i className="fas fa-street-view fa-sm text-white-50"></i>
-                                OpenTopography
-
-                            </button>
-                        </div>
                         <div className='buttonspanel'>
                             <a href="/analisis" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                                 <i className="fas fa-plus fa-sm text-white-50"></i> Nuevo proyecto

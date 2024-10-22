@@ -1,4 +1,4 @@
-.list-group-item{
+/* .list-group-item{
     margin: 10px;
     border-radius: 10px;
 }
@@ -8,27 +8,27 @@
     color: white;
     font-weight: bold;
 }
-/* herraminetas2.css */
+
 html, body {
     height: 100%;
     margin: 0;
 }
 
 .container-fluid {
-    height: 100vh; /* Asegura que el contenedor ocupe toda la altura de la pantalla */
+    height: 100vh; 
     display: flex;
     flex-direction: column;
 }
 
 .row {
-    flex: 1; /* Hace que la fila ocupe el espacio restante dentro del contenedor */
+    flex: 1; 
 }
 
 .col-md-3, .col-md-9 {
     height: 100%;
-    overflow-y: auto; /* Asegura que el contenido sea desplazable si excede la altura */
+    overflow-y: auto;
 }
 
 .bg-light {
-    background-color: #f8f9fa !important; /* Puedes ajustar el color de fondo según sea necesario */
-}
+    background-color: #f8f9fa !important; 
+} */
