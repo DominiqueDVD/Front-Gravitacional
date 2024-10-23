@@ -7,8 +7,7 @@
 #toggle-sidebar-button{
     position: absolute;
     z-index: 999;
-    background: white;
-    top: 10px;
+    top: 60px;
     left: 10px;
 }
 

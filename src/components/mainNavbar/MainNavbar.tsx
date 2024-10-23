@@ -30,13 +30,22 @@ function MainNavbar() {
                             <a className={`nav-link ${location.pathname === '/analisis' ? 'active' : ''}`} href="/analisis">Análisis</a>
                         </li>
                         <li className="nav-item">
-                            <a className={`nav-link ${location.pathname === '/proyectos' ? 'active' : ''}`} href="#">Mis proyectos</a>
+                            <a className={`nav-link ${location.pathname === '/proyectos' ? 'active' : ''}`} href="/proyectos">Proyectos</a>
                         </li>
                         <li className="nav-item">
                             <a className={`nav-link ${location.pathname === '/tutoriales' ? 'active' : ''}`} href="/tutoriales">Tutoriales</a>
                         </li>
                         <li className="nav-item">
                             <a className={`nav-link ${location.pathname === '/herramientas' ? 'active' : ''}`} href="/herramientas">Herramientas</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className={`nav-link ${location.pathname === '/blog' ? 'active' : ''}`} href="/blog">Blog</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className={`nav-link ${location.pathname === '/foro' ? 'active' : ''}`} href="/foro">Foro</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className={`nav-link ${location.pathname === '/ejemplorhino' ? 'active' : ''}`} href="/ejemplorhino">Ejemplo Rhino</a>
                         </li>
                     </ul>
                 </div>

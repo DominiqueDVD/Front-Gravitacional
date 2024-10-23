@@ -52,7 +52,7 @@ function App() {
             <Route path="/analisisGeogrfico" element={<AnalisisGeografico />} />
             <Route path="/gestionAgua" element={<GestionAgua />} />
             <Route path="/ejemplorhino" element={<RhinoViewer />} />
-            <Route path="/spiky" element={<SpikyThing />} />
+            {/* <Route path="/spiky" element={<SpikyThing />} /> */}
             <Route path="/herramientas" element={<Herramientas />} />
             {/* <Route path="/solve" element={solve}/> */}
 

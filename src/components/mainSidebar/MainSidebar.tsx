@@ -15,19 +15,22 @@ function MainSidebar() {
 
     return (
         <nav>
-            <button className="btn btn-outline-dark" id="toggle-sidebar-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
-                <span className="navbar-toggler-icon text-black"></span>
+            <button className="btn btn-light" id="toggle-sidebar-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+                <i className="fas fa-bars"></i>
             </button>
 
             <div className="offcanvas offcanvas-start bg-gradient-primary" data-bs-scroll="true" tabIndex={-1} id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
-                <div className="offcanvas-header">
-                    <h5 className="offcanvas-title" id="offcanvasWithBothOptionsLabel">Gravitacional</h5>
+                <div className="offcanvas-header" data-bs-theme="dark">
+                    <img src={logoBlanco} alt="Logo" width="150" height="auto" className="d-inline-block align-text-top" />
                     <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div className="offcanvas-body">
-                    <a href="#">Inicio</a>
-                    <a href="#">Perfil</a>
-                    <a href="#">Mis proyectos</a>
+                    <div className='d-flex flex-column'>
+                        <a href="#" className='text-light'>Inicio</a>
+                        <a href="#" className='text-light'>Perfil</a>
+                        <a href="#" className='text-light'>Mis proyectos</a>
+                    </div>
+
                 </div>
             </div>
         </nav>
