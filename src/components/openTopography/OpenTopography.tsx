@@ -3,16 +3,7 @@ import axios from 'axios';
 import AAIGridMap from './AAIGridMap';
 import Loader from '../usabilidad/Loader';
 
-interface Coordinate {
-  lat: number;
-  lng: number;
-}
-
-interface OpenTopographyProps {
-  coordinates: Coordinate[];
-}
-
-const OpenTopography: React.FC<OpenTopographyProps> = ({ coordinates }) => {
+const OpenTopography = () => {
   const [south, setSouth] = useState('-36.61');
   const [north, setNorth] = useState('-36.6');
   const [west, setWest] = useState('-72.11');

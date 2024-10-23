@@ -14,7 +14,7 @@ import PostDetails from "./components/Blog/postDetails.tsx"
 import EosTest from "./pages/EosTest";
 import OpenTopography from "./components/openTopography/OpenTopography"
 import Proyectos from "./pages/projects.tsx"
-import AnalisisModelo from "./pages/AnalisisModelo"
+import AnalisisModelo from "./pages/AnalisisPage.tsx"
 import SelectSuelos from "./components/suelos/selectSuelos.tsx"
 import GestionAgua from "./pages/Herramientas/herramientasPagadas/gestionAgua.tsx"
 import AnalisisGeografico from "./pages/Herramientas/herramientasNoPagadas/analisisGeografico.tsx"

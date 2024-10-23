@@ -8,6 +8,7 @@ import { calcularCentroide } from "../components/googleEarth/puntos";
 import { createProject, updateProject } from '../services/ProjectService';
 import ModelViewer from "../components/rhinoCompute/ModelViewer";
 import { useAuth0 } from "@auth0/auth0-react"
+import AnalisisTerreno from "../components/analisis/AnalisisTerreno";
 
 export interface Coordinate {
   lat: number;
@@ -91,7 +92,8 @@ const AnalisisModelo: React.FC = () => {
 
   return (
     <div>
-      <div className="compute-buttons">
+      <AnalisisTerreno />
+      {/* <div className="compute-buttons">
         <div className="analisis-buttons">
           <button className="btn btn-primary" onClick={() => handleViewChange("poligono")}>
             Polígono
@@ -111,12 +113,12 @@ const AnalisisModelo: React.FC = () => {
             </div>
           )}
         </div>
-      </div>
+      </div> */}
 
-      <div id="containerGeneral">
+      {/* <div id="containerGeneral">
         {view === "poligono" && (
           <div id="seccion1" className="secciones full-width">
-            <MapaPoligono coordinates={coordinates} actualizarCoordenadas={actualizarCoordenadas} />
+            <MapaPoligono />
           </div>
         )}
 
@@ -129,17 +131,17 @@ const AnalisisModelo: React.FC = () => {
             )}
             {view === "vistaOpenTP" && (
               <div id="seccion3" className="secciones full-width">
-                <OpenTopography coordinates={coordinates} />
+                <OpenTopography />
               </div>
             )}
             {view === "vistaEOS" && (
               <div id="seccion4" className="secciones full-width">
-                <EosRequestComponent coordinates={coordinates} />
+                <EosRequestComponent />
               </div>
             )}
           </div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

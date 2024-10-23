@@ -27,7 +27,7 @@ interface ApiError {
   [key: string]: any;
 }
 
-const EosRequestComponent: React.FC<EosRequestComponentProps> = ({ coordinates }) => {
+const EosRequestComponent = () => {
   const [renderImageUrl, setRenderImageUrl] = useState<string | null>(null);
   const [ndviImageUrl, setNdviImageUrl] = useState<string | null>(null);
 
