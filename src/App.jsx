@@ -18,8 +18,6 @@ import AnalisisModelo from "./pages/AnalisisPage.tsx"
 import SelectSuelos from "./components/suelos/selectSuelos.tsx"
 import GestionAgua from "./pages/Herramientas/herramientasPagadas/gestionAgua.tsx"
 import AnalisisGeografico from "./pages/Herramientas/herramientasNoPagadas/analisisGeografico.tsx"
-import RhinoViewer from "./components/rhinoCompute/RhinoViewer.jsx";
-import SpikyThing from "./components/rhinoCompute/Ejemplo3DM.tsx";
 import Layer from "./pages/layers.tsx"
 import MainSidebar from "./components/mainSidebar/MainSidebar.tsx"
 import MainNavbar from "./components/mainNavbar/MainNavbar.tsx"
@@ -51,7 +49,6 @@ function App() {
             <Route path="/select" element={<SelectSuelos />} />
             <Route path="/analisisGeogrfico" element={<AnalisisGeografico />} />
             <Route path="/gestionAgua" element={<GestionAgua />} />
-            <Route path="/ejemplorhino" element={<RhinoViewer />} />
             {/* <Route path="/spiky" element={<SpikyThing />} /> */}
             <Route path="/herramientas" element={<Herramientas />} />
             {/* <Route path="/solve" element={solve}/> */}

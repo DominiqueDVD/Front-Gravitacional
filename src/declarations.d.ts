@@ -23,3 +23,8 @@ declare module "*.svg" {
     const value: string;
     export default value;
 }
+
+declare module "*.jsx" {
+    const value: string;
+    export default value;
+}

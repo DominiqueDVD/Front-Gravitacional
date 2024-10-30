@@ -8,7 +8,7 @@ import { calcularCentroide } from "../components/googleEarth/puntos";
 import { createProject, updateProject } from '../services/ProjectService';
 import ModelViewer from "../components/rhinoCompute/ModelViewer";
 import { useAuth0 } from "@auth0/auth0-react"
-import AnalisisTerreno from "../components/analisis/AnalisisTerreno";
+import AnalisisPrincipal from "../components/analisis/AnalisisPrincipal";
 
 export interface Coordinate {
   lat: number;
@@ -92,7 +92,7 @@ const AnalisisModelo: React.FC = () => {
 
   return (
     <div>
-      <AnalisisTerreno />
+      <AnalisisPrincipal />
       {/* <div className="compute-buttons">
         <div className="analisis-buttons">
           <button className="btn btn-primary" onClick={() => handleViewChange("poligono")}>
