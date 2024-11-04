@@ -44,9 +44,6 @@ function MainNavbar() {
                         <li className="nav-item">
                             <a className={`nav-link ${location.pathname === '/foro' ? 'active' : ''}`} href="/foro">Foro</a>
                         </li>
-                        <li className="nav-item">
-                            <a className={`nav-link ${location.pathname === '/ejemplorhino' ? 'active' : ''}`} href="/ejemplorhino">Ejemplo Rhino</a>
-                        </li>
                     </ul>
                 </div>
             </div>

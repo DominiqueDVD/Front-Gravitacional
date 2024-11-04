@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MapaPoligono from '../../pages/MapaPoligono';
-import RhinoViewer from './../rhinoCompute/RhinoViewer.jsx';
+import RhinoViewer from './../rhinoCompute/RhinoViewer';
 import OpenTopography from '../openTopography/OpenTopography';
 import EosRequestComponent from '../eos/EosRequestComponent';
 import AnalisisGeografico from './AnalisisGeografico';
@@ -210,6 +210,17 @@ const AnalisisPrincipal = () => {
                             </div>
                         </div>
                     </nav>
+                </div>
+            </div>
+            <button className="btn btn-primary mt-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#eosSidebar" aria-controls="eosSidebar">Datos satelitales</button>
+
+            <div className="offcanvas offcanvas-end text-bg-dark bg-gradient-primary" data-bs-scroll="true" data-bs-backdrop="false" tabIndex={-1} id="eosSidebar" aria-labelledby="offcanvasScrollingLabel">
+                <div className="offcanvas-header">
+                    <h5 className="offcanvas-title" id="offcanvasScrollingLabel">Análisis datos satelitales</h5>
+                    <button type="button" className="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div className="offcanvas-body">
+                    <EosRequestComponent />
                 </div>
             </div>
             <div className="m-1">
