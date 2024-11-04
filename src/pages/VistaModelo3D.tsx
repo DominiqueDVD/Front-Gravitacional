@@ -9,7 +9,7 @@ import { calcularCentroide } from "../components/googleEarth/puntos";
 import logo2 from "../assets/logoDefinitivo.png";
 import isotipo from "../assets/isotipo_color.png";
 import "../styles/vista3d.css";
-import { Coordinate } from "../pages/AnalisisModelo"
+import { Coordinate } from "./AnalisisPage.js"
 
 function VistaModelo3D() {
   // Get the parameter value from the URL

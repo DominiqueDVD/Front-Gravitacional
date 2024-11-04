@@ -4,19 +4,19 @@ import ButtonModal from '../components/poligonos/modalButton'
 import SearchForm from '../components/poligonos/buscarLugar'
 import VistaModelo3D from './VistaModelo3D'
 
-interface Coordinate {
-  lat: number;
-  lng: number;
-}
+// interface Coordinate {
+//   lat: number;
+//   lng: number;
+// }
 
-interface MapaPoligonoProps {
-  coordinates: Coordinate[];
-  actualizarCoordenadas: (newCoordinates: Coordinate[]) => void;
-}
+// interface MapaPoligonoProps {
+//   coordinates: Coordinate[];
+//   actualizarCoordenadas: (newCoordinates: Coordinate[]) => void;
+// }
 
-const MapaPoligono: React.FC<MapaPoligonoProps> = ({ coordinates, actualizarCoordenadas }) => {
+const MapaPoligono = () => {
   const [polygonPaths, setPolygonPaths] = useState([]);
-  console.log(coordinates);
+  // console.log(coordinates);
   
   useEffect(() => {
     const script = document.createElement('script')
