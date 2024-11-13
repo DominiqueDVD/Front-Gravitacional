@@ -8,6 +8,7 @@ import AnalisisGeografico from './AnalisisGeografico';
 import IngenieriaConceptual from './IngenieriaConceptual'
 import SelectSuelos from '../suelos/selectSuelos';
 import Herramientas from './../herramientas/Herramientas';
+import ProjectForm from '../guardarProyectos/ProjectForm';
 
 const AnalisisPrincipal = () => {
     const [activeTab, setActiveTab] = useState<string>('poligono');
@@ -62,7 +63,7 @@ const AnalisisPrincipal = () => {
         <div className='m-1 mt-5'>
             <button className="btn btn-primary mt-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#herramientasSidebar" aria-controls="herramientasSidebar">Herramientas</button>
 
-            <div className="offcanvas offcanvas-start text-bg-dark bg-gradient-primary" data-bs-scroll="true" data-bs-backdrop="false" tabIndex={-1} id="herramientasSidebar" aria-labelledby="offcanvasScrollingLabel">
+            <div className="offcanvas offcanvas-start bg-gravi-blue" data-bs-scroll="true" data-bs-backdrop="false" tabIndex={-1} id="herramientasSidebar" aria-labelledby="offcanvasScrollingLabel">
                 <div className="offcanvas-header">
                     <h5 className="offcanvas-title" id="offcanvasScrollingLabel">Selección de Herramientas</h5>
                     <button type="button" className="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -70,7 +71,7 @@ const AnalisisPrincipal = () => {
                 <div className="offcanvas-body">
                     <nav>
                         <button
-                            className={`flex-sm-fill text-sm-center nav-link btn w-100 bg-gradient-primary ${activeTab === 'poligono' ? 'active' : ''}`}
+                            className={`flex-sm-fill text-sm-center nav-link btn w-100 bg-gravi-green ${activeTab === 'poligono' ? 'active' : ''}`}
                             type="button"
                             onClick={() => setActiveTab('poligono')}
                         >
@@ -193,7 +194,7 @@ const AnalisisPrincipal = () => {
                         <hr />
                         <div>
                             <button className="btn text-white w-100 dropdown-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#collapseVisualizacionAR" aria-expanded="false" aria-controls="collapseVisualizacionAR">
-            
+
                                 <strong>Visualización AR</strong>
                             </button>
                             <div className="collapse" id="collapseVisualizacionAR">
@@ -214,13 +215,37 @@ const AnalisisPrincipal = () => {
             </div>
             <button className="btn btn-primary mt-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#eosSidebar" aria-controls="eosSidebar">Datos satelitales</button>
 
-            <div className="offcanvas offcanvas-end text-bg-dark bg-gradient-primary" data-bs-scroll="true" data-bs-backdrop="false" tabIndex={-1} id="eosSidebar" aria-labelledby="offcanvasScrollingLabel">
+            <div className="offcanvas offcanvas-end text-bg-dark bg-gravi-blue" data-bs-scroll="true" data-bs-backdrop="false" tabIndex={-1} id="eosSidebar" aria-labelledby="offcanvasScrollingLabel">
                 <div className="offcanvas-header">
                     <h5 className="offcanvas-title" id="offcanvasScrollingLabel">Análisis datos satelitales</h5>
                     <button type="button" className="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div className="offcanvas-body">
                     <EosRequestComponent />
+                </div>
+            </div>
+
+            {/* <!-- Button trigger modal --> */}
+            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDatosProyecto">
+                Detalles del proyecto
+            </button>
+
+            {/* <!-- Modal --> */}
+            <div className="modal fade" id="modalDatosProyecto" tabIndex={-1} aria-labelledby="modalDatosProyectoLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header bg-gravi-blue">
+                            <h1 className="modal-title fs-5" id="modalDatosProyectoLabel">Detalles del proyecto</h1>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            <ProjectForm />
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" className="btn btn-primary">Aceptar</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className="m-1">
