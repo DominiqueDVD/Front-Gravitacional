@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import {Coordinate, Project} from '../pages/AnalisisPage'
+import {Project} from '../pages/AnalisisPage'
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 

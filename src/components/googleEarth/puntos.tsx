@@ -1,7 +1,4 @@
-export interface Coordinate {
-    lat: number;
-    lng: number;
-}
+import { Coordinate } from "../../types/types";
 
 export function calcularArea(poligono: Coordinate[]): number {
     let area = 0;

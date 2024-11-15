@@ -3,21 +3,11 @@ import '../styles/layout.css'
 import ButtonModal from '../components/poligonos/modalButton'
 import SearchForm from '../components/poligonos/buscarLugar'
 import VistaModelo3D from './VistaModelo3D'
-
-// interface Coordinate {
-//   lat: number;
-//   lng: number;
-// }
-
-// interface MapaPoligonoProps {
-//   coordinates: Coordinate[];
-//   actualizarCoordenadas: (newCoordinates: Coordinate[]) => void;
-// }
+import { calcularCentroide } from '../components/googleEarth/puntos'
 
 const MapaPoligono = () => {
   const [polygonPaths, setPolygonPaths] = useState([]);
-  // console.log(coordinates);
-  
+
   useEffect(() => {
     const script = document.createElement('script')
     // Asigna la URL de la API de Google Maps a la variable src del elemento script
@@ -30,7 +20,7 @@ const MapaPoligono = () => {
       document.body.removeChild(script);
     }
   }, [])
-  
+
   useEffect(() => {
     let map;
     let Paths = new Array();
@@ -162,8 +152,10 @@ const MapaPoligono = () => {
 
             const pathsEncoded = encodeURIComponent(jsonStr);
             // coordinates.s = Paths;
-            actualizarCoordenadas(Paths);
-            // window.open(`/analisis?data=${pathsEncoded}`);
+            sessionStorage.setItem("coordenadas", JSON.stringify(Paths[0]));
+            const centroide = calcularCentroide(Paths[0]);
+            sessionStorage.setItem("centroide", JSON.stringify(centroide));
+            alert("Coordenadas: " + sessionStorage.getItem("coordenadas") + "\nCentroide: " + sessionStorage.getItem("centroide"));
 
             // PoligonoInfoModal.openModal()
 

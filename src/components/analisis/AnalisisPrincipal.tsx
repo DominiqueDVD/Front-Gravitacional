@@ -59,6 +59,11 @@ const AnalisisPrincipal = () => {
                 return null;
         }
     };
+
+    const cleanSessionStorage = () => {
+        sessionStorage.clear();
+    };
+
     return (
         <div className='m-1 mt-5'>
             <button className="btn btn-primary mt-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#herramientasSidebar" aria-controls="herramientasSidebar">Herramientas</button>
@@ -248,6 +253,9 @@ const AnalisisPrincipal = () => {
                     </div>
                 </div>
             </div>
+            <button className='btn btn-primary' onClick={cleanSessionStorage}>
+                Limpiar Session storage
+            </button>
             <div className="m-1">
                 {renderContent()}
             </div>
