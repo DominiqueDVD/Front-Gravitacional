@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { getProjects, Project } from '../../services/ProjectService';
+import Loader from '../usabilidad/Loader';
 
 const ProjectList: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [isLoading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -20,23 +21,30 @@ const ProjectList: React.FC = () => {
     fetchProjects();
   }, []);
 
-  if (loading) {
-    return <div>Cargando...</div>;
-  }
-
   return (
     <div>
-      <h2>Lista de proyectos</h2>
-      <ul>
-        {projects.map((project) => (
-          <li key={project.id}>
-            <h3>{project.name}</h3>
-            <p>{project.description}</p>
-            <img src={project.thumbnail} alt={project.name} />
-            {/* Render other project details */}
-          </li>
-        ))}
-      </ul>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div>
+          <h2 className='text-center'>Lista de proyectos</h2>
+          <div className='container text-center'>
+            <div className='row row-cols-1 row-cols-sm-2 row-cols-md-4'>
+              {projects.map((project) => (
+                <div key={project.id} className='p-1 col'>
+                  <div className='card p-1 h-100'>
+                    <h3 className='bg-gravi-blue'>{project.name}</h3>
+                    <p>{project.description}</p>
+                    {/* <p>{project.coordinates[0][0].lat}, {project.coordinates[0][0].lng}</p> */}
+                    <img src={project.thumbnail} alt={project.name} />
+                  </div>
+
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

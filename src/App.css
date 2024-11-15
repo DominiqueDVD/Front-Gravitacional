@@ -37,10 +37,16 @@
   }
 }
 
-/* .app-container {
-  display: flex;
-}
-*/
 .content {
   margin-top: 50px;
 } 
+
+.bg-gravi-blue{
+  color: white!important;
+  background-color: #0082FF!important;
+}
+
+.bg-gravi-green{
+  color: white!important;
+  background-color: #4FE18F!important;
+}

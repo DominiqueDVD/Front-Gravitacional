@@ -9,11 +9,7 @@ import { createProject, updateProject } from '../services/ProjectService';
 import ModelViewer from "../components/rhinoCompute/ModelViewer";
 import { useAuth0 } from "@auth0/auth0-react"
 import AnalisisPrincipal from "../components/analisis/AnalisisPrincipal";
-
-export interface Coordinate {
-  lat: number;
-  lng: number;
-}
+import { Coordinate } from "../types/types";
 
 export interface Project {
 
@@ -47,7 +43,7 @@ const AnalisisModelo: React.FC = () => {
     coordinates: coordinates,
     thumbnail: "https://drive.google.com/file/d/1J2V78gGG5JEnUwdmm8r4sdOGGigs0YE9/view?usp=sharing"
   });
-  console.log(coordinates);
+  // console.log(coordinates);
 
   useEffect(() => {
     if (coordinates.length > 0) {

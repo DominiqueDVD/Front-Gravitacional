@@ -25,3 +25,8 @@ export interface AccessTokenResponse {
     };
     error?: string;
 }
+
+export interface Coordinate {
+    lat: number;
+    lng: number;
+}
