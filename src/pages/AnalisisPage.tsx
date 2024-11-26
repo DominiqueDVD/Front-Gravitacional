@@ -6,20 +6,9 @@ import VistaModelo3D from "./VistaModelo3D";
 import MapaPoligono from "./MapaPoligono";
 import { calcularCentroide } from "../components/googleEarth/puntos";
 import { createProject, updateProject } from '../services/ProjectService';
-import ModelViewer from "../components/rhinoCompute/ModelViewer";
 import { useAuth0 } from "@auth0/auth0-react"
 import AnalisisPrincipal from "../components/analisis/AnalisisPrincipal";
-import { Coordinate } from "../types/types";
-
-export interface Project {
-
-  // id?: string;
-  name: string;
-  description: string;
-  userId: string;
-  coordinates: Coordinate[];
-  thumbnail: string;
-}
+import { Coordinate, Project } from "../types/types";
 
 const AnalisisModelo: React.FC = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -33,17 +22,25 @@ const AnalisisModelo: React.FC = () => {
   const [centroide, setCentroide] = useState<Coordinate>();
 
   const [project, setProject] = useState<Project>({
-    name: "",
-    description: "",
-    userId: user?.sub || "", // Asignar un string vacío si user?.sub es undefined
-
-    name: "Proyecto de prueba",
-    description: "Descripción de prueba",
-    userId: user?.sub || "",
-    coordinates: coordinates,
-    thumbnail: "https://drive.google.com/file/d/1J2V78gGG5JEnUwdmm8r4sdOGGigs0YE9/view?usp=sharing"
+    ID: "12345",
+    name: "Proyecto de Prueba",
+    description: "Este es un proyecto de prueba con datos placeholder.",
+    userId: "user_001",
+    createdAt: new Date("2024-11-14T10:00:00Z"),
+    updatedAt: new Date("2024-11-14T10:00:00Z"),
+    coordinates: [
+      { lat: -36.6066, lng: -72.1034 },
+      { lat: -36.6067, lng: -72.1035 },
+      { lat: -36.6068, lng: -72.1036 },
+    ],
+    coordinatesCenter: { lat: -36.6067, lng: -72.1035 },
+    thumbnail: "https://via.placeholder.com/150", // Imagen de prueba
+    lineas: { type: "LineString", data: [] }, // Representación genérica
+    malla: { type: "Mesh", data: [] }, // Representación genérica
+    laderas: { type: "Polygon", data: [] }, // Representación genérica
+    suelos: { type: "Soil", data: [] }, // Representación genérica
+    matriz: { type: "Matrix", data: [[0, 1], [1, 0]] }, // Representación genérica
   });
-  // console.log(coordinates);
 
   useEffect(() => {
     if (coordinates.length > 0) {
@@ -81,63 +78,14 @@ const AnalisisModelo: React.FC = () => {
   };
 
   const handleGuardarProyecto = () => {
-    console.log("Guardar proyecto");
     project.coordinates = coordinates;
     createProject(project);
   }
 
   return (
     <div>
+      {/* <button className="btn btn-success" onClick={handleGuardarProyecto}>Guardar proyecto</button> */}
       <AnalisisPrincipal />
-      {/* <div className="compute-buttons">
-        <div className="analisis-buttons">
-          <button className="btn btn-primary" onClick={() => handleViewChange("poligono")}>
-            Polígono
-          </button>
-          {coordenadasValidas && (
-            <div className="herramientas-buttons">
-              <button className="btn btn-primary" onClick={() => handleViewChange("vista3D")}>
-                Vista 3D
-              </button>
-              <button className="btn btn-primary" onClick={() => handleViewChange("vistaOpenTP")}>
-                Vista OpenTP
-              </button>
-              <button className="btn btn-primary" onClick={() => handleViewChange("vistaEOS")}>
-                Vista EOS
-              </button>
-              <button className="btn btn-success" onClick={() => handleGuardarProyecto()}>Guardar proyecto</button>
-            </div>
-          )}
-        </div>
-      </div> */}
-
-      {/* <div id="containerGeneral">
-        {view === "poligono" && (
-          <div id="seccion1" className="secciones full-width">
-            <MapaPoligono />
-          </div>
-        )}
-
-        {coordenadasValidas && (
-          <div>
-            {view === "vista3D" && (
-              <div id="seccion2" className="secciones full-width">
-                <VistaModelo3D />
-              </div>
-            )}
-            {view === "vistaOpenTP" && (
-              <div id="seccion3" className="secciones full-width">
-                <OpenTopography />
-              </div>
-            )}
-            {view === "vistaEOS" && (
-              <div id="seccion4" className="secciones full-width">
-                <EosRequestComponent />
-              </div>
-            )}
-          </div>
-        )}
-      </div> */}
     </div>
   );
 };

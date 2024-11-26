@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import {Project} from '../pages/AnalisisPage'
+import { Project } from '../types/types';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -19,9 +19,10 @@ export const createProject = async (project: Project): Promise<Project> => {
     try {
         const response: AxiosResponse<Project> = await axios.post(`${API_URL}/project/`, project);
         console.log(response.data);
+        alert("Proyecto guardado" + response.data);
         return response.data;
     } catch (error) {
-        console.error("Error creating project", error);
+        console.error("Error al crear proyecto", error);
         throw error;
     }
 };

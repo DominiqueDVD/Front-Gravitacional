@@ -30,3 +30,20 @@ export interface Coordinate {
     lat: number;
     lng: number;
 }
+
+export interface Project{
+    ID: string,
+    name: string,
+    description: string,
+    userId: string,
+    createdAt: Date,
+    updatedAt: Date,
+    coordinates: Coordinate[],
+    coordinatesCenter: Coordinate,
+    thumbnail: string,
+    lineas: object,
+    malla: object,
+    laderas: object,
+    suelos: object,
+    matriz: object
+}
