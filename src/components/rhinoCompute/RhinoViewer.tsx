@@ -6,6 +6,7 @@ import { Rhino3dmLoader } from 'three/examples/jsm/loaders/3DMLoader'
 import Loader from '../usabilidad/Loader'
 import { createProject } from '../../services/ProjectService';
 import { Project } from '../../types/types';
+const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 const RhinoViewer = () => {
    const [rhinoIoRes, setRhinoIoRes] = useState<string>(sessionStorage.getItem('rhino-io-res') || "");
@@ -314,8 +315,7 @@ const RhinoViewer = () => {
          // const values = responseJson.values
          console.log("Collect results")
 
-
-         fetch('http://localhost:3100/api/rhino/compute', {
+         fetch(`${API_URL}/rhino/compute`, {
             method: 'POST',
             headers: {
                'Content-Type': 'application/json'

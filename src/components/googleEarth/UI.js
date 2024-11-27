@@ -12,7 +12,7 @@ export class UI {
   
   constructor() {
     document.addEventListener('DOMContentLoaded', () => {
-      const apiKeyInput = process.env.REACT_APP_GOOGLE_API_KEY;
+      const apiKeyInput = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
       // const apiKeyInput = document.querySelector("#google-api-key");
       const latLngInput = document.querySelector("#lat-lng");
       const fetchTilesBtn = document.getElementById("fetch");
@@ -167,7 +167,7 @@ export class UI {
   }
 
   getGoogleAPIKey() {
-    return process.env.REACT_APP_GOOGLE_API_KEY;
+    return process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
   }
 
   getLatLngZoom() {

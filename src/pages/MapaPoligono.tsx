@@ -4,6 +4,7 @@ import ButtonModal from '../components/poligonos/modalButton'
 import SearchForm from '../components/poligonos/buscarLugar'
 import VistaModelo3D from './VistaModelo3D'
 import { calcularCentroide } from '../components/googleEarth/puntos'
+const MAPS_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
 
 const MapaPoligono = () => {
   const [polygonPaths, setPolygonPaths] = useState([]);
@@ -11,7 +12,7 @@ const MapaPoligono = () => {
   useEffect(() => {
     const script = document.createElement('script')
     // Asigna la URL de la API de Google Maps a la variable src del elemento script
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_API_KEY}&callback=initMap&libraries=drawing,places&v=weekly`
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${MAPS_API_KEY}&callback=initMap&libraries=drawing,places&v=weekly`
 
     script.async = true;
     document.body.appendChild(script);
@@ -69,7 +70,6 @@ const MapaPoligono = () => {
 
     // This example requires the Drawing library. Include the libraries=drawing
     // parameter when you first load the API. For example:
-    // <script src="https://maps.googleapis.com/maps/api/js?AIzaSyBduNSw_S2YfNsRJ-qc12d2IRWrLcdLsVo&libraries=drawing">
     function initMap() {
       map = new window.google.maps.Map(document.getElementById('map'), {
         center: { lat: -36.81883, lng: -73.03145 },
