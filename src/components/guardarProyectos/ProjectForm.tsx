@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { createProject, Project } from '../../services/ProjectService';
+import { createProject } from '../../services/ProjectService';
+import { Project } from '../../types/types';
 
 const ProjectForm: React.FC = () => {
   const [name, setName] = useState('');

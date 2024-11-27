@@ -4,10 +4,14 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { Rhino3dmLoader } from 'three/examples/jsm/loaders/3DMLoader'
 import Loader from '../usabilidad/Loader'
+import { createProject } from '../../services/ProjectService';
+import { Project } from '../../types/types';
+const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 const RhinoViewer = () => {
    const [rhinoIoRes, setRhinoIoRes] = useState<string>(sessionStorage.getItem('rhino-io-res') || "");
    const [rhinoSolveRes, setRhinoSolveRes] = useState<string>(sessionStorage.getItem('rhino-solve-res') || "");
+
    const mountRef = useRef<HTMLDivElement>(null);
 
    const [isLoading, setIsLoading] = useState(true); // Estado de carga
@@ -311,8 +315,7 @@ const RhinoViewer = () => {
          // const values = responseJson.values
          console.log("Collect results")
 
-
-         fetch('http://localhost:3100/api/rhino/compute', {
+         fetch(`${API_URL}/rhino/compute`, {
             method: 'POST',
             headers: {
                'Content-Type': 'application/json'
@@ -369,8 +372,50 @@ const RhinoViewer = () => {
       };
    });
 
+   const handleGuardarProyecto = () => {
+      let proyecto;
+      proyecto = processData(JSON.parse(rhinoSolveRes));
+      createProject(proyecto);
+   }
+
+   const processData = (data: any) => {
+      let coordenadas = JSON.parse(sessionStorage.getItem("coordenadas") ?? '{}');
+      let datos: Project = {
+         ID: "12345",
+         name: "Proyecto de Prueba",
+         description: "Este es un proyecto de prueba con datos placeholder.",
+         userId: "user_001",
+         createdAt: new Date(Date.now()),
+         updatedAt: new Date(Date.now()),
+         coordinates: coordenadas,
+         coordinatesCenter: { lat: -36.6067, lng: -72.1035 },
+         thumbnail: "https://via.placeholder.com/150", // Imagen de prueba
+         lineas: data.values.find((item: any) => item.ParamName === "lines")?.InnerTree || { type: "LineString", data: [] },
+         malla: data.values.find((item: any) => item.ParamName === "mesh")?.InnerTree || { type: "Mesh", data: [] },
+         laderas: data.values.find((item: any) => item.ParamName === "hillsides")?.InnerTree || { type: "Polygon", data: [] },
+         suelos: { type: "Soil", data: [] },
+         matriz: { type: "Matrix", data: [[0, 1], [1, 0]] },
+      };
+      console.log(datos);
+      return {
+         datos
+         // thumbnail: data.thumbnail || "https://via.placeholder.com/150", // Imagen predeterminada
+         // lines: data.values.find((item: any) => item.ParamName === "lines")?.InnerTree || {},
+         // mesh: data.values.find((item: any) => item.ParamName === "mesh")?.InnerTree || {},
+         // climatic: data.values.find((item: any) => item.ParamName === "climatic")?.InnerTree || {},
+         // soils: data.values.find((item: any) => item.ParamName === "soils")?.InnerTree || {},
+         // matrix: data.values.find((item: any) => item.ParamName === "matrix")?.InnerTree || {},
+         // json: data.values.find((item: any) => item.ParamName === "json")?.InnerTree || {},
+         // content: data.values.find((item: any) => item.ParamName === "Content")?.InnerTree || {},
+      };
+   };
+
    return (
       <div>
+         {rhinoSolveRes ? (
+            <button className='btn btn-success' onClick={handleGuardarProyecto}>Guardar proyecto</button>
+         ) : <div></div>
+         }
          {isLoading ? (
             <Loader />
          ) : (
