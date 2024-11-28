@@ -7,12 +7,14 @@ import img3 from '../../assets/dashboard/undraw_profile.svg';
 import { useAuth } from '../../auth/AuthProvider.tsx';
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from '../../auth/constants.ts';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function Body() {
+  const { user, isAuthenticated, isLoading } = useAuth0();
   const auth = useAuth();
   const goTo = useNavigate();
 
-  async function handleSignOut(e) {
+  async function handleSignOut(e: { preventDefault: () => void; }) {
     e.preventDefault();
 
     try {
@@ -25,7 +27,7 @@ function Body() {
       });
 
       if (response.ok) {
-        auth.signOut();
+        auth.signout();
         goTo("/");
       }
     } catch (error) {
@@ -112,7 +114,7 @@ function Body() {
                   <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span className="mr-2 d-none d-lg-inline">{auth.getUser()?.username || ""}</span>
-                    <img className="img-profile rounded-circle" src={img3} />
+                    <img className="img-profile rounded-circle" src={user?.picture || img3} />
                     <button style={{ background: "#e57878", color: "white", borderRadius: "5px" }} onClick={handleSignOut}>Cerrar Sesión</button>
                   </a>
                 </li>

@@ -18,19 +18,20 @@ import SelectSuelos from "./components/suelos/selectSuelos.tsx"
 import GestionAgua from "./pages/Herramientas/herramientasPagadas/gestionAgua.tsx"
 import AnalisisGeografico from "./pages/Herramientas/herramientasNoPagadas/analisisGeografico.tsx"
 import Layer from "./pages/layers.tsx"
-import MainSidebar from "./components/mainSidebar/MainSidebar.tsx"
 import MainNavbar from "./components/mainNavbar/MainNavbar.tsx"
 import MainFooter from "./components/footer/MainFooter.tsx"
 import Herramientas from "./pages/HerramientasPage.tsx"
+import { useAuth0 } from "@auth0/auth0-react"
 import "./App.css";
 
 function App() {
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
   return (
     <BrowserRouter>
       <div className="app-container">
-        <MainNavbar />
-        {/* <MainSidebar /> */}
-        <div className="content">
+        {isAuthenticated && <MainNavbar />}
+        <div className="content" style={{ marginTop: isAuthenticated ? '50px' : '0px' }}>
 
           <Routes>
             <Route path="/" element={<Login />} />

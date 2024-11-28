@@ -7,6 +7,7 @@ import Loader from '../usabilidad/Loader'
 import { createProject } from '../../services/ProjectService';
 import { Project } from '../../types/types';
 const API_URL = process.env.REACT_APP_BACKEND_URL;
+const RHINO_URL = process.env.REACT_APP_RHINO_COMPUTE_URL;
 
 const RhinoViewer = () => {
    const [rhinoIoRes, setRhinoIoRes] = useState<string>(sessionStorage.getItem('rhino-io-res') || "");
@@ -71,7 +72,7 @@ const RhinoViewer = () => {
                };
 
                let result1 = ""
-               await fetch("http://rhino-compute-loadbalancer-824415098.us-east-1.elb.amazonaws.com/io", requestOptions)
+               await fetch(`${RHINO_URL}/io`, requestOptions)
                   .then((response) => response.json())
                   .then((result) => result1 = JSON.stringify(result))
                   .catch((error) => console.error(error));
@@ -289,7 +290,7 @@ const RhinoViewer = () => {
                };
 
                let result2 = ""
-               await fetch("http://rhino-compute-loadbalancer-824415098.us-east-1.elb.amazonaws.com/grasshopper", requestOptions)
+               await fetch(`${RHINO_URL}/grasshopper`, requestOptions)
                   .then((response) => response.json())
                   .then((result) => result2 = JSON.stringify(result))
                   .catch((error) => console.error(error));
