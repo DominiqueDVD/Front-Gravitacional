@@ -24,8 +24,6 @@ function MainContent() {
             <div id="content">
 
                 <br />
-
-
                 <div className="container-fluid">
                     {/*<!-- Page Heading -->*/}
                     <div className="d-sm-flex align-items-center justify-content-between mb-4">

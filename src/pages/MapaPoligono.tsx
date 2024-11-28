@@ -124,7 +124,7 @@ const MapaPoligono = () => {
       AddButton(
         buttonSend,
         'Click para procesar el polígono',
-        '<i class="bi bi-cloud-upload-fill fa-2x"></i>',
+        'Procesar el terreno <i class="bi bi-cloud-upload-fill fa-2x"></i>',
         () => {
           if (isValid) {
             console.log(Paths);

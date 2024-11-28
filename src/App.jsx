@@ -5,8 +5,7 @@ import Login from "./pages/Login.tsx";
 import CrearCuenta from "./pages/CrearCuenta.tsx"
 import CambioContraseña from "./pages/CambioContraseña.tsx";
 import PrivateRoute from "./components/login/PrivateRoute.tsx";
-import Dashboard from "./pages/dashboard/Dashboard.tsx";
-import AdminDashboard from "./pages/dashboard/AdminDashboard.tsx";
+import Dashboard from "./pages/Dashboard.tsx";
 import Tutoriales from "./pages/Tutoriales.tsx";
 import Blog from "./pages/blog.tsx"
 import Foro from "./pages/foro.tsx"
@@ -40,7 +39,6 @@ function App() {
             <Route path="/blog" element={<Blog />} />
             <Route path="/Tutoriales" element={<Tutoriales />} />
             <Route path="/PostDetails" element={<PostDetails />} />
-            <Route path="/AdminDash" element={<AdminDashboard />} />
             <Route path="/foro" element={<Foro />} />
             <Route path="/layer" element={<Layer />} />
             <Route path="/EosTest" element={<EosTest />} />
