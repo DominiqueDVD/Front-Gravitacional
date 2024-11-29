@@ -1,13 +1,13 @@
 import React from 'react';
 import logoBlanco from '../../assets/isotipo_blanco2.png';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useAuth0 } from "@auth0/auth0-react";
+// import { useAuth0 } from "@auth0/auth0-react";
 import './mainNavbar.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 function MainNavbar() {
-    const { isLoading } = useAuth0();
+    // const { user, isAuthenticated } = useAuth0();
     const goTo = useNavigate();
     const location = useLocation(); // Obtener la ubicación actual
 

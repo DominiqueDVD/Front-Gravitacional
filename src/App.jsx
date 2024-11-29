@@ -5,8 +5,7 @@ import Login from "./pages/Login.tsx";
 import CrearCuenta from "./pages/CrearCuenta.tsx"
 import CambioContraseña from "./pages/CambioContraseña.tsx";
 import PrivateRoute from "./components/login/PrivateRoute.tsx";
-import Dashboard from "./pages/dashboard/Dashboard.tsx";
-import AdminDashboard from "./pages/dashboard/AdminDashboard.tsx";
+import Dashboard from "./pages/Dashboard.tsx";
 import Tutoriales from "./pages/Tutoriales.tsx";
 import Blog from "./pages/blog.tsx"
 import Foro from "./pages/foro.tsx"
@@ -19,19 +18,20 @@ import SelectSuelos from "./components/suelos/selectSuelos.tsx"
 import GestionAgua from "./pages/Herramientas/herramientasPagadas/gestionAgua.tsx"
 import AnalisisGeografico from "./pages/Herramientas/herramientasNoPagadas/analisisGeografico.tsx"
 import Layer from "./pages/layers.tsx"
-import MainSidebar from "./components/mainSidebar/MainSidebar.tsx"
 import MainNavbar from "./components/mainNavbar/MainNavbar.tsx"
 import MainFooter from "./components/footer/MainFooter.tsx"
 import Herramientas from "./pages/HerramientasPage.tsx"
+import { useAuth0 } from "@auth0/auth0-react"
 import "./App.css";
 
 function App() {
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
   return (
     <BrowserRouter>
       <div className="app-container">
-        <MainNavbar />
-        {/* <MainSidebar /> */}
-        <div className="content">
+        {isAuthenticated && <MainNavbar />}
+        <div className="content" style={{ marginTop: isAuthenticated ? '50px' : '0px' }}>
 
           <Routes>
             <Route path="/" element={<Login />} />
@@ -40,7 +40,6 @@ function App() {
             <Route path="/blog" element={<Blog />} />
             <Route path="/Tutoriales" element={<Tutoriales />} />
             <Route path="/PostDetails" element={<PostDetails />} />
-            <Route path="/AdminDash" element={<AdminDashboard />} />
             <Route path="/foro" element={<Foro />} />
             <Route path="/layer" element={<Layer />} />
             <Route path="/EosTest" element={<EosTest />} />
