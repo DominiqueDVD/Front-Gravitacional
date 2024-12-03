@@ -28,7 +28,7 @@ const MapaPoligono = () => {
     let bounds = null;
     let infoArea = null;
     function Generator() { };
-    let maxArea = 1500000;
+    let maxArea = 10000000;
     let isValid = false;
 
     Generator.prototype.rand = Math.floor(Math.random() * 26) + Date.now()
