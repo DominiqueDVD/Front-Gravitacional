@@ -28,7 +28,7 @@ const MapaPoligono = () => {
     let bounds = null;
     let infoArea = null;
     function Generator() { };
-    let maxArea = 500000;
+    let maxArea = 1500000;
     let isValid = false;
 
     Generator.prototype.rand = Math.floor(Math.random() * 26) + Date.now()
@@ -155,7 +155,11 @@ const MapaPoligono = () => {
             sessionStorage.setItem("coordenadas", JSON.stringify(Paths[0]));
             const centroide = calcularCentroide(Paths[0]);
             sessionStorage.setItem("centroide", JSON.stringify(centroide));
-            alert("Coordenadas: " + sessionStorage.getItem("coordenadas") + "\nCentroide: " + sessionStorage.getItem("centroide"));
+
+            const areaSelec = sessionStorage.getItem("areaSelec");
+            const areaDecimales = parseFloat(areaSelec || "0").toFixed(2);
+
+            alert("Tamaño del área: " + areaDecimales + "m2\nCoordenadas: " + sessionStorage.getItem("coordenadas") + "\nCentroide: " + sessionStorage.getItem("centroide"));
 
             // PoligonoInfoModal.openModal()
 
@@ -420,8 +424,9 @@ const MapaPoligono = () => {
 
             //console.log(window.google.maps.geometry.spherical.computeArea(event.overlay.getPath()));
             var area = window.google.maps.geometry.spherical.computeArea(
-              event.overlay.getPath(),
-            )
+              event.overlay.getPath()
+            );
+            sessionStorage.setItem("areaSelec", area);
             if (area > maxArea) {
               isValid = false
               event.overlay.setOptions({
@@ -438,8 +443,9 @@ const MapaPoligono = () => {
             event.overlay.getPaths().forEach(function (path, index) {
               path.addListener('set_at', function () {
                 var _area = window.google.maps.geometry.spherical.computeArea(
-                  event.overlay.getPath(),
-                )
+                  event.overlay.getPath()
+                );
+                sessionStorage.setItem("areaSelec", _area);
                 if (_area > maxArea) {
                   isValid = false
                   event.overlay.setOptions({
