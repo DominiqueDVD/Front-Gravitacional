@@ -8,7 +8,9 @@ import { Rhino3dmLoader } from 'three/examples/jsm/loaders/3DMLoader'
 import Loader from '../usabilidad/Loader'
 import { createProject } from '../../services/ProjectService';
 import { Project } from '../../types/types';
+import { Coordinate } from '../../types/types';
 import ioReq from "./io_req.json"
+import solveReq from "./solve_req.json"
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 const RHINO_URL = process.env.REACT_APP_RHINO_COMPUTE_URL;
@@ -32,7 +34,8 @@ const RhinoViewer = () => {
    const [coordenadas, setCoordenadas] = useState<string>(sessionStorage.getItem("coordenadas") || JSON.stringify([{ "lat": -36.6045, "lng": -72.1038 }, { "lat": -36.6067, "lng": -72.1078 }, { "lat": -36.6098, "lng": -72.1009 }]));
    const [centroide, setCentroide] = useState<string>(sessionStorage.getItem("centroide") || JSON.stringify({ "lat": -36.6066, "lng": -72.1034 }));
 
-   const ioReqContent = ioReq.Content;
+   const ioReqContent = { ...ioReq.Content };
+   const solveReqContent = { ...solveReq.content };
 
    // Configuración de la escena Three.js
    const scene = new THREE.Scene();
@@ -125,7 +128,7 @@ const RhinoViewer = () => {
 
             } catch (error) {
                setIsLoading(false);
-               setMensajeEstado("Error al cargar entradas y salidas.")
+               setMensajeEstado("Error al cargar entradas y salidas: " + error)
                console.error('Error al cargar entradas y salidas:', error);
             }
             // } else if (rhinoIoRes && rhinoIoRes !== 'undefined' && rhinoIoRes !== '' && rhinoIoRes !== null) {
@@ -173,6 +176,27 @@ const RhinoViewer = () => {
             }
 
             const cacheKey = JSON.parse(rhinoIoRes).CacheKey;
+
+            // Recorre el array y busca los objetos con ParamName
+            solveReqContent.values.forEach((value: any) => {
+               if (value.ParamName === "coordinates") {
+                  // Modifica el valor de "coordinates"
+                  value.InnerTree["{0}"] = [
+                     {
+                        type: "System.String",
+                        data: coordenadas,
+                     },
+                  ];
+               } else if (value.ParamName === "coordinatesCenter") {
+                  // Modifica el valor de "coordinatesCenter"
+                  value.InnerTree["{0}"] = [
+                     {
+                        type: "System.String",
+                        data: centroide,
+                     },
+                  ];
+               }
+            });
 
             const raw = JSON.stringify({
                "absolutetolerance": 0.01,
@@ -371,7 +395,7 @@ const RhinoViewer = () => {
             } catch (error) {
                console.error('Error al cargar la geometría:', error);
                setIsLoading(false);
-               setMensajeEstado("Error al cargar la geometría");
+               setMensajeEstado("Error al cargar la geometría" + error);
             }
             // } else if (rhinoSolveRes && rhinoSolveRes !== 'undefined' && rhinoSolveRes !== '' && rhinoSolveRes !== null) {
             //    collectResults();
@@ -399,7 +423,7 @@ const RhinoViewer = () => {
                   .then(response => {
                      if (!response.ok) {
                         setIsLoading(false);
-                        setMensajeEstado("Error del servidor " + response.status);
+                        setMensajeEstado("Error en la respuesta: " + response.statusText + " " + response.status);
                         return response.json().then(err => {
                            throw new Error(err.message);
                         });
@@ -426,14 +450,14 @@ const RhinoViewer = () => {
                      }, (error) => {
                         console.error('Error cargando el objeto 3DM:', error);
                         setIsLoading(false);
-                        setMensajeEstado("Error cargando el objeto 3D")
+                        setMensajeEstado("Error cargando el objeto 3D: " + error.message)
                      });
                   })
                   .catch(error => console.error('Error:', error));
             } catch (error) {
                console.log(error);
                setIsLoading(false);
-               setMensajeEstado("Error decodificando archivo");
+               setMensajeEstado("Error decodificando archivo: " + error);
             }
          }
          fetchResults();
@@ -536,9 +560,43 @@ const RhinoViewer = () => {
             </Suspense>)
          }
          < h5 style={{ textAlign: "center" }}>{mensajeEstado}</h5>
-         <pre>Coordenadas: {coordenadas}</pre>
-         <pre>Centroide: {centroide}</pre>
+         
+         <div className='card p-3'>
+            <h3>Coordenadas</h3>
+            <table className='table'>
+               <thead>
+                  <tr>
+                     <th>Latitud</th>
+                     <th>Longitud</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {(JSON.parse(coordenadas) as Coordinate[]).map((coord, index) => (
+                     <tr key={index}>
+                        <td>{coord.lat}</td>
+                        <td>{coord.lng}</td>
+                     </tr>
+                  ))}
+               </tbody>
+            </table>
 
+            <h3>Centroide</h3>
+            <table className='table'>
+               <thead>
+                  <tr>
+                     <th>Latitud</th>
+                     <th>Longitud</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>{JSON.parse(centroide).lat}</td>
+                     <td>{JSON.parse(centroide).lng}</td>
+                  </tr>
+
+               </tbody>
+            </table>
+         </div>
       </div >
    );
 

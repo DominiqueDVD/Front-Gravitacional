@@ -1,5 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
+import { createRoot } from "react-dom/client";
 import { Provider } from 'react-redux';
 import store from '../src/redux/store/store'; // Importa el store de Redux
 import './index.css';
@@ -16,7 +17,9 @@ const clientId = process.env.REACT_APP_CLIENT_ID
 
 const queryClient = new QueryClient();
 
-ReactDOM.render(
+const rootElement = document.getElementById("root");
+const root = createRoot(rootElement);
+root.render(
   <React.StrictMode>
     {/* Envuelve tu App con el Provider de Redux */}
     <Provider store={store}>
@@ -27,7 +30,7 @@ ReactDOM.render(
       </Auth0Provider>
     </Provider>
   </React.StrictMode>,
-  document.getElementById('root')
+  // document.getElementById('root')
 );
 
 // Si deseas comenzar a medir el rendimiento en tu aplicación, pasa una función
