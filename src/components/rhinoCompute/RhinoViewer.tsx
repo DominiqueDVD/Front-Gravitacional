@@ -11,6 +11,8 @@ import { Project } from '../../types/types';
 import { Coordinate } from '../../types/types';
 import ioReq from "./io_req.json"
 import solveReq from "./solve_req.json"
+import SceneConfig from './SceneConfig';
+import { BoxHelper } from 'three';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 const RHINO_URL = process.env.REACT_APP_RHINO_COMPUTE_URL;
@@ -30,30 +32,32 @@ const RhinoViewer = () => {
    // const mountRef = useRef<HTMLDivElement>(null);
 
    const [isLoading, setIsLoading] = useState(true); // Estado de carga
+   const [view, setView] = useState<"iso" | "top">("iso");
 
    const [coordenadas, setCoordenadas] = useState<string>(sessionStorage.getItem("coordenadas") || JSON.stringify([{ "lat": -36.6045, "lng": -72.1038 }, { "lat": -36.6067, "lng": -72.1078 }, { "lat": -36.6098, "lng": -72.1009 }]));
    const [centroide, setCentroide] = useState<string>(sessionStorage.getItem("centroide") || JSON.stringify({ "lat": -36.6066, "lng": -72.1034 }));
 
+   const groupRef = useRef<THREE.Group>(null);;
    const ioReqContent = { ...ioReq.Content };
    const solveReqContent = { ...solveReq.content };
 
    // Configuración de la escena Three.js
-   const scene = new THREE.Scene();
-   scene.background = new THREE.Color(0.9, 0.9, 0.9);
-   const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-   const renderer = new THREE.WebGLRenderer({ antialias: true });
+   // const scene = new THREE.Scene();
+   // scene.background = new THREE.Color(0.9, 0.9, 0.9);
+   // const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+   // const renderer = new THREE.WebGLRenderer({ antialias: true });
 
-   // Agregar luces
-   const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // Luz ambiental
-   scene.add(ambientLight);
+   // // Agregar luces
+   // const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // Luz ambiental
+   // scene.add(ambientLight);
 
-   const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // Luz direccional
-   directionalLight.position.set(0, 0, 1000).normalize(); // Cambiado a (0, 0, 1000)
-   scene.add(directionalLight);
+   // const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // Luz direccional
+   // directionalLight.position.set(0, 0, 1000).normalize(); // Cambiado a (0, 0, 1000)
+   // scene.add(directionalLight);
 
-   const pointLight = new THREE.PointLight(0xffffff, 1, 1500); // Luz puntual
-   pointLight.position.set(0, 0, 1000); // Cambiado a (0, 0, 1000)
-   scene.add(pointLight);
+   // const pointLight = new THREE.PointLight(0xffffff, 1, 1500); // Luz puntual
+   // pointLight.position.set(0, 0, 1000); // Cambiado a (0, 0, 1000)
+   // scene.add(pointLight);
 
    // Configurar controles orbitales
    // const controls = new OrbitControls(camera, renderer.domElement);
@@ -61,8 +65,8 @@ const RhinoViewer = () => {
    // controls.dampingFactor = 0.25;
    // controls.screenSpacePanning = false;
 
-   renderer.setSize(window.innerWidth, window.innerHeight);
-   renderer.setPixelRatio(window.devicePixelRatio);
+   // renderer.setSize(window.innerWidth, window.innerHeight);
+   // renderer.setPixelRatio(window.devicePixelRatio);
 
    // if (mountRef.current) {
    //    mountRef.current.appendChild(renderer.domElement);
@@ -465,6 +469,8 @@ const RhinoViewer = () => {
       return () => clearTimeout(timer);
    }, [rhinoSolveRes]);
 
+   const toggleView = () => setView((prev) => (prev === "iso" ? "top" : "iso"));
+
    // useEffect(() => {
    //    // Bucle de animación
    //    const animate = () => {
@@ -547,20 +553,65 @@ const RhinoViewer = () => {
          ) : (
 
             <Suspense>
-               {objetoListo &&
-                  <Canvas style={{ height: "90vh", minHeight: "400px" }} dpr={window.devicePixelRatio} camera={{ fov: 75, near: 0.1, far: 1000, position: [0, 0, 500] }}>
-                     <OrbitControls />
-                     <ambientLight intensity={5} />
-                     <pointLight position={[0, 0, 2000]} />
-                     {/* Renderiza el objeto cuando esté cargado */}
-                     <color attach="background" args={['#f5efe6']} />
-                     {loadedObject && <primitive object={loadedObject} />}
-                  </Canvas>
-               }
-            </Suspense>)
+
+               {objetoListo && (
+                  <div>
+                     <button className="btn btn-primary" onClick={toggleView}>
+                        Cambiar a {view === "iso" ? "Vista de Planta" : "Vista Isométrica"}
+                     </button>
+                     <Canvas
+                        orthographic={true}
+                        camera={{ position: [500, 1000, 1000], zoom: 0.5 }}
+                        style={{ width: window.innerWidth, height: window.innerHeight, minHeight: "400px" }}
+                     >
+                        <axesHelper args={[100]} />
+                        <ambientLight intensity={5} />
+                        <pointLight position={[0, 0, 2000]} />
+                        {/* Configuración de la escena */}
+                        <SceneConfig />
+
+                        {/* Controles de órbita */}
+                        {view == "iso" ? (
+                           <OrbitControls
+                              enableDamping={true}
+                              dampingFactor={0.25}
+                              minPolarAngle={0}
+                              maxPolarAngle={Math.PI / 2}
+                              enablePan={false}
+                              enableRotate={true}
+                              screenSpacePanning={false}
+                              enableZoom={true} // Habilitar zoom
+                              target={[0, 0, 0]}
+                           />) : (
+                           <OrbitControls
+                              enableDamping={true}
+                              dampingFactor={0.25}
+                              minPolarAngle={0}
+                              maxPolarAngle={0}
+                              enablePan={false}
+                              enableRotate={true}
+                              screenSpacePanning={false}
+                              enableZoom={true} // Habilitar zoom
+                              target={[0, 0, 0]}
+                           />
+                        )
+                        }
+
+                        {/* Renderiza el objeto cuando esté cargado */}
+                        {loadedObject && (
+                           <group ref={groupRef} rotation={[Math.PI / 2, Math.PI, Math.PI]}>
+                              <primitive object={loadedObject} />
+                           </group>
+                        )}
+                     </Canvas>
+                  </div>
+
+               )}
+            </Suspense>
+         )
          }
          < h5 style={{ textAlign: "center" }}>{mensajeEstado}</h5>
-         
+
          <div className='card p-3'>
             <h3>Coordenadas</h3>
             <table className='table'>
