@@ -21,18 +21,25 @@ const RHINO_COMPUTE_KEY = process.env.REACT_APP_RHINO_COMPUTE_KEY;
 const RhinoViewer = () => {
    // const [rhinoIoRes, setRhinoIoRes] = useState<string>(sessionStorage.getItem('rhino-io-res') || "");
    // const [rhinoSolveRes, setRhinoSolveRes] = useState<string>(sessionStorage.getItem('rhino-solve-res') || "");
-   const [loadedObject, setLoadedObject] = useState<THREE.Object3D | null>(null);
-   const [objetoListo, setObjetoListo] = useState(false);
+   
+   const [loadedObject, setLoadedObject] = useState<THREE.Object3D | null>(null); //Objeto 3D
+   const [objetoListo, setObjetoListo] = useState(false); //Indicador de que el objeto 3D ya se ha cargado
 
-   const [mensajeEstado, setMensajeEstado] = useState("");
+   const [mensajeEstado, setMensajeEstado] = useState(""); //Mensaje de texto que se muestra en pantalla mientras carga
 
-   const [rhinoIoRes, setRhinoIoRes] = useState<string>("");
-   const [rhinoSolveRes, setRhinoSolveRes] = useState<string>("");
-
-   // const mountRef = useRef<HTMLDivElement>(null);
+   const [rhinoIoRes, setRhinoIoRes] = useState<string>(""); //Respuesta a la request de entradas y salidas del archivo Grasshopper
+   const [rhinoSolveRes, setRhinoSolveRes] = useState<string>(""); //Respuesta del cómputo por Rhino Compute
 
    const [isLoading, setIsLoading] = useState(true); // Estado de carga
-   const [view, setView] = useState<"iso" | "top">("iso");
+   const [view, setView] = useState<"iso" | "top">("iso"); //Tipo de vista del visor 3D
+
+   const initialCameraConfig = {
+      position: [500, 1000, 1000] as [number, number, number],
+      zoom: 0.5,
+      near: 0,
+      far: 2500,
+   }; //Configuración inicial de la cámara
+   const [cameraConfig, setCameraConfig] = useState(initialCameraConfig); //Setear estado de la cámara
 
    const [coordenadas, setCoordenadas] = useState<string>(sessionStorage.getItem("coordenadas") || JSON.stringify([{ "lat": -36.6045, "lng": -72.1038 }, { "lat": -36.6067, "lng": -72.1078 }, { "lat": -36.6098, "lng": -72.1009 }]));
    const [centroide, setCentroide] = useState<string>(sessionStorage.getItem("centroide") || JSON.stringify({ "lat": -36.6066, "lng": -72.1034 }));
@@ -41,56 +48,8 @@ const RhinoViewer = () => {
    const ioReqContent = { ...ioReq.Content };
    const solveReqContent = { ...solveReq.content };
 
-   // Configuración de la escena Three.js
-   // const scene = new THREE.Scene();
-   // scene.background = new THREE.Color(0.9, 0.9, 0.9);
-   // const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-   // const renderer = new THREE.WebGLRenderer({ antialias: true });
-
-   // // Agregar luces
-   // const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // Luz ambiental
-   // scene.add(ambientLight);
-
-   // const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // Luz direccional
-   // directionalLight.position.set(0, 0, 1000).normalize(); // Cambiado a (0, 0, 1000)
-   // scene.add(directionalLight);
-
-   // const pointLight = new THREE.PointLight(0xffffff, 1, 1500); // Luz puntual
-   // pointLight.position.set(0, 0, 1000); // Cambiado a (0, 0, 1000)
-   // scene.add(pointLight);
-
-   // Configurar controles orbitales
-   // const controls = new OrbitControls(camera, renderer.domElement);
-   // controls.enableDamping = true; // para un movimiento más suave
-   // controls.dampingFactor = 0.25;
-   // controls.screenSpacePanning = false;
-
-   // renderer.setSize(window.innerWidth, window.innerHeight);
-   // renderer.setPixelRatio(window.devicePixelRatio);
-
-   // if (mountRef.current) {
-   //    mountRef.current.appendChild(renderer.domElement);
-   // }
-
    const loader = new Rhino3dmLoader()
    loader.setLibraryPath('https://unpkg.com/rhino3dm@8.0.0-beta3/')
-
-   // useEffect(() => {
-   //    // Agregar el renderer al DOM
-   //    if (mountRef.current) {
-   //       mountRef.current.appendChild(renderer.domElement);
-   //    }
-
-   //    // Cleanup al desmontar el componente
-   //    return () => {
-   //       try {
-   //          mountRef.current?.removeChild(renderer.domElement);
-   //       } catch (e) {
-   //          setMensajeEstado("Error al montar la escena.")
-   //          console.log("Error al limpiar el renderer:", e);
-   //       }
-   //    };
-   // });
 
    useEffect(() => {
       const timer = setTimeout(() => {
@@ -140,7 +99,7 @@ const RhinoViewer = () => {
             // }
          }
          fetchIO();
-      }, 3000);
+      }, 4000);
       return () => clearTimeout(timer);
    }, []);
 
@@ -360,14 +319,51 @@ const RhinoViewer = () => {
                         "{0}": [
                            {
                               "type": "System.String",
-                              "data": "limo"
+                              "data": "\"limo\""
+                           }
+                        ]
+                     }
+                  },
+                  {
+                     "ParamName": "Segmentacion",
+                     "InnerTree": {
+                        "{0}": [
+                           {
+                              "type": "System.Boolean",
+                              "data": "true"
+                           }
+                        ]
+                     }
+                  },
+                  {
+                     "ParamName": "Diseño",
+                     "InnerTree": {
+                        "{0}": [
+                           {
+                              "type": "System.Boolean",
+                              "data": "true"
+                           }
+                        ]
+                     }
+                  },
+                  {
+                     "ParamName": "DatosXR",
+                     "InnerTree": {
+                        "{0}": [
+                           {
+                              "type": "System.Boolean",
+                              "data": "true"
                            }
                         ]
                      }
                   }
                ],
-               "warnings": [],
-               "errors": []
+               "warnings": [
+
+               ],
+               "errors": [
+
+               ]
             }
 
             );
@@ -390,6 +386,7 @@ const RhinoViewer = () => {
 
                setRhinoSolveRes(result2);
                console.log(result2);
+               saveAsJsonFile(result2);
                // sessionStorage.setItem('rhino-solve-res', result2);
 
                // if (rhinoSolveRes && rhinoSolveRes !== 'undefined' && rhinoSolveRes !== '' && rhinoSolveRes !== null) {
@@ -445,12 +442,6 @@ const RhinoViewer = () => {
                         setObjetoListo(true);
                         setIsLoading(false);
                         setMensajeEstado("");
-
-                        // scene.add(object);
-                        // camera.position.set(0, 0, 1000);
-                        // camera.rotation.y = Math.PI / 6;
-                        // animate();
-                        // renderer.render(scene, camera);
                      }, (error) => {
                         console.error('Error cargando el objeto 3DM:', error);
                         setIsLoading(false);
@@ -469,67 +460,32 @@ const RhinoViewer = () => {
       return () => clearTimeout(timer);
    }, [rhinoSolveRes]);
 
-   const toggleView = () => setView((prev) => (prev === "iso" ? "top" : "iso"));
+   const toggleView = () => {
+      console.log(view);
+      // setView((prev) => (prev === "iso" ? "top" : "iso"))
 
-   // useEffect(() => {
-   //    // Bucle de animación
-   //    const animate = () => {
-   //       // requestAnimationFrame(animate);
-   //       // controls.update(); // Actualiza los controles
-   //       renderer.render(scene, camera);
-   //       console.log("Iniciando animación...");
-   //       requestAnimationFrame(animate);
-   //    };
+      if (view === "iso") {
+         setView("top");
+         console.log(view);
 
-   //    animate(); // Iniciar animación
+      } else if (view === "top") {
+         setView("iso");
+         setCameraConfig(initialCameraConfig);
+         console.log(cameraConfig);
+      }
+   };
 
-   //    // Cleanup del ciclo de animación si es necesario
-   //    return () => {
-   //       console.log("Terminando animación...");
-   //    };
-   // });
-
-   // loadIO();
-
-
-
-   // const handleGuardarProyecto = () => {
-   //    let proyecto;
-   //    proyecto = processData(JSON.parse(rhinoSolveRes));
-   //    createProject(proyecto);
-   // }
-
-   // const processData = (data: any) => {
-   //    let coordenadas = JSON.parse(sessionStorage.getItem("coordenadas") ?? '{}');
-   //    let datos: Project = {
-   //       ID: "12345",
-   //       name: "Proyecto de Prueba",
-   //       description: "Este es un proyecto de prueba con datos placeholder.",
-   //       userId: "user_001",
-   //       createdAt: new Date(Date.now()),
-   //       updatedAt: new Date(Date.now()),
-   //       coordinates: coordenadas,
-   //       coordinatesCenter: { lat: -36.6067, lng: -72.1035 },
-   //       thumbnail: "https://via.placeholder.com/150", // Imagen de prueba
-   //       lineas: data.values.find((item: any) => item.ParamName === "lines")?.InnerTree || { type: "LineString", data: [] },
-   //       malla: data.values.find((item: any) => item.ParamName === "mesh")?.InnerTree || { type: "Mesh", data: [] },
-   //       laderas: data.values.find((item: any) => item.ParamName === "hillsides")?.InnerTree || { type: "Polygon", data: [] },
-   //       suelos: { type: "Soil", data: [] },
-   //       matriz: { type: "Matrix", data: [[0, 1], [1, 0]] },
-   //    };
-   //    console.log(datos);
-   //    return {
-   //       datos
-   //       // thumbnail: data.thumbnail || "https://via.placeholder.com/150", // Imagen predeterminada
-   //       // lines: data.values.find((item: any) => item.ParamName === "lines")?.InnerTree || {},
-   //       // mesh: data.values.find((item: any) => item.ParamName === "mesh")?.InnerTree || {},
-   //       // climatic: data.values.find((item: any) => item.ParamName === "climatic")?.InnerTree || {},
-   //       // soils: data.values.find((item: any) => item.ParamName === "soils")?.InnerTree || {},
-   //       // matrix: data.values.find((item: any) => item.ParamName === "matrix")?.InnerTree || {},
-   //       // json: data.values.find((item: any) => item.ParamName === "json")?.InnerTree || {},
-   //       // content: data.values.find((item: any) => item.ParamName === "Content")?.InnerTree || {},
-   //    };
-   // };
+   const saveAsJsonFile = (data: any) => {
+      const jsonBlob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(jsonBlob);
+      
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "data.json"; // Nombre del archivo
+      link.click();
+      URL.revokeObjectURL(url); // Limpia la memoria
+    };
+    
 
    return (
       <div>
@@ -561,12 +517,21 @@ const RhinoViewer = () => {
                      </button>
                      <Canvas
                         orthographic={true}
-                        camera={{ position: [500, 1000, 1000], zoom: 0.5 }}
+                        camera={{
+                           position: [cameraConfig.position[0], cameraConfig.position[1], cameraConfig.position[2]],
+                           zoom: cameraConfig.zoom,
+                           near: cameraConfig.near,
+                           far: cameraConfig.far,
+                        }}
                         style={{ width: window.innerWidth, height: window.innerHeight, minHeight: "400px" }}
+                        shadows={{ type: THREE.BasicShadowMap }}
                      >
                         <axesHelper args={[100]} />
-                        <ambientLight intensity={5} />
-                        <pointLight position={[0, 0, 2000]} />
+                        <ambientLight intensity={4} />
+                        {/* <directionalLightHelper/> */}
+                        <directionalLight position={[0, 500, 1000]} intensity={3} castShadow={true} />
+                        <directionalLight position={[-1000, 500, -2000]} intensity={1} castShadow={true} />
+
                         {/* Configuración de la escena */}
                         <SceneConfig />
 
@@ -577,6 +542,8 @@ const RhinoViewer = () => {
                               dampingFactor={0.25}
                               minPolarAngle={0}
                               maxPolarAngle={Math.PI / 2}
+                              minAzimuthAngle={Infinity}
+                              maxAzimuthAngle={Infinity}
                               enablePan={false}
                               enableRotate={true}
                               screenSpacePanning={false}
@@ -584,12 +551,14 @@ const RhinoViewer = () => {
                               target={[0, 0, 0]}
                            />) : (
                            <OrbitControls
-                              enableDamping={true}
-                              dampingFactor={0.25}
+                              enableDamping={false}
+                              dampingFactor={0}
                               minPolarAngle={0}
                               maxPolarAngle={0}
+                              minAzimuthAngle={Math.PI / 10}
+                              maxAzimuthAngle={Math.PI / 10}
                               enablePan={false}
-                              enableRotate={true}
+                              enableRotate={false}
                               screenSpacePanning={false}
                               enableZoom={true} // Habilitar zoom
                               target={[0, 0, 0]}

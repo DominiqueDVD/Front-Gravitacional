@@ -5,13 +5,11 @@ export default function SceneConfig() {
   const { camera, gl } = useThree();
 
   if (camera instanceof THREE.OrthographicCamera) {
-    const aspect = (window.innerWidth - 80) / window.innerHeight;
+    const aspect = (window.innerWidth) / window.innerHeight;
     camera.left = -300 * aspect;
     camera.right = 300 * aspect;
     camera.top = 300;
     camera.bottom = -300;
-    camera.near = 0;
-    camera.far = 2500;
     camera.updateProjectionMatrix();
   }
 
