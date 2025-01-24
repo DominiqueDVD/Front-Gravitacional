@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import MapaPoligono from "./pages/MapaPoligono";
+import MapaPoligono from "./components/maps/MapaPoligono.tsx";
 import Login from "./pages/Login.tsx";
 import CrearCuenta from "./pages/CrearCuenta.tsx"
 import CambioContraseña from "./pages/CambioContraseña.tsx";

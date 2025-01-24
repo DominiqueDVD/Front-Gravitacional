@@ -1,31 +1,8 @@
-import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import MapaPoligono from "../maps/MapaPoligono";
-import RhinoViewer from "./../rhinoCompute/RhinoViewer";
-import OpenTopography from "../openTopography/OpenTopography";
-import EosRequestComponent from "../eos/EosRequestComponent";
-import AnalisisGeografico from "./AnalisisGeografico";
-import IngenieriaConceptual from "./IngenieriaConceptual";
-import SelectSuelos from "../suelos/selectSuelos";
-import Herramientas from "./../herramientas/Herramientas";
-import ProjectForm from "../guardarProyectos/ProjectForm";
-import {
-  ProjectContext,
-  ProjectProvider,
-  useProject,
-} from "../guardarProyectos/ProjectContext";
+import React from "react";
 
-const AnalisisPrincipal = () => {
+const SidebarHerramientas = () => {
   const [activeTab, setActiveTab] = useState<string>("poligono");
   const navigate = useNavigate();
-
-  //   const { project } = useContext(ProjectContext);
-  const { updateProject, project } = useProject();
-
-  const handleClick = () => {
-    updateProject("name", "Nuevo Nombre");
-    console.log(project);
-  };
 
   const renderContent = () => {
     switch (activeTab) {
@@ -73,47 +50,8 @@ const AnalisisPrincipal = () => {
     }
   };
 
-  const cleanSessionStorage = () => {
-    sessionStorage.clear();
-  };
-
   return (
-    <div className="m-1 mt-5">
-      <div className="btn-group btn-group-toggle mt-3">
-        <button
-          className="btn btn-outline-primary"
-          type="button"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#herramientasSidebar"
-          aria-controls="herramientasSidebar"
-        >
-          Herramientas
-        </button>
-        <button
-          className="btn btn-outline-primary"
-          type="button"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#eosSidebar"
-          aria-controls="eosSidebar"
-        >
-          Datos satelitales
-        </button>
-        <button
-          className="btn btn-outline-primary"
-          type="button"
-          data-bs-toggle="modal"
-          data-bs-target="#modalDatosProyecto"
-        >
-          Detalles del proyecto
-        </button>
-        <button
-          className="btn btn-outline-primary"
-          onClick={cleanSessionStorage}
-        >
-          Limpiar Session storage
-        </button>
-      </div>
-
+    <aside>
       <div
         className="offcanvas offcanvas-start bg-gravi-blue"
         data-bs-scroll="true"
@@ -338,75 +276,8 @@ const AnalisisPrincipal = () => {
           </nav>
         </div>
       </div>
-
-      <div
-        className="offcanvas offcanvas-end text-bg-dark bg-gravi-blue"
-        data-bs-scroll="true"
-        data-bs-backdrop="false"
-        tabIndex={-1}
-        id="eosSidebar"
-        aria-labelledby="offcanvasScrollingLabel"
-      >
-        <div className="offcanvas-header">
-          <h5 className="offcanvas-title" id="offcanvasScrollingLabel">
-            Análisis datos satelitales
-          </h5>
-          <button
-            type="button"
-            className="btn-close btn-close-white"
-            data-bs-dismiss="offcanvas"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div className="offcanvas-body">
-          <EosRequestComponent />
-        </div>
-      </div>
-
-      <div
-        className="modal fade"
-        id="modalDatosProyecto"
-        tabIndex={-1}
-        aria-labelledby="modalDatosProyectoLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header bg-gravi-blue">
-              <h1 className="modal-title fs-5" id="modalDatosProyectoLabel">
-                Detalles del proyecto
-              </h1>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-
-            <div className="modal-body">
-              {project ? <ProjectForm /> : <p>No hay proyecto cargado</p>}
-              {/* <ProjectForm /> */}
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Cerrar
-              </button>
-              <button type="button" className="btn btn-primary">
-                Aceptar
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="m-1">{renderContent()}</div>
-    </div>
+    </aside>
   );
 };
 
-export default AnalisisPrincipal;
+export default SidebarHerramientas;

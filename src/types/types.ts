@@ -32,7 +32,6 @@ export interface Coordinate {
 }
 
 export interface Project{
-    ID: string,
     name: string,
     description: string,
     userId: string,
@@ -45,5 +44,8 @@ export interface Project{
     malla: object,
     laderas: object,
     suelos: object,
-    matriz: object
+    matriz: object,
+    arJson: object,
+    genJson: object,
+    lineasJson: object
 }
