@@ -31,23 +31,22 @@ const ProjectForm: React.FC = () => {
   const saveProject = async () => {
     if (!isValidProject()) {
       alert("Faltan datos para guardar el proyecto");
-      return;
-    }
+    } else {
+      try {
+        const response = await fetch("/api/projects", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(project),
+        });
 
-    try {
-      const response = await fetch("/api/projects", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(project),
-      });
-
-      if (response.ok) {
-        alert("Proyecto guardado exitosamente");
-      } else {
-        console.error("Error al guardar el proyecto:", await response.text());
+        if (response.ok) {
+          alert("Proyecto guardado exitosamente");
+        } else {
+          console.error("Error al guardar el proyecto:", await response.text());
+        }
+      } catch (error) {
+        console.error("Error en la solicitud:", error);
       }
-    } catch (error) {
-      console.error("Error en la solicitud:", error);
     }
   };
 

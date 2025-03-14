@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState } from "react";
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 import { Project } from "../../types/types";
 
 export const ProjectContext = createContext<{
@@ -28,17 +34,20 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({
     lineasJson: {},
   });
 
-  const updateProject = (key: keyof Project, value: any) => {
+  const updateProject = useCallback((key: keyof Project, value: any) => {
     setProject((prev) => ({
       ...prev,
       [key]: value,
     }));
-  };
+  }, []);
+
+  const value = useMemo(
+    () => ({ project, updateProject }),
+    [project, updateProject]
+  );
 
   return (
-    <ProjectContext.Provider value={{ project, updateProject }}>
-      {children}
-    </ProjectContext.Provider>
+    <ProjectContext.Provider value={value}>{children}</ProjectContext.Provider>
   );
 };
 

@@ -23,6 +23,7 @@ import MainFooter from "./components/footer/MainFooter.tsx"
 import Herramientas from "./pages/HerramientasPage.tsx"
 import { useAuth0 } from "@auth0/auth0-react"
 import "./App.css";
+import BuscadorJson from "./components/guardarProyectos/BuscadorJson.tsx";
 
 function App() {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -50,6 +51,7 @@ function App() {
             <Route path="/gestionAgua" element={<GestionAgua />} />
             {/* <Route path="/spiky" element={<SpikyThing />} /> */}
             <Route path="/herramientas" element={<Herramientas />} />
+            <Route path="/buscarJson" element={<BuscadorJson />}/>
             {/* <Route path="/solve" element={solve}/> */}
 
             <Route
