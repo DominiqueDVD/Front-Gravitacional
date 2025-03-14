@@ -5,10 +5,15 @@ import SearchForm from "../poligonos/buscarLugar";
 import VistaModelo3D from "../../pages/VistaModelo3D";
 import { calcularCentroide } from "../googleEarth/puntos";
 import { useProject } from "../guardarProyectos/ProjectContext";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/store/store";
+import { updateProject } from "../../redux/slices/projectSlice";
 const MAPS_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
-const MapaPoligono = () => {
-  const { updateProject, project } = useProject();
+const MapaPoligono = React.memo(() => {
+  // const { updateProject, project } = useProject();
+  const project = useSelector((state: RootState) => state.project);
+  const dispatch = useDispatch();
   var map;
   var Paths = new Array();
   var bounds = null;
@@ -125,6 +130,8 @@ const MapaPoligono = () => {
 
             const areaSelec = sessionStorage.getItem("areaSelec");
             const areaDecimales = parseFloat(areaSelec || "0").toFixed(2);
+
+            // dispatch(updateProject({ key: "coordinates", value: Paths[0] }));
 
             // updateProject("coordinates", sessionStorage.getItem("coordenadas"));
             // updateProject("coordinatesCenter", centroide);
@@ -559,6 +566,6 @@ const MapaPoligono = () => {
       {/* <VistaModelo3D coordinates={polygonPaths} /> */}
     </div>
   );
-};
+});
 
 export default MapaPoligono;

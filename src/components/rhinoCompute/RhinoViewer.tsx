@@ -66,7 +66,7 @@ const RhinoViewer = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       const fetchIO = async () => {
-        console.log(`Rhino IO Res ${rhinoIoRes}`);
+        // console.log(`Rhino IO Res ${rhinoIoRes}`);
         // if (!rhinoIoRes || rhinoIoRes == 'undefined' || rhinoIoRes == '' || rhinoIoRes == null) {
 
         setIsLoading(true);
@@ -76,6 +76,7 @@ const RhinoViewer = () => {
         const myHeaders = new Headers();
         myHeaders.append("RhinoComputeKey", RHINO_COMPUTE_KEY as string);
         myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("ngrok-skip-browser-warning", "ngrok-skip");
 
         const raw = JSON.stringify(ioReqContent);
 
@@ -87,16 +88,17 @@ const RhinoViewer = () => {
         };
 
         let result1 = "";
+        //console.log(`${RHINO_URL}/io`);
         try {
           await fetch(`${RHINO_URL}/io`, requestOptions)
             .then((response) => response.json())
             .then((result) => (result1 = JSON.stringify(result)))
             .catch((error) => console.error(error));
 
-          console.log(`Resultado 1: ${result1}`);
+          // console.log(`Resultado 1: ${result1}`);
           setRhinoIoRes(result1);
           // sessionStorage.setItem('rhino-io-res', result1);
-          console.log(`Rhino IO Res ${rhinoIoRes}`);
+          // console.log(`Rhino IO Res ${rhinoIoRes}`);
           // if (rhinoIoRes && rhinoIoRes !== 'undefined' && rhinoIoRes !== '' && rhinoIoRes !== null) {
           //    loadGeometry();
           // }
@@ -125,6 +127,7 @@ const RhinoViewer = () => {
         const myHeaders = new Headers();
         myHeaders.append("RhinoComputeKey", RHINO_COMPUTE_KEY as string);
         myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("ngrok-skip-browser-warning", "ngrok-skip");
 
         // const raw = rhinoIoRes;
         // console.log(raw)
@@ -372,8 +375,8 @@ const RhinoViewer = () => {
           warnings: [],
           errors: [],
         });
-        console.log("RAW: ");
-        console.log(JSON.stringify(raw, null, "\t"));
+        // console.log("RAW: ");
+        // console.log(JSON.stringify(raw, null, "\t"));
 
         const requestOptions: RequestInit = {
           method: "POST",
@@ -383,6 +386,7 @@ const RhinoViewer = () => {
         };
 
         let result2 = "";
+        // console.log(`${RHINO_URL}/grasshopper`);
         try {
           await fetch(`${RHINO_URL}/grasshopper`, requestOptions)
             .then((response) => response.json())
@@ -392,7 +396,7 @@ const RhinoViewer = () => {
           setRhinoSolveRes(result2);
           updateProject("coordinates", coordenadas);
           updateProject("coordinatesCenter", centroide);
-          console.log(result2);
+          // console.log(result2);
           // sessionStorage.setItem('rhino-solve-res', result2);
 
           // if (rhinoSolveRes && rhinoSolveRes !== 'undefined' && rhinoSolveRes !== '' && rhinoSolveRes !== null) {

@@ -14,6 +14,7 @@ import {
   ProjectProvider,
   useProject,
 } from "../guardarProyectos/ProjectContext";
+import ProjectFormTest from "../guardarProyectos/ProjectFormTest";
 
 const AnalisisPrincipal = () => {
   const [activeTab, setActiveTab] = useState<string>("poligono");
@@ -385,7 +386,7 @@ const AnalisisPrincipal = () => {
             </div>
 
             <div className="modal-body">
-              {project ? <ProjectForm /> : <p>No hay proyecto cargado</p>}
+              {project ? <ProjectFormTest /> : <p>No hay proyecto cargado</p>}
               {/* <ProjectForm /> */}
             </div>
             <div className="modal-footer">
