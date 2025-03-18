@@ -1,20 +1,20 @@
-import React from 'react';
-import MainContent from './mainContent.tsx';
-import '../../styles/dashboard/sb-admin-3.min.css';
-import '../../styles/dashboard/dashboard.css';
-import img2 from '../../assets/Logo_blanco.png';
-import img3 from '../../assets/dashboard/undraw_profile.svg';
-import { useAuth } from '../../auth/AuthProvider.tsx';
-import { useNavigate } from 'react-router-dom';
-import { API_URL } from '../../auth/constants.ts';
-import { useAuth0 } from '@auth0/auth0-react';
+import React from "react";
+import MainContent from "./mainContent.tsx";
+import "../../styles/dashboard/sb-admin-3.min.css";
+import "../../styles/dashboard/dashboard.css";
+import img2 from "../../assets/Logo_blanco.png";
+import img3 from "../../assets/dashboard/undraw_profile.svg";
+import { useAuth } from "../../auth/AuthProvider.tsx";
+import { useNavigate } from "react-router-dom";
+import { API_URL } from "../../auth/constants.ts";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function Body() {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const auth = useAuth();
   const goTo = useNavigate();
 
-  async function handleSignOut(e: { preventDefault: () => void; }) {
+  async function handleSignOut(e: { preventDefault: () => void }) {
     e.preventDefault();
 
     try {
@@ -41,13 +41,28 @@ function Body() {
         {/* Page Wrapper */}
         <div id="wrapper">
           {/* Sidebar */}
-          <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+          <ul
+            className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+            id="accordionSidebar"
+          >
             {/* Sidebar - Brand */}
-            <a className="sidebar-brand d-flex align-items-center justify-content-center" href="/Dashboard">
-              <div className="sidebar-brand-text mx-0" id="fuentes">Panel de Control Administrador</div>
+            <a
+              className="sidebar-brand d-flex align-items-center justify-content-center"
+              href="/Dashboard"
+            >
+              <div className="sidebar-brand-text mx-0" id="fuentes">
+                Panel de Control Administrador
+              </div>
             </a>
-            <a className="sidebar-brand d-flex align-items-center justify-content-center" href="/Dashboard">
-              <div className="sidebar-brand-text mx-0" id="fuentes"><h5 style={{ fontSize: "12px" }}>Planificación territorial y gestión de agua lluvia</h5></div>
+            <a
+              className="sidebar-brand d-flex align-items-center justify-content-center"
+              href="/Dashboard"
+            >
+              <div className="sidebar-brand-text mx-0" id="fuentes">
+                <h5 style={{ fontSize: "12px" }}>
+                  Planificación territorial y gestión de agua lluvia
+                </h5>
+              </div>
             </a>
 
             {/* Divider */}
@@ -68,7 +83,14 @@ function Body() {
             <div className="sidebar-heading">Proyectos</div>
             {/* Nav Item - Mis Proyectos */}
             <li className="nav-item">
-              <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+              <a
+                className="nav-link collapsed"
+                href="#"
+                data-toggle="collapse"
+                data-target="#collapsePages"
+                aria-expanded="true"
+                aria-controls="collapsePages"
+              >
                 <i className="fas fa-fw fa-folder"></i>
                 <span>Mis Proyectos</span>
               </a>
@@ -81,7 +103,14 @@ function Body() {
             <div className="sidebar-heading">Herramientas</div>
             {/* Nav Item - Configuración */}
             <li className="nav-item">
-              <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+              <a
+                className="nav-link collapsed"
+                href="#"
+                data-toggle="collapse"
+                data-target="#collapseTwo"
+                aria-expanded="true"
+                aria-controls="collapseTwo"
+              >
                 <i className="fas fa-fw fa-cog"></i>
                 <span>Configuración</span>
               </a>
@@ -92,30 +121,55 @@ function Body() {
 
             {/* Sidebar Toggler (Sidebar) */}
             <div className="text-center d-none d-md-inline">
-              <button className="rounded-circle border-0" id="sidebarToggle"></button>
+              <button
+                className="rounded-circle border-0"
+                id="sidebarToggle"
+              ></button>
             </div>
 
             {/* Sidebar Message */}
             <div className="sidebar-card d-none d-lg-flex">
               <img className="logoPanel2" src={img2} alt="..." />
               <br />
-              <p className="text-center mb-2">PLANIFICACIÓN TERRITORIAL Y GESTIÓN DE AGUA LLUVIA ES UNA PLATAFORMA QUE TE PERMITE.......Y MUCHO MÁS!</p>
-              <div style={{ display: "flex", gap: "10px" }}>
+              <p className="text-center mb-2">
+                PLANIFICACIÓN TERRITORIAL Y GESTIÓN DE AGUA LLUVIA
+              </p>
+              {/* <div style={{ display: "flex", gap: "10px" }}>
                 <a className="btn btn-success btn-sm" href="/tutoriales">Ver tutoriales</a>
              
-              </div>
-       
+              </div> */}
             </div>
 
             {/* User Navigation */}
             <nav className="navbar navbar-expand topbar mb-4">
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item dropdown no-arrow">
-                  <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span className="mr-2 d-none d-lg-inline">{auth.getUser()?.username || ""}</span>
-                    <img className="img-profile rounded-circle" src={user?.picture || img3} />
-                    <button style={{ background: "#e57878", color: "white", borderRadius: "5px" }} onClick={handleSignOut}>Cerrar Sesión</button>
+                  <a
+                    className="nav-link dropdown-toggle"
+                    href="#"
+                    id="userDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    <span className="mr-2 d-none d-lg-inline">
+                      {auth.getUser()?.username || ""}
+                    </span>
+                    <img
+                      className="img-profile rounded-circle"
+                      src={user?.picture || img3}
+                    />
+                    <button
+                      style={{
+                        background: "#e57878",
+                        color: "white",
+                        borderRadius: "5px",
+                      }}
+                      onClick={handleSignOut}
+                    >
+                      Cerrar Sesión
+                    </button>
                   </a>
                 </li>
               </ul>

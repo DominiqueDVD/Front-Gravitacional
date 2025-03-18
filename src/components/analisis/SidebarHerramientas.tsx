@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
+import RhinoViewer from "../rhinoCompute/RhinoViewer";
+import SelectSuelos from "../suelos/selectSuelos";
+import MapaPoligono from "../maps/MapaPoligono";
 
 const SidebarHerramientas = () => {
   const [activeTab, setActiveTab] = useState<string>("poligono");
-  const navigate = useNavigate();
 
   const renderContent = () => {
     switch (activeTab) {
@@ -83,7 +85,7 @@ const SidebarHerramientas = () => {
               Selección de terreno
             </button>
             <hr />
-            <div>
+            {/* <div>
               <button
                 className="btn text-white w-100 dropdown-toggle"
                 type="button"
@@ -117,7 +119,7 @@ const SidebarHerramientas = () => {
                 </div>
               </div>
             </div>
-            <hr />
+            <hr /> */}
             <div>
               <button
                 className="btn text-white w-100 dropdown-toggle"
