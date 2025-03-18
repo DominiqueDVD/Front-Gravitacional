@@ -31,7 +31,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="app-container">
-        {isAuthenticated && <MainNavbar />}
+        <MainNavbar />
         <div className="content" style={{ marginTop: isAuthenticated ? '50px' : '0px' }}>
 
           <Routes>

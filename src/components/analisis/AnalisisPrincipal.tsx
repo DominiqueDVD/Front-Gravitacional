@@ -146,7 +146,7 @@ const AnalisisPrincipal = () => {
               Selección de terreno
             </button>
             <hr />
-            <div>
+            {/* <div>
               <button
                 className="btn text-white w-100 dropdown-toggle"
                 type="button"
@@ -180,7 +180,7 @@ const AnalisisPrincipal = () => {
                 </div>
               </div>
             </div>
-            <hr />
+            <hr /> */}
             <div>
               <button
                 className="btn text-white w-100 dropdown-toggle"
@@ -216,7 +216,7 @@ const AnalisisPrincipal = () => {
               </div>
             </div>
             <hr />
-            <div>
+            {/* <div>
               <button
                 className="btn text-white w-100 dropdown-toggle"
                 type="button"
@@ -282,8 +282,8 @@ const AnalisisPrincipal = () => {
                 </div>
               </div>
             </div>
-            <hr />
-            <div>
+            <hr /> */}
+            {/* <div>
               <button
                 className="btn text-white w-100 dropdown-toggle"
                 type="button"
@@ -309,8 +309,8 @@ const AnalisisPrincipal = () => {
                 </div>
               </div>
             </div>
-            <hr />
-            <div>
+            <hr /> */}
+            {/* <div>
               <button
                 className="btn text-white w-100 dropdown-toggle"
                 type="button"
@@ -335,7 +335,7 @@ const AnalisisPrincipal = () => {
                   </nav>
                 </div>
               </div>
-            </div>
+            </div> */}
           </nav>
         </div>
       </div>

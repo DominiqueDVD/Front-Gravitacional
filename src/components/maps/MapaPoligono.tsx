@@ -559,6 +559,9 @@ const MapaPoligono = React.memo(() => {
       <button className="btn btn-primary" onClick={usarPoligonoPrueba}>
         Usar coordenadas de prueba
       </button>
+      {/* <button className="btn btn-primary disabled">
+        Ir a Diseño Hidrológico
+      </button> */}
       <div id="map" style={{ width: "100%", height: "100vh" }}></div>
       {/* <ButtonModal></ButtonModal>
       <SearchForm></SearchForm> */}
